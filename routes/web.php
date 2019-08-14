@@ -18,12 +18,8 @@ Route::get('/', function () {
     return view('front');
 });
 
-Route::get('/dashboard',function() {
-    if (!Auth::check()) {
-        return redirect('login');
-    }
-    return view('dashboard');
-});
+Route::get('/dashboard', "DashboardController@index");
+Route::post('/dashboard/upload-csv', "DashboardController@upload_csv");
 
 Auth::routes();
 
