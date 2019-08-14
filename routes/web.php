@@ -14,15 +14,15 @@
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/create_admin', function () {
-    $admin_user = User::first();
+Route::get('/', function () {
+    return view('front');
+});
 
-    if (!$admin_user) {
-        $admin_user = new User(['name' => 'admin', 'email'=> 'andreu.ramos.amengual@gmail.com', 'password' => Hash::make('123')]);
-        $admin_user->save();
+Route::get('/dashboard',function() {
+    if (!Auth::check()) {
+        return redirect('login');
     }
-
-    return $admin_user->email;
+    return view('dashboard');
 });
 
 Auth::routes();

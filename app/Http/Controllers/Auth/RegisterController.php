@@ -63,6 +63,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (User::first()) {
+            return "Only one user allowed";
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
