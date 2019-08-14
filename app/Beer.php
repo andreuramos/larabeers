@@ -12,4 +12,9 @@ class Beer extends Model
     {
         return $this->belongsToMany('App\Brewer');
     }
+
+    public static function search($query)
+    {
+        return self::where('name','ilike',"%$query%")->get();
+    }
 }
