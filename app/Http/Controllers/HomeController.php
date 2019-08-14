@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Beer;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function home()
     {
         return view('home');
+    }
+
+    public function find(Request $request)
+    {
+        $query = $request->get('query');
+
+        $beers = Beer::search($query);
+
+        return view('find',[
+            'query' => $query,
+            'beers' => $beers
+        ]);
     }
 }
