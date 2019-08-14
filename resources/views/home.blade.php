@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Search Beers</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    {{ Form::open(['url'=>url('/find'), 'method' => "POST"]) }}
+                        {{ Form::text('query') }}
+                        {{ Form::submit('find!') }}
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>
