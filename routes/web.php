@@ -11,6 +11,15 @@
 |
 */
 
+use App\User;
+
 Route::get('/', function () {
-    return "Larabeers";
+    $admin_user = User::first();
+
+    if (!$admin_user) {
+        $admin_user = new User(['name' => 'admin', 'email'=> 'andreu.ramos.amengual@gmail.com', 'password' => '123']);
+        $admin_user->save();
+    }
+
+    return $admin_user->email;
 });
