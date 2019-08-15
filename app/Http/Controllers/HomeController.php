@@ -42,15 +42,9 @@ class HomeController extends Controller
         ]);
     }
 
-    public function find(Request $request)
+    public function ajax_search(Request $request)
     {
-        $query = $request->get('query');
-
-        $beers = Beer::search($query);
-
-        return view('find',[
-            'query' => $query,
-            'beers' => $beers
-        ]);
+        $beers = Beer::search($request->get('query'));
+        return view("frontend.beer_list",["beers"=>$beers]);
     }
 }
