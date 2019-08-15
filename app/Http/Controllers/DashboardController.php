@@ -53,6 +53,7 @@ class DashboardController extends Controller
 
             $beer = Beer::create([
                 'name' => $csv_beer,
+                'normalized_name' => \StringHelper::normalize($csv_beer),
                 'type' => $row[2]
             ]);
 
