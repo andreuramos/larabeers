@@ -60,7 +60,8 @@
             "@php artisan key:generate --ansi",
             "php artisan clear-compiled",
             "php aritsan optimize",
-            "chmod -R 777 public/"
+            "chmod -R 777 public/",
+            "chmod -R 775 storage/"
         ]
     }
 }
