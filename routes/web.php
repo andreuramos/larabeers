@@ -19,7 +19,7 @@ Route::post('/find', "HomeController@find");
 Route::group(['prefix' => '/ajax'], function(){
     Route::get('search', "HomeController@ajax_search");
 });
-
+Route::get('/beer/{id}', "HomeController@show_beer");
 
 Route::get('/dashboard', "DashboardController@index");
 Route::post('/dashboard/upload-csv', "DashboardController@upload_csv");

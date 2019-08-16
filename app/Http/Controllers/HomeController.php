@@ -47,4 +47,12 @@ class HomeController extends Controller
         $beers = Beer::search($request->get('query'));
         return view("frontend.beer_list",["beers"=>$beers]);
     }
+
+    public function show_beer($id)
+    {
+        $beer = Beer::find($id);
+        if (!$beer)
+            abort(404);
+        return view('frontend.beer.beer',['beer'=>$beer]);
+    }
 }
