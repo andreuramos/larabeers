@@ -1,3 +1,3 @@
 <div class="col-12">
-    {{ $beer->name }}
+    <a href="{{ url('/beer/'.$beer->id) }}">{{ $beer->name }}</a>
 </div>
