@@ -17,6 +17,7 @@ class BrewerAddressLocation extends Migration
             $t->string('address')->after('city')->nullable();
             $t->float('latitude', 9, 7)->after('address')->nullable();
             $t->float('longitude', 9, 7)->after('latitude')->nullable();
+            $t->string('logo')->nullable();
         });
     }
 
@@ -31,6 +32,7 @@ class BrewerAddressLocation extends Migration
             $t->dropColumn('address');
             $t->dropColumn('latitude');
             $t->dropColumn('longitude');
+            $t->dropColumn('logo');
         });
     }
 }
