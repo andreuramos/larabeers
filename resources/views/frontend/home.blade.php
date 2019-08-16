@@ -9,17 +9,15 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($stats as $stat)
-                                <div class="col-12 col-sm-6 col-md-3 justify-content-center">
-                                    <h1>{{ $stat['value'] }}</h1>
-                                    <i class="fa fa-{{ $stat['icon'] }}"></i>
-                                    <span>{{ $stat['name'] }}</span>
+                                <div class="col-12 col-sm-6 col-md-3 justify-content-center" title="{{ $stat['name'] }}">
+                                    <h3><i class="fa fa-{{ $stat['icon'] }}"></i>&nbsp;{{ $stat['value'] }}</h3>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
 
-               @include('frontend.search')
+               @include('frontend.search', ['beers' => $beers])
             </div>
         </div>
     </div>

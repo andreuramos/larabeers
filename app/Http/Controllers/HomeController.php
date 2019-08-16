@@ -38,7 +38,8 @@ class HomeController extends Controller
             ]
         ];
         return view('frontend.home',[
-            'stats' => $stats
+            'stats' => $stats,
+            'beers' => Beer::random(5)
         ]);
     }
 

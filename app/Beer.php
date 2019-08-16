@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Beer extends Model
@@ -18,9 +19,9 @@ class Beer extends Model
         return $this->hasMany('App\Label');
     }
 
-    public static function paginate($query,$page_size=10)
+    public static function random(int $n): Collection
     {
-        return self::where('normalized_name', 'ilike', "%$query%")->paginate($page_size);
+        return self::inRandomOrder()->take($n)->get();
     }
 
     public static function search($query)
