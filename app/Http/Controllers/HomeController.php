@@ -56,4 +56,12 @@ class HomeController extends Controller
             abort(404);
         return view('frontend.beer.beer',['beer'=>$beer]);
     }
+
+    public function show_brewer($id)
+    {
+        $brewer = Brewer::find($id);
+        if (!$brewer)
+            abort(404);
+        return view('frontend.brewer.brewer', ['brewer' => $brewer]);
+    }
 }

@@ -5,7 +5,8 @@
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item">
-                <i class="fa fa-industry"></i>&nbsp;{{ $beer->brewers->first()->name }}
+                <i class="fa fa-industry"></i>&nbsp;
+                <a href="{{ url('/brewer/'.$beer->brewers->first()->id) }}">{{ $beer->brewers->first()->name }}</a>
             </li>
             <li class="list-group-item">
                 <i class="fa fa-globe-europe"></i>&nbsp;
