@@ -13,6 +13,11 @@ class Beer extends Model
         return $this->belongsToMany('App\Brewer');
     }
 
+    public function labels()
+    {
+        return $this->hasMany('App\Label');
+    }
+
     public static function paginate($query,$page_size=10)
     {
         return self::where('normalized_name', 'ilike', "%$query%")->paginate($page_size);
