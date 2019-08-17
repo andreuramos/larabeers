@@ -14,4 +14,9 @@ class Label extends Model
     {
         return $this->belongsToMany('App\Tag');
     }
+
+    public function stickers()
+    {
+        return $this->hasMany('App\Sticker');
+    }
 }
