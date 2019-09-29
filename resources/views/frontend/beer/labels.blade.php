@@ -9,7 +9,9 @@
             <div class="carousel-item {{ $i==0?"active":"" }}">
                 {{--<img src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" class="d-block w-100">--}}
                 <div class="bg-secondary d-block w-100" style="height:50vh">
-                    <img src="{{ $label->stickers->first()->path }}" class="d-block w-100">
+                    @if($label->stickers->first())
+                        <img src="{{ $label->stickers->first()->path }}" class="d-block w-100">
+                    @endif
                 </div>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{ $label->year }}</h5>
