@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beer;
 use App\Brewer;
+use App\Helpers\StringHelper;
 use App\Label;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class DashboardController extends Controller
 
             $beer = Beer::create([
                 'name' => $csv_beer,
-                'normalized_name' => \StringHelper::normalize($csv_beer),
+                'normalized_name' => StringHelper::normalize($csv_beer),
                 'type' => $row[2]
             ]);
 
