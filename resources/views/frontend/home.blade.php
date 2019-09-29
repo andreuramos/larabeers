@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($stats as $stat)
-                                <div class="col-12 col-sm-6 col-md-3 justify-content-center" title="{{ $stat['name'] }}">
+                                <div class="col-6 col-md-3 justify-content-center" title="{{ $stat['name'] }}">
                                     <h3><i class="fa fa-{{ $stat['icon'] }}"></i>&nbsp;{{ $stat['value'] }}</h3>
                                 </div>
                             @endforeach
