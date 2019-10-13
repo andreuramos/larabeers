@@ -10,7 +10,9 @@
                         <div class="row">
                             @foreach($stats as $stat)
                                 <div class="col-6 col-md-3 justify-content-center" title="{{ $stat['name'] }}">
+                                    @if($stat['url']) <a href="{{$stat['url']}}"> @endif
                                     <h3><i class="fa fa-{{ $stat['icon'] }}"></i>&nbsp;{{ $stat['value'] }}</h3>
+                                        @if($stat['url']) </a> @endif
                                 </div>
                             @endforeach
                         </div>

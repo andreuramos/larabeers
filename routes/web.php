@@ -22,6 +22,10 @@ Route::group(['prefix' => '/ajax'], function(){
 Route::get('/beer/{id}', "HomeController@show_beer");
 Route::get('/brewer/{id}', "HomeController@show_brewer");
 
+Route::group(['prefix' => '/stats'], function(){
+    Route::get('countries', "HomeController@list_countries");
+});
+
 Route::get('/dashboard', "DashboardController@index");
 Route::post('/dashboard/upload-csv', "DashboardController@upload_csv");
 
