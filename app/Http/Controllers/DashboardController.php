@@ -9,6 +9,10 @@ use App\Label;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Larabeers\External\BeerRepository;
+use Larabeers\Services\UpdateBeer;
+use Larabeers\Utils\NormalizeString;
 
 class DashboardController extends Controller
 {
@@ -98,5 +102,25 @@ class DashboardController extends Controller
             Label::create($label_data);
         }
         return $label;
+    }
+
+    public function edit_beer($id)
+    {
+        $beer = Beer::find($id);
+        if (!$beer) {
+            abort(404);
+        }
+        return view('dashboard.beer.form', ['beer' => $beer]);
+    }
+
+    public function update_beer(Request $request, $id)
+    {
+        $update_beer_service = new UpdateBeer(new BeerRepository(), new NormalizeString());
+
+        $name = $request->get('name');
+
+        $update_beer_service->execute($id, $name);
+
+        return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
     }
 }

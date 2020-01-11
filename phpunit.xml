@@ -9,6 +9,9 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
+        <testsuite name="Services">
+            <directory suffix="Test.php">./Larabeers/Services</directory>
+        </testsuite>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
