@@ -17,6 +17,13 @@ use Larabeers\Utils\NormalizeString;
 class DashboardController extends Controller
 {
 
+    private $beer_updater;
+
+    public function __construct(UpdateBeer $beer_updater)
+    {
+        $this->beer_updater = $beer_updater;
+    }
+
     public function callAction($method, $parameters)
     {
         if (!Auth::check())
@@ -115,11 +122,9 @@ class DashboardController extends Controller
 
     public function update_beer(Request $request, $id)
     {
-        $update_beer_service = new UpdateBeer(new BeerRepository(), new NormalizeString());
-
         $name = $request->get('name');
 
-        $update_beer_service->execute($id, $name);
+        $this->beer_updater->execute($id, $name);
 
         return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
     }
