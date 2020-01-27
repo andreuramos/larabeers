@@ -8,9 +8,10 @@
                         <i class="fa fa-beer"></i> Edit Beer
                     </div>
                     <div class="card-body">
-                        {{ Form::open(['action' => ['DashboardController@update_beer', $beer->id]]) }}
+                        {{ Form::open(['action' => ['DashboardController@update_beer', $beer->id], 'files' => 'true']) }}
                             {{ Form::label('name', 'Beer Name') }}
                             {{ Form::text('name', $beer->name) }}
+                            {{ Form::file('label') }}
                             {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
                         {{ Form::close() }}
                     </div>
