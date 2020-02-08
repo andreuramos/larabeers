@@ -7,21 +7,25 @@ use App\Brewer;
 use App\Helpers\StringHelper;
 use App\Label;
 use App\Tag;
+use Google_Service_Drive;
+use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Larabeers\External\BeerRepository;
+use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
-use Larabeers\Utils\NormalizeString;
 
 class DashboardController extends Controller
 {
 
     private $beer_updater;
+    private $label_creator;
 
-    public function __construct(UpdateBeer $beer_updater)
-    {
+    public function __construct(
+        UpdateBeer $beer_updater,
+        CreateLabelToBeer $label_creator
+    ) {
         $this->beer_updater = $beer_updater;
+        $this->label_creator = $label_creator;
     }
 
     public function callAction($method, $parameters)
