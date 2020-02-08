@@ -144,7 +144,7 @@ class DashboardController extends Controller
         return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
     }
 
-    public function settings()
+    public function settings(Request $request)
     {
         //TODO: only ask if no refresh token is set in cookies
         $client = new \Google_Client();
@@ -156,7 +156,20 @@ class DashboardController extends Controller
         $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
         $auth_url = $client->createAuthUrl();
 
-        return view('dashboard.settings', ['auth_url' => $auth_url]);
+        $account_connected = false;
+        if ($request->hasCookie('google_refresh_token')) {
+            $refresh_token = $request->cookie('google_refresh_token');
+            $access = $client->fetchAccessTokenWithRefreshToken($refresh_token);
+
+            if (!array_key_exists('error', $access)) {
+                $account_connected = true;
+            }
+        }
+
+        return view('dashboard.settings', [
+            'auth_url' => $auth_url,
+            'account_connected' => $account_connected
+        ]);
     }
 
     public function google_auth_comeback(Request $request)
