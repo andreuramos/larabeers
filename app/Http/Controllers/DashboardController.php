@@ -174,10 +174,17 @@ class DashboardController extends Controller
         $client->setAccessType('offline');
         $access = $client->fetchAccessTokenWithAuthCode($code);
 
+        //handle errors
+        if (array_key_exists('error', $access)) {
+            return redirect()
+                ->action('DashboardController@settings')
+                ->with('error', $access['error_description']);
+        }
         $refresh_token = $access['refresh_token'];
 
         return redirect()
             ->action('DashboardController@settings')
+            ->with('success', "Google Account correctly linked")
             ->withCookie('google_refresh_token', $refresh_token);
     }
 }
