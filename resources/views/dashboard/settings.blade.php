@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
-this is the storage connection page
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Google Drive Connection
+        </div>
+        <div class="card-body">
+            <a href="{{ $auth_url }}">Connect Google Drive</a>
+        </div>
+    </div>
+</div>
 @endsection

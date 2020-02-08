@@ -123,9 +123,57 @@ class DashboardController extends Controller
     public function update_beer(Request $request, $id)
     {
         $name = $request->get('name');
+        $image = $request->file('label');
 
         $this->beer_updater->execute($id, $name);
 
+        if ($image) {
+            $label_id = $this->label_creator->execute($id, $image->getRealPath(), []);
+            $this->setLabelMetadata->execute($label_id, [
+                'year',
+                'album',
+                'page',
+                'position'
+            ]);
+        }
+
         return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
+    }
+
+    public function settings()
+    {
+        //TODO: only ask if no refresh token is set in cookies
+        $client = new \Google_Client();
+        $client->setApplicationName('Larabeers');
+        $client->setScopes(Google_Service_Drive::DRIVE_FILE);
+        $client->setClientId(env('GOOGLE_API_APP_ID'));
+        $client->setClientSecret(env('GOOGLE_API_SECRET'));
+        $client->setAccessType('offline');
+        $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
+        $auth_url = $client->createAuthUrl();
+
+        return view('dashboard.settings', ['auth_url' => $auth_url]);
+    }
+
+    public function google_auth_comeback(Request $request)
+    {
+        $code = $request->get('code');
+
+        // TODO: set a flash to tell the user the operation result
+        // https://developers.google.com/drive/api/v3/quickstart/php
+        $client = new \Google_Client();
+        $client->setApplicationName('Larabeers');
+        $client->setScopes(Google_Service_Drive::DRIVE_FILE);
+        $client->setClientId(env('GOOGLE_API_APP_ID'));
+        $client->setClientSecret(env('GOOGLE_API_SECRET'));
+        $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
+        $client->setAccessType('offline');
+        $access = $client->fetchAccessTokenWithAuthCode($code);
+
+        $refresh_token = $access['refresh_token'];
+
+        return redirect()
+            ->action('DashboardController@settings')
+            ->withCookie('google_refresh_token', $refresh_token);
     }
 }

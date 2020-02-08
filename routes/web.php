@@ -30,8 +30,14 @@ Route::group(['prefix' => '/stats'], function(){
     Route::get('countries', "HomeController@list_countries");
 });
 
-Route::get('/dashboard', "DashboardController@index");
-Route::post('/dashboard/upload-csv', "DashboardController@upload_csv");
+
+
+Route::group(['prefix' => '/dashboard'], function () {
+    Route::get('/', "DashboardController@index");
+    Route::post('/upload-csv', "DashboardController@upload_csv");
+    Route::get('/settings', "DashboardController@settings");
+    Route::get('/settings/google_auth_comeback', 'DashboardController@google_auth_comeback');
+});
 
 Auth::routes();
 
