@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row justify-content-center mt-3">
             <div class = "col-md-8">
                 <div class="card">
@@ -31,6 +32,18 @@
                         {{ Form::file('csv') }}
                         {{ Form::submit('Upload file') }}
                         {{ Form::close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Last Beers</div>
+                    <div class="card-body">
+                        @include('frontend.beer_list', ['beers' => $last_beers])
                     </div>
                 </div>
             </div>

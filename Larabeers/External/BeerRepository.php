@@ -2,8 +2,9 @@
 
 namespace Larabeers\External;
 
-use Larabeers\Entities\Beer;
 use App\Beer as EloquentBeer;
+use Larabeers\Entities\Beer;
+use Larabeers\Entities\BeerCriteria;
 
 class BeerRepository
 {
@@ -25,13 +26,45 @@ class BeerRepository
         $eloquent_beer->save();
     }
 
+    public function findByCriteria(BeerCriteria $criteria): array
+    {
+        $results = [];
+        $query = EloquentBeer::query();
+
+        $order = $criteria->getOrder();
+        if (!empty($order)) {
+            foreach($order as $order_attribute) {
+                $query->orderBy($order_attribute, 'desc');
+            }
+        }
+
+        $limit = $criteria->getLimit();
+        if($limit) {
+            $query->limit($limit);
+        }
+
+        $eloquent_results = $query->get();
+
+        foreach($eloquent_results as $eloquent_result) {
+            $results[] = self::eloquentToEntityBeer($eloquent_result);
+        }
+
+        return $results;
+    }
+
     private static function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
     {
+        $brewer_repository = new BrewerRepository();
+
         $beer = new Beer();
         $beer->id = $eloquent_beer->id;
         $beer->name = $eloquent_beer->name;
         $beer->normalized_name = $eloquent_beer->normalized_name;
         $beer->type = $eloquent_beer->type;
+        $beer->created_at = $eloquent_beer->created_at;
+        foreach($eloquent_beer->brewers()->get() as $brewer) {
+            $beer->brewers[] = $brewer_repository->findById($brewer->id);
+        }
 
         return $beer;
     }
@@ -43,6 +76,7 @@ class BeerRepository
         $eloquent_beer->name = $beer->name;
         $eloquent_beer->normalized_name = $beer->normalized_name;
         $eloquent_beer->type = $beer->type;
+        $eloquent_beer->created_at = $beer->created_at;
 
         return $eloquent_beer;
     }
@@ -53,6 +87,7 @@ class BeerRepository
         $eloquent_beer->name = $beer->name;
         $eloquent_beer->normalized_name = $beer->normalized_name;
         $eloquent_beer->type = $beer->type;
+        $eloquent_beer->created_at = $beer->created_at;
 
         return $eloquent_beer;
     }

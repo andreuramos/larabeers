@@ -1,5 +1,5 @@
 <div class="container">
-    <span><b>{{ $beers->count() }}</b> results</span>
+    <span><b>{{ count($beers) }}</b> results</span>
     <div class="list-group">
     @forelse($beers as $beer)
         <div class="list-group-item px-0 px-md-2">

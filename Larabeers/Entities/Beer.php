@@ -8,4 +8,6 @@ class Beer
     public $name;
     public $normalized_name;
     public $type;
+    public $created_at;
+    public $brewers;
 }

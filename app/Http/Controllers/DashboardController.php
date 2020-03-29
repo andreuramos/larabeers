@@ -11,6 +11,8 @@ use Google_Service_Drive;
 use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Larabeers\Entities\BeerCriteria;
+use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
 
@@ -37,9 +39,17 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $repo = new BeerRepository();
+
+        $criteria = new BeerCriteria();
+        $criteria->addOrder('created_at');
+        $criteria->addLimit(10);
+        $last_beers = $repo->findByCriteria($criteria);
+
         return view('dashboard', [
             'beers' => Beer::count(),
-            'brewers' => Brewer::count()
+            'brewers' => Brewer::count(),
+            'last_beers' => $last_beers
         ]);
     }
 
