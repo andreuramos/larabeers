@@ -60,6 +60,7 @@ class DashboardController extends Controller
 
         $fd = fopen(public_path() . '/upload/import.csv', 'r');
         $row = fgetcsv($fd);
+        $new_beers = 0;
 
         while (($row = fgetcsv($fd)) !== FALSE) {
             $csv_brewer = $row[0];
@@ -67,7 +68,7 @@ class DashboardController extends Controller
             if (Beer::where('name', $csv_beer)->first() || !$csv_beer)
                 continue;
             echo "Importing " . $row[1] . "<br>";
-
+            $new_beers++;
             $brewer = Brewer::where('name', $csv_brewer)->first();
             if (!$brewer) {
                 $brewer = Brewer::create([
@@ -100,6 +101,8 @@ class DashboardController extends Controller
         }
         fclose($fd);
         unlink(public_path() . '/upload/import.csv');
+
+        $request->session()->flash('success', "$new_beers beers added successfully");
         return redirect('/dashboard');
     }
 
