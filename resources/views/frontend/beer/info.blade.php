@@ -1,6 +1,11 @@
 <div class="card">
     <div class="card-header">
-        <h3><i class="fa fa-info"></i></h3>
+        <div class="row">
+        <h3 class="col-10"><i class="fa fa-info"></i></h3>
+        @if(Auth::user())
+                <a href="{{ url('/beer/'.$beer->id.'/edit') }}" class="btn btn-outline-primary"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+        @endif
+        </div>
     </div>
     <div class="card-body">
         <ul class="list-group">

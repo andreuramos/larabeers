@@ -10,7 +10,8 @@ use Larabeers\Utils\GetFileType;
 
 class CreateLabelToBeer
 {
-    const SUPPORTED_MIMES = ['image/jpg'];
+    const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg'];
+
     private $get_file_type;
     private $label_uploader;
     private $label_repository;
@@ -43,7 +44,7 @@ class CreateLabelToBeer
         $label->album = $metadata['album'];
         $label->page = $metadata['page'];
         $label->position = $metadata['position'];
-        $label->image = $uploaded_image;
+        $label->sticker = $uploaded_image;
 
         $this->label_repository->save($label);
     }

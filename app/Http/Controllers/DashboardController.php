@@ -145,15 +145,15 @@ class DashboardController extends Controller
         $this->beer_updater->execute($id, $name);
 
         if ($image) {
-            $label_id = $this->label_creator->execute($id, $image->getRealPath(), []);
-            $this->setLabelMetadata->execute($label_id, [
-                'year',
-                'album',
-                'page',
-                'position'
+            $label_id = $this->label_creator->execute($id, $image->getRealPath(), [
+                'year' => $request->get('year'),
+                'album' => $request->get('album'),
+                'page' => $request->get('page'),
+                'position' => $request->get('position'),
             ]);
         }
 
+        $request->session()->flash('success', "Beer updated successfully");
         return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
     }
 

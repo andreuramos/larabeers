@@ -17,7 +17,7 @@
                     <h5>{{ $label->year }}</h5>
                     <p>
                         @foreach($label->tags as $tag)
-                            <span class="badge badge-secondary"><i class="fa fa-tag"></i>&nbsp;{{ $tag->text }}</span>
+                            <span class="badge badge-primary"><i class="fa fa-tag"></i>&nbsp;{{ $tag->text }}</span>
                         @endforeach
                     </p>
                 </div>
