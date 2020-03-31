@@ -170,8 +170,8 @@ class DashboardController extends Controller
         $auth_url = $client->createAuthUrl();
 
         $account_connected = false;
-        if ($request->hasCookie('google_refresh_token')) {
-            $refresh_token = $request->cookie('google_refresh_token');
+        if (array_key_exists('google_refresh_token', $_COOKIE)) {
+            $refresh_token = $_COOKIE['google_refresh_token'];
             $access = $client->fetchAccessTokenWithRefreshToken($refresh_token);
 
             if (!array_key_exists('error', $access)) {
@@ -207,10 +207,10 @@ class DashboardController extends Controller
                 ->with('error', $access['error_description']);
         }
         $refresh_token = $access['refresh_token'];
+        setcookie('google_refresh_token', $refresh_token, 0, '/');
 
         return redirect()
             ->action('DashboardController@settings')
-            ->with('success', "Google Account correctly linked")
-            ->withCookie('google_refresh_token', $refresh_token);
+            ->with('success', "Google Account correctly linked $refresh_token");
     }
 }
