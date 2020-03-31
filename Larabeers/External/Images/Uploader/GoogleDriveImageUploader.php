@@ -6,65 +6,76 @@ use Google_Client;
 use Google_Service_Drive;
 use Google_Service_Drive_DriveFile;
 use Larabeers\Entities\Image;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class GoogleDriveImageUploader implements ImageUploader
 {
-    const UPLOAD_URI = "/upload/drive/v3/files";
-    const UPLOAD_TYPE = "uploadType=media";
-
-    // Client ID:   299417665438-c8ec3gi99j01k1nk6gmcpqolp7grenhb.apps.googleusercontent.com
-    // Client Secret:   VA0JhzA1ZrV5oF-pZTs6gk4D
-    // API key:  AIzaSyAZWtJrhYfhFM3Jz5sJRPm1xUnCGgKcu-4
-
-    private string $access_token;
-    private Google_Service_Drive $google_drive_service;
+    const PUBLIC_FILE_URL = 'https://drive.google.com/uc?id=';
 
     public function __construct()
     {
-        $client = $this->getGoogleClient();
-        $this->authenticate($client);
-        $this->google_drive_service = new Google_Service_Drive($client);
-    }
-
-    private function authenticate(Google_Client $client)
-    {
-        // if there is no cookie throw an exception
-        // else, use it to refresh the access token
-        // if the refresh fails, throw an exception too
-        // finally, instantiate google drive service
+        $this->client = $this->getGoogleClient();
     }
 
     public function upload(string $image_path): Image
     {
+        $google_drive_service = new Google_Service_Drive($this->authenticate($this->client));
+
         $file_metadata = new Google_Service_Drive_DriveFile([
-            'name' => 'image_name'
+            'name' => 'larabeers_' . uniqid()
         ]);
         $content = file_get_contents($image_path);
-        $file = $this->google_drive_service->files->create($file_metadata, [
+        $file = $google_drive_service->files->create($file_metadata, [
             'data' => $content,
             'mimeType' => mime_content_type($image_path),
             'uploadType' => 'media',
             'fields' => 'id' // TODO: probably public url too
         ]);
 
+        $this->setPublicAccess($google_drive_service, $file);
+
+        $public_url = self::PUBLIC_FILE_URL . $file->id;
+
         $image_path = new Image();
-        $image_path->url = $file->url; // TODO: ??
+        $image_path->url = $public_url;
+
+        return $image_path;
     }
 
     private function getGoogleClient(): Google_Client
     {
-        $client = new Google_Client();
+        $client = new \Google_Client();
         $client->setApplicationName('Larabeers');
-        $client->setDeveloperKey(env('GOOGLE_DRIVE_API_KEY'));
+        $client->setScopes(Google_Service_Drive::DRIVE_FILE);
         $client->setClientId(env('GOOGLE_API_APP_ID'));
         $client->setClientSecret(env('GOOGLE_API_SECRET'));
-        $client->setScopes(Google_Service_Drive::DRIVE_METADATA_READONLY); //TODO: add approriate scopes
-
-        $refresh_token = ""; //Cookie::get('google_refresh_token');// TODO: Extract this to an external Cookie manager class (singleton?)
-        $client->fetchAccessTokenWithRefreshToken($refresh_token);
-
+        $client->setAccessType('offline');
+        $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
 
         return $client;
+    }
+
+    private function authenticate(Google_Client $client): Google_Client
+    {
+        if (!array_key_exists('google_refresh_token', $_COOKIE)) {
+            throw new \Exception("no cookie found, please connect account again");
+        }
+        $refresh_token = $_COOKIE['google_refresh_token'];
+        $access_token = $client->fetchAccessTokenWithRefreshToken($refresh_token);
+
+        $client->setAccessToken($access_token);
+
+        return $client;
+    }
+
+    /**
+     * @param Google_Service_Drive $google_drive_service
+     * @param Google_Service_Drive_DriveFile $file
+     */
+    private function setPublicAccess(Google_Service_Drive $google_drive_service, Google_Service_Drive_DriveFile $file): void
+    {
+        $permission = new \Google_Service_Drive_Permission();
+        $permission->role = "reader";
+        $permission->type = "anyone";
+        $google_drive_service->permissions->create($file->id, $permission);
     }
 }
