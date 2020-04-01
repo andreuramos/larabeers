@@ -21,12 +21,12 @@ class LabelRepository
 
         if ($label->sticker) {
             $sticker = $eloquent_label->stickers->first();
-            dd($sticker);
+
             if (!$sticker) {
                 $sticker = new Sticker();
                 $sticker->label_id = $eloquent_label->id;
             }
-            dd($sticker);
+
             $sticker->path = $label->sticker->url;
             $sticker->save();
         }

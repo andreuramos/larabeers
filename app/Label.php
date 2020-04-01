@@ -19,4 +19,12 @@ class Label extends Model
     {
         return $this->hasMany('App\Sticker');
     }
+
+    public function path()
+    {
+        if ($this->stickers->count()) {
+            return $this->stickers->first()->path;
+        }
+        return null;
+    }
 }

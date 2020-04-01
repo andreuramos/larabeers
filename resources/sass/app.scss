@@ -6,3 +6,37 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.beer-form {
+
+    width: 90%;
+    margin: 0 auto;
+
+    &__labels {
+        &__label {
+            border: solid 1px gray;
+            padding: 1em;
+            display: block;
+            margin: 0.5em;
+
+            img {
+                width: 150px;
+                margin: 0 auto;
+            }
+
+            &__data {
+                span {
+                    width: 100%;
+                }
+                a {
+                    width: 100%;
+                }
+            }
+        }
+
+    }
+
+    input {
+        width: 50%;
+    }
+}
