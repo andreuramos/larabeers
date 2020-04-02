@@ -10882,6 +10882,15 @@ a.text-dark:focus {
   }
 }
 
+.list-group-item {
+  border: solid 1px gray;
+}
+
+body {
+  min-height: 100vh !important;
+  background-color: lightgray !important;
+}
+
 .beer-form {
   width: 90%;
   margin: 0 auto;
@@ -10891,8 +10900,6 @@ a.text-dark:focus {
   border: solid 1px gray;
   padding: 1em;
   display: block;
-  max-widht: 250px;
-  max-height: 250px;
   margin: 0.5em;
 }
 
