@@ -5,11 +5,15 @@ namespace Larabeers\External\Images\Uploader;
 use Google_Client;
 use Google_Service_Drive;
 use Google_Service_Drive_DriveFile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Larabeers\Entities\Image;
 
 class GoogleDriveImageUploader implements ImageUploader
 {
     const PUBLIC_FILE_URL = 'https://drive.google.com/uc?id=';
+
+    private $client;
 
     public function __construct()
     {
@@ -28,7 +32,7 @@ class GoogleDriveImageUploader implements ImageUploader
             'data' => $content,
             'mimeType' => mime_content_type($image_path),
             'uploadType' => 'media',
-            'fields' => 'id' // TODO: probably public url too
+            'fields' => 'id'
         ]);
 
         $this->setPublicAccess($google_drive_service, $file);
@@ -56,10 +60,11 @@ class GoogleDriveImageUploader implements ImageUploader
 
     private function authenticate(Google_Client $client): Google_Client
     {
-        if (!array_key_exists('google_refresh_token', $_COOKIE)) {
-            throw new \Exception("no cookie found, please connect account again");
+        $encrypted_token = Auth::user()->google_refresh_token; //TODO: decouple this from Auth
+        if (!$encrypted_token) {
+            throw new \Exception("Google account not connected");
         }
-        $refresh_token = $_COOKIE['google_refresh_token'];
+        $refresh_token = Crypt::decrypt($encrypted_token);
         $access_token = $client->fetchAccessTokenWithRefreshToken($refresh_token);
 
         $client->setAccessToken($access_token);
