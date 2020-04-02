@@ -11,6 +11,7 @@ use Google_Service_Drive;
 use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Larabeers\Entities\BeerCriteria;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateLabelToBeer;
@@ -159,20 +160,14 @@ class DashboardController extends Controller
 
     public function settings(Request $request)
     {
-        //TODO: only ask if no refresh token is set in cookies
-        $client = new \Google_Client();
-        $client->setApplicationName('Larabeers');
-        $client->setScopes(Google_Service_Drive::DRIVE_FILE);
-        $client->setClientId(env('GOOGLE_API_APP_ID'));
-        $client->setClientSecret(env('GOOGLE_API_SECRET'));
-        $client->setAccessType('offline');
-        $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
-        $auth_url = $client->createAuthUrl();
 
         $account_connected = false;
-        if (array_key_exists('google_refresh_token', $_COOKIE)) {
-            $refresh_token = $_COOKIE['google_refresh_token'];
-            $access = $client->fetchAccessTokenWithRefreshToken($refresh_token);
+        $refresh_token = Auth::user()->google_refresh_token; //$_COOKIE['google_refresh_token'];
+
+        if ($refresh_token !== null) {
+            $client = $this->getGoogleClient();
+            $auth_url = $client->createAuthUrl();
+            $access = $client->fetchAccessTokenWithRefreshToken(Crypt::decrypt($refresh_token));
 
             if (!array_key_exists('error', $access)) {
                 $account_connected = true;
@@ -189,7 +184,6 @@ class DashboardController extends Controller
     {
         $code = $request->get('code');
 
-        // TODO: set a flash to tell the user the operation result
         // https://developers.google.com/drive/api/v3/quickstart/php
         $client = new \Google_Client();
         $client->setApplicationName('Larabeers');
@@ -207,10 +201,28 @@ class DashboardController extends Controller
                 ->with('error', $access['error_description']);
         }
         $refresh_token = $access['refresh_token'];
-        setcookie('google_refresh_token', $refresh_token, 0, '/');
+
+        $user = Auth::user();
+        $user->google_refresh_token = Crypt::encrypt($refresh_token);
+        $user->save();
 
         return redirect()
             ->action('DashboardController@settings')
-            ->with('success', "Google Account correctly linked $refresh_token");
+            ->with('success', "Google Account correctly linked");
+    }
+
+    /**
+     * @return \Google_Client
+     */
+    private function getGoogleClient(): \Google_Client
+    {
+        $client = new \Google_Client();
+        $client->setApplicationName('Larabeers');
+        $client->setScopes(Google_Service_Drive::DRIVE_FILE);
+        $client->setClientId(env('GOOGLE_API_APP_ID'));
+        $client->setClientSecret(env('GOOGLE_API_SECRET'));
+        $client->setAccessType('offline');
+        $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
+        return $client;
     }
 }
