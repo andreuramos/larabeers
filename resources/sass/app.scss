@@ -7,6 +7,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import 'frontend';
+
 body {
     min-height: 100vh !important;
     background-color: lightgray !important;
@@ -18,11 +20,15 @@ body {
     margin: 0 auto;
 
     &__labels {
+
+        display: flex;
+
         &__label {
             border: solid 1px gray;
             padding: 1em;
             display: block;
             margin: 0.5em;
+            width: 250px;
 
             img {
                 width: 150px;

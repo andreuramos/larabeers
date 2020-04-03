@@ -10,4 +10,5 @@ class Beer
     public $type;
     public $created_at;
     public $brewers;
+    public $labels;
 }

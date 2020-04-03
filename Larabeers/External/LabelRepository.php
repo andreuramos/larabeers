@@ -8,6 +8,16 @@ use App\Label as EloquentLabel;
 
 class LabelRepository
 {
+    public function findById(int $id): ?Label
+    {
+        $eloquent_label = EloquentLabel::find($id);
+        if (!$eloquent_label) {
+            return null;
+        }
+
+        return self::eloquentToEntityLabel($eloquent_label);
+    }
+
     public function save(Label $label)
     {
         if ($label->id) {
@@ -55,5 +65,19 @@ class LabelRepository
         $eloquent_label->position = $label->position;
 
         return $eloquent_label;
+    }
+
+    private static function eloquentToEntityLabel(EloquentLabel $eloquent_label): Label
+    {
+      $label = new Label();
+
+      $label->year = $eloquent_label->year;
+      $label->album = $eloquent_label->album;
+      $label->page = $eloquent_label->page;
+      $label->position = $eloquent_label->position;
+
+      //TODO: add stickets
+
+      return $label;
     }
 }

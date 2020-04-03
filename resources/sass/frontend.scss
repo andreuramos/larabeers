@@ -1,0 +1,20 @@
+.beer-list {
+    &__beer {
+        width: 100%;
+
+        &__name {
+            width:100%
+        }
+
+        &__data {
+            &__brewer {
+                color: #6c757d !important;
+                font-style: italic;
+                font-size: small;
+            }
+        }
+
+
+
+    }
+}

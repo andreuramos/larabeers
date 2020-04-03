@@ -10882,8 +10882,18 @@ a.text-dark:focus {
   }
 }
 
-.list-group-item {
-  border: solid 1px gray;
+.beer-list__beer {
+  width: 100%;
+}
+
+.beer-list__beer__name {
+  width: 100%;
+}
+
+.beer-list__beer__data__brewer {
+  color: #6c757d !important;
+  font-style: italic;
+  font-size: small;
 }
 
 body {
@@ -10896,11 +10906,16 @@ body {
   margin: 0 auto;
 }
 
+.beer-form__labels {
+  display: flex;
+}
+
 .beer-form__labels__label {
   border: solid 1px gray;
   padding: 1em;
   display: block;
   margin: 0.5em;
+  width: 250px;
 }
 
 .beer-form__labels__label img {

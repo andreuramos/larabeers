@@ -55,6 +55,7 @@ class BeerRepository
     private static function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
     {
         $brewer_repository = new BrewerRepository();
+        $label_repository = new LabelRepository(); //TODO: inject this
 
         $beer = new Beer();
         $beer->id = $eloquent_beer->id;
@@ -64,6 +65,9 @@ class BeerRepository
         $beer->created_at = $eloquent_beer->created_at;
         foreach($eloquent_beer->brewers()->get() as $brewer) {
             $beer->brewers[] = $brewer_repository->findById($brewer->id);
+        }
+        foreach($eloquent_beer->labels()->get() as $label) {
+            $beer->labels[] = $label_repository->findById($label->id);
         }
 
         return $beer;
