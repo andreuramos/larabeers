@@ -3,6 +3,7 @@
 namespace Larabeers\External;
 
 use App\Sticker;
+use Larabeers\Entities\Image;
 use Larabeers\Entities\Label;
 use App\Label as EloquentLabel;
 
@@ -69,15 +70,21 @@ class LabelRepository
 
     private static function eloquentToEntityLabel(EloquentLabel $eloquent_label): Label
     {
-      $label = new Label();
+        $label = new Label();
 
-      $label->year = $eloquent_label->year;
-      $label->album = $eloquent_label->album;
-      $label->page = $eloquent_label->page;
-      $label->position = $eloquent_label->position;
+        $label->year = $eloquent_label->year;
+        $label->album = $eloquent_label->album;
+        $label->page = $eloquent_label->page;
+        $label->position = $eloquent_label->position;
 
-      //TODO: add stickets
+        if (count($eloquent_label->stickers)) {
+            $sticker = new Image();
+            $sticker->url = $eloquent_label->stickers->first()->path;
+            $label->sticker = $sticker;
+        } else {
+            $label->sticker = null;
+        }
 
-      return $label;
+        return $label;
     }
 }

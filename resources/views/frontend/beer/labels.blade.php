@@ -11,6 +11,8 @@
                 <div class="bg-secondary d-block w-100" style="height:50vh">
                     @if($label->stickers->first())
                         <img src="{{ $label->stickers->first()->path }}" class="d-block w-100">
+                    @else
+                        <img src="{{ URL::asset('img/label-template.jpg') }}" class="d-block w-100">
                     @endif
                 </div>
                 <div class="carousel-caption d-none d-md-block">

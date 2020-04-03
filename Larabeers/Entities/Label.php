@@ -4,7 +4,7 @@ namespace Larabeers\Entities;
 
 class Label
 {
-    public Image $sticker;
+    public ?Image $sticker;
 
     public ?int $id;
     public int $beer_id;
