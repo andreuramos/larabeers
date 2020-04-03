@@ -10884,9 +10884,24 @@ a.text-dark:focus {
 
 .beer-list__beer {
   width: 100%;
+  display: flex;
 }
 
-.beer-list__beer__name {
+.beer-list__beer__image {
+  max-width: 15%;
+  padding: 0.5em;
+}
+
+.beer-list__beer__image img {
+  width: 50px;
+}
+
+.beer-list__beer__data {
+  min-width: 85%;
+  padding: 0.5em;
+}
+
+.beer-list__beer__data__name {
   width: 100%;
 }
 

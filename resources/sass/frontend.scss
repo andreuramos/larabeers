@@ -1,20 +1,29 @@
 .beer-list {
     &__beer {
         width: 100%;
+        display: flex;
 
-        &__name {
-            width:100%
+        &__image {
+            max-width: 15%;
+            padding: 0.5em;
+
+            img {
+                width: 50px;
+            }
         }
 
         &__data {
+            min-width: 85%;
+            padding: 0.5em;
+
+            &__name {
+                width:100%
+            }
             &__brewer {
                 color: #6c757d !important;
                 font-style: italic;
                 font-size: small;
             }
         }
-
-
-
     }
 }
