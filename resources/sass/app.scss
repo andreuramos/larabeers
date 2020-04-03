@@ -8,46 +8,9 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import 'frontend';
+@import 'dashboard';
 
 body {
     min-height: 100vh !important;
     background-color: lightgray !important;
-}
-
-.beer-form {
-
-    width: 90%;
-    margin: 0 auto;
-
-    &__labels {
-
-        display: flex;
-
-        &__label {
-            border: solid 1px gray;
-            padding: 1em;
-            display: block;
-            margin: 0.5em;
-            width: 250px;
-
-            img {
-                width: 150px;
-                margin: 0 auto;
-            }
-
-            &__data {
-                span {
-                    width: 100%;
-                }
-                a {
-                    width: 100%;
-                }
-            }
-        }
-
-    }
-
-    input {
-        width: 50%;
-    }
 }

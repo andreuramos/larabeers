@@ -1,0 +1,65 @@
+.beer-form {
+
+    width: 90%;
+    margin: 0 auto;
+
+    &__labels {
+
+        display: flex;
+        flex-wrap: wrap;
+
+        &__label {
+            cursor: pointer;
+            box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.2);
+            border: solid 1px lightgray;
+            border-radius: 5px;
+            padding: 1em;
+            display: block;
+            margin: 0.5em;
+            width: 250px;
+            height: 200px;
+            position: relative;
+
+            img {
+                width: 150px;
+                margin: 0 auto;
+            }
+
+            &__data {
+                span {
+                    width: 100%;
+                }
+                a {
+                    width: 100%;
+                }
+            }
+
+            &__hover {
+                top: 0;
+                left: 0;
+                text-align:center;
+                width: 250px;
+                height: 200px;
+                position: absolute;
+                opacity: 0;
+                background-color:rgba(200,200,200,0.75);
+
+                &__icon {
+                    height: 0;
+                    opacity: 1;
+                    font-size: xx-large;
+                    margin-top: 2em;
+                }
+            }
+
+            &__hover:hover {
+                opacity: 1;
+            }
+        }
+
+    }
+
+    input {
+        width: 50%;
+    }
+}
