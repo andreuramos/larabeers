@@ -12,7 +12,7 @@ use Larabeers\Utils\GetFileType;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophet;
 
-class AddLabelToBeerTest extends TestCase
+class CreateLabelToBeerTest extends TestCase
 {
     const IMAGE_JPG = 'image/jpg';
     private $prophet;
@@ -99,7 +99,7 @@ class AddLabelToBeerTest extends TestCase
         $label->album = 1;
         $label->page = 1;
         $label->position = 1;
-        $label->image = $image;
+        $label->sticker = $image;
 
         $this->get_file_type->execute($image_path)
             ->shouldBeCalled()
