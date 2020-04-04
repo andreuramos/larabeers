@@ -23,6 +23,7 @@ Route::group(['prefix' => '/beer'], function() {
     Route::get('/{id}', "HomeController@show_beer");
     Route::get('/{id}/edit', "DashboardController@edit_beer");
     Route::post('/{id}/update', "DashboardController@update_beer");
+    Route::post('/{id}/new_label', "DashboardController@add_label_to_beer");
 });
 Route::get('/brewer/{id}', "HomeController@show_brewer");
 
@@ -30,6 +31,7 @@ Route::group(['prefix' => '/stats'], function(){
     Route::get('countries', "HomeController@list_countries");
 });
 
+Route::post('label/{id}/edit', "DashboardController@update_label");
 
 
 Route::group(['prefix' => '/dashboard'], function () {

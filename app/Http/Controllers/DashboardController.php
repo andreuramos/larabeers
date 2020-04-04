@@ -141,10 +141,21 @@ class DashboardController extends Controller
     public function update_beer(Request $request, $id)
     {
         $name = $request->get('name');
-        $image = $request->file('label');
 
         $this->beer_updater->execute($id, $name);
 
+        $request->session()->flash('success', "Beer updated successfully");
+        return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
+    }
+
+    public function add_label_to_beer(Request $request, $beer_id)
+    {
+
+    }
+
+    public function update_label(Request $request, $id)
+    {
+        $image = $request->file('label');
         if ($image) {
             $label_id = $this->label_creator->execute($id, $image->getRealPath(), [
                 'year' => $request->get('year'),
@@ -153,9 +164,6 @@ class DashboardController extends Controller
                 'position' => $request->get('position'),
             ]);
         }
-
-        $request->session()->flash('success', "Beer updated successfully");
-        return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
     }
 
     public function settings(Request $request)

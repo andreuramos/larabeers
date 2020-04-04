@@ -13,22 +13,7 @@
                                 {{ Form::label('name', 'Beer Name', ['class' => 'beer-form__label']) }}
                                 {{ Form::text('name', $beer->name) }}
 
-                            <p>Add a new label</p>
-                                {{ Form::label('label', "Image File", ['class' => 'beer-form__label']) }}
-                                {{ Form::file('label') }}
-                            <br>
-                                {{ Form::label('year', 'Year', ['class' => 'beer-form__label']) }}
-                                {{ Form::text('year') }}
-                            <br>
-                                {{ Form::label('album', 'Album', ['class' => 'beer-form__label']) }}
-                                {{ Form::text('album') }}
-                            <br>
-                                {{ Form::label('page', 'Page', ['class' => 'beer-form__label']) }}
-                                {{ Form::text('page') }}
-                            <br>
-                                {{ Form::label('position', 'Position', ['class' => 'beer-form__label']) }}
-                                {{ Form::text('position') }}
-                            <br>
+
                                 {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
                             {{ Form::close() }}
                             <a class="btn btn-secondary" href="{{ url('/beer/'. $beer->id) }}">Cancel</a>
@@ -43,9 +28,9 @@
                     <div class="card-body">
                         <div class="beer-form__labels">
                         @foreach($beer->labels as $label)
-                            @include('dashboard.beer.label', ['label' => $label])
+                            @include('dashboard.beer.label', ['label' => $label, 'beer_id' => $beer->id])
                         @endforeach
-                        @include('dashboard.beer.label', ['label' => null])
+                        @include('dashboard.beer.label', ['label' => null, 'beer_id' => $beer->id])
                         </div>
                     </div>
                 </div>
