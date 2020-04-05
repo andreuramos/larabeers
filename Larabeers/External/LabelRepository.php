@@ -72,6 +72,8 @@ class LabelRepository
     {
         $label = new Label();
 
+        $label->id = $eloquent_label->id;
+        $label->beer_id = $eloquent_label->beer_id;
         $label->year = $eloquent_label->year;
         $label->album = $eloquent_label->album;
         $label->page = $eloquent_label->page;

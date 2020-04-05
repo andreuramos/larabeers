@@ -15,19 +15,23 @@ use Larabeers\Entities\BeerCriteria;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
+use Larabeers\Services\UpdateLabel;
 
 class DashboardController extends Controller
 {
 
     private $beer_updater;
     private $label_creator;
+    private $update_label;
 
     public function __construct(
         UpdateBeer $beer_updater,
-        CreateLabelToBeer $label_creator
+        CreateLabelToBeer $label_creator,
+        UpdateLabel $update_label
     ) {
         $this->beer_updater = $beer_updater;
         $this->label_creator = $label_creator;
+        $this->update_label = $update_label;
     }
 
     public function callAction($method, $parameters)
@@ -165,7 +169,25 @@ class DashboardController extends Controller
 
     public function update_label(Request $request, $id)
     {
+        $label_id = $request->get('label_id');
+        $beer_id = $request->get('beer_id');
+        $metadata = [
+            'year' => $request->get('year'),
+            'album' => $request->get('album'),
+            'page' => $request->get('page'),
+            'position' => $request->get('position'),
+        ];
 
+        if ($request->has('label')) {
+            $image = $request->file('label')->getRealPath();
+        } else {
+            $image = null;
+        }
+
+        $this->update_label->execute($label_id, $image, $metadata);
+
+        $request->session()->flash('success', "Label updated successfully");
+        return redirect()->action('DashboardController@edit_beer', ['id' => $beer_id]);
     }
 
     public function settings(Request $request)

@@ -43,6 +43,7 @@
                 <div class="label-form container">
                     <div class="row">
                         {{ Form::hidden('label_id', $label ? $label->id : null) }}
+                        {{ Form::hidden('beer_id', $beer_id) }}
                         <div class="label-form__image col-xs-12 col-sm-6">
                             @include('dashboard.beer.image-input', ['id' => "input" . ($label ? $label->id : 'new')])
                         </div>
