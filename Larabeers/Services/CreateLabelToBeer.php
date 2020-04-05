@@ -2,6 +2,7 @@
 
 namespace Larabeers\Services;
 
+use Larabeers\Entities\Image;
 use Larabeers\Entities\Label;
 use Larabeers\Exceptions\UploadFailedException;
 use Larabeers\External\Images\Uploader\ImageUploader;
@@ -10,8 +11,6 @@ use Larabeers\Utils\GetFileType;
 
 class CreateLabelToBeer
 {
-    const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg'];
-
     private $get_file_type;
     private $label_uploader;
     private $label_repository;
@@ -32,7 +31,7 @@ class CreateLabelToBeer
         if (!$tmp_file_path) throw new \Exception("No image provided");
 
         $file_type = $this->get_file_type->execute($tmp_file_path);
-        if (! in_array($file_type, self::SUPPORTED_MIMES)) {
+        if (! in_array($file_type, Image::SUPPORTED_MIMES)) {
             throw new UploadFailedException("Unsupported image type");
         }
 
