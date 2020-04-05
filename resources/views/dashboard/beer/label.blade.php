@@ -36,32 +36,29 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                edit label
+                {{ $label ? "Edit Label" : "New Label" }}
             </div>
-            {{ Form::open(['action' => $label ? ['DashboardController@update_label', $label->id] : ['DashboardController@add_label_to_beer', $beer_id] ]) }}
+            {{ Form::open(['action' => $label ? ['DashboardController@update_label', $label->id] : ['DashboardController@add_label_to_beer', $beer_id], 'enctype' =>"multipart/form-data" ]) }}
             <div class="modal-body">
                 <div class="label-form container">
                     <div class="row">
+                        {{ Form::hidden('label_id', $label ? $label->id : null) }}
                         <div class="label-form__image col-xs-12 col-sm-6">
-                            {{ Form::hidden('label_id', $label ? $label->id : null) }}
-                            {{ Form::label('label', "Image File", ['class' => 'beer-form__label']) }}
-                            {{ Form::file('label') }}
+                            @include('dashboard.beer.image-input', ['id' => "input" . ($label ? $label->id : 'new')])
                         </div>
+
                         <div class="label-form__data col-xs-12 col-sm-6">
-                            <br>
-                            {{ Form::label('year', 'Year', ['class' => 'beer-form__label']) }}
+                            <span class="label-form__data__label">Year&nbsp;<i class="fa fa-calendar-alt"></i></span>
                             {{ Form::text('year', $label ? $label->year : null) }}
-                            <br>
-                            {{ Form::label('album', 'Album', ['class' => 'beer-form__label']) }}
+                            <span class="label-form__data__label">Album&nbsp;<i class="fa fa-book"></i></span>
                             {{ Form::text('album', $label ? $label->album : null) }}
-                            <br>
-                            {{ Form::label('page', 'Page', ['class' => 'beer-form__label']) }}
+                            <span class="label-form__data__label">Page&nbsp;<i class="fa fa-book-open"></i></span>
                             {{ Form::text('page', $label ? $label->page : null) }}
-                            <br>
-                            {{ Form::label('position', 'Position', ['class' => 'beer-form__label']) }}
+                            <span class="label-form__data__label">Position&nbsp;<i class="fa fa-th"></i></span>
                             {{ Form::text('position', $label ? $label->position : null) }}
                             <br>
                         </div>
+
                         <div class="label-form__tags col-12">
                             {{ Form::label('tags', "Tags") }}
                             {{ Form::text('tags', "") }}
@@ -70,10 +67,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                {{ Form::submit('Save') }}
+                {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
             </div>
             {{ Form::close() }}
         </div>
     </div>
-
 </div>

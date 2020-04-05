@@ -14,3 +14,14 @@ body {
     min-height: 100vh !important;
     background-color: lightgray !important;
 }
+
+.hidden {
+    display: none;
+}
+
+.preview-file-input {
+    img {
+        max-width: 250px;
+        max-heigth: 250px;
+    }
+}

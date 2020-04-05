@@ -63,3 +63,34 @@
         width: 50%;
     }
 }
+
+.label-form {
+
+    &__image {
+
+    }
+
+    &__data {
+
+        display: table;
+
+        &__label {
+            display: inline-block;
+            width: 30%;
+            text-align: right;
+            margin-right: 1em;
+        }
+        input {
+            width: 50%
+        }
+    }
+
+    &__tags {
+        &__label {
+            width: 100%;
+        }
+        input {
+            width: 100%;
+        }
+    }
+}

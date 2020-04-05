@@ -8,7 +8,6 @@ use App\Helpers\StringHelper;
 use App\Label;
 use App\Tag;
 use Google_Service_Drive;
-use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -150,20 +149,23 @@ class DashboardController extends Controller
 
     public function add_label_to_beer(Request $request, $beer_id)
     {
-
-    }
-
-    public function update_label(Request $request, $id)
-    {
         $image = $request->file('label');
         if ($image) {
-            $label_id = $this->label_creator->execute($id, $image->getRealPath(), [
+            $label_id = $this->label_creator->execute($beer_id, $image->getRealPath(), [
                 'year' => $request->get('year'),
                 'album' => $request->get('album'),
                 'page' => $request->get('page'),
                 'position' => $request->get('position'),
             ]);
         }
+
+        $request->session()->flash('success', "Label added successfully");
+        return redirect()->action('DashboardController@edit_beer', ['id' => $beer_id]);
+    }
+
+    public function update_label(Request $request, $id)
+    {
+
     }
 
     public function settings(Request $request)
