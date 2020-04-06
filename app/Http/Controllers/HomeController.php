@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Beer;
 use App\Brewer;
 use Illuminate\Http\Request;
+use Larabeers\Services\SearchBrewer;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    private $search_brewer;
+
+    public function __construct(
+        SearchBrewer $search_brewer
+    ) {
+        $this->search_brewer = $search_brewer;
+    }
+
     public function home()
     {
         $stats = [
@@ -51,6 +55,22 @@ class HomeController extends Controller
     {
         $beers = Beer::search($request->get('query'));
         return view("frontend.beer_list", ["beers" => $beers]);
+    }
+
+    public function ajax_brewer_autocomplete(Request $request)
+    {
+        $query = $request->get('query');
+        $results = [];
+
+        $brewers = $this->search_brewer->execute($query);
+        foreach ($brewers as $brewer) {
+            $results[] = [
+                'id' => $brewer->id,
+                'name' => $brewer->name
+            ];
+        }
+
+        return response()->json($results);
     }
 
     public function show_beer($id)

@@ -28,8 +28,7 @@ class BrewerRepository
     public function search(string $query): array
     {
         $results = [];
-
-        $db_results = Brewer::where('normalized_name', 'like', "%$query%")->get();
+        $db_results = EloquentBrewer::where('normalized_name', 'ilike', "%$query%")->get();
         foreach ($db_results as $db_result) {
             $results[] = $this->eloquentToEntityBrewer($db_result);
         }
