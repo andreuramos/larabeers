@@ -21,6 +21,7 @@ class BrewerNormalizedName extends Migration
         $string_normalizer = new \Larabeers\Utils\NormalizeString();
         foreach(Brewer::all() as $brewer) {
             $brewer->normalized_name = $string_normalizer->execute($brewer->name);
+            $brewer->save();
         }
     }
 
