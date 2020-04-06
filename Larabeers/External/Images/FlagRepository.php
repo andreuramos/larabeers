@@ -45,7 +45,7 @@ class FlagRepository
         'malta' => 'mt',
         'mexico' => 'mx',
         'morocco' => 'ma',
-        'netherlands' => 'ne',
+        'netherlands' => 'nl',
         'norway' => 'no',
         'panama' => 'pa',
         'perú' => 'pe',
