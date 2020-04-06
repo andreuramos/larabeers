@@ -13,6 +13,7 @@
                                 {{ Form::label('name', 'Beer Name', ['class' => 'beer-form__label']) }}
                                 {{ Form::text('name', $beer->name) }}
 
+                                @include('dashboard.beer.brewer-autocomplete', ['brewers' => $brewers])
 
                                 {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
                             {{ Form::close() }}

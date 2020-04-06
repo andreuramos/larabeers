@@ -134,11 +134,25 @@ class DashboardController extends Controller
 
     public function edit_beer($id)
     {
-        $beer = Beer::find($id);
+        $repo = new BeerRepository();
+        $beer = $repo->findById($id);
         if (!$beer) {
             abort(404);
         }
-        return view('dashboard.beer.form', ['beer' => $beer]);
+        $brewers = $this->getBrewers($beer);
+
+        return view('dashboard.beer.form', ['beer' => $beer, 'brewers' => $brewers]);
+    }
+
+    private function getBrewers(\Larabeers\Entities\Beer $beer): array
+    {
+        $brewers = [];
+
+        foreach($beer->brewers as $brewer) {
+            $brewers[$brewer->id] = $brewer->name;
+        }
+
+        return $brewers;
     }
 
     public function update_beer(Request $request, $id)
