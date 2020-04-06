@@ -19,7 +19,7 @@ class BeerNormalizedName extends Migration
         });
 
         foreach (Beer::all() as $beer) {
-            $beer->normalized_name = App\Helpers\StringHelper::normalize($beer->name);
+            $beer->normalized_name = \Larabeers\Utils\NormalizeString::execute($beer->name);
             $beer->save();
         }
     }

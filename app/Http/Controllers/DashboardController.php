@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Beer;
 use App\Brewer;
-use App\Helpers\StringHelper;
 use App\Label;
 use App\Tag;
 use Google_Service_Drive;
@@ -16,6 +15,7 @@ use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
 use Larabeers\Services\UpdateLabel;
+use Larabeers\Utils\NormalizeString;
 
 class DashboardController extends Controller
 {
@@ -84,7 +84,7 @@ class DashboardController extends Controller
 
             $beer = Beer::create([
                 'name' => $csv_beer,
-                'normalized_name' => StringHelper::normalize($csv_beer),
+                'normalized_name' => NormalizeString::execute($csv_beer),
                 'type' => $row[2]
             ]);
 

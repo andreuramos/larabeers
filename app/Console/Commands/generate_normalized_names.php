@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Beer;
-use App\Helpers\StringHelper;
 use Illuminate\Console\Command;
+use Larabeers\Utils\NormalizeString;
 
 class generate_normalized_names extends Command
 {
@@ -41,7 +41,7 @@ class generate_normalized_names extends Command
     {
         foreach (Beer::all() as $beer) {
             if (!$beer->normalized_name) {
-                $beer->normalized_name = StringHelper::normalize($beer->name);
+                $beer->normalized_name = NormalizeString::execute($beer->name);
                 $beer->save();
                 $this->info("Normalized name for {$beer->name}: {$beer->normalized_name}");
             }
