@@ -20,6 +20,7 @@ class BrewerRepository
         $brewer = new Brewer();
         $brewer->id = $eloquent_brewer->id;
         $brewer->name = $eloquent_brewer->name;
+        $brewer->country = $eloquent_brewer->country;
 
         return $brewer;
     }

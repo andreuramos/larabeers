@@ -4,7 +4,7 @@
     data-toggle="modal"
 >
     @if($label)
-        <img src="{{ $label->path() }}"/>
+        <img src="{{ $label->sticker ? $label->sticker->url : null }}"/>
     @else
         <img src="{{ URL::asset('img/label-template.jpg') }}">
     @endif
