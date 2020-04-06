@@ -9,11 +9,11 @@
                     </div>
                     <div class="card-body">
                         <div class="beer-form">
-                            {{ Form::open(['action' => ['DashboardController@update_beer', $beer->id], 'files' => 'true']) }}
+                            {{ Form::open(['action' => ['DashboardController@update_beer', $beer->id], 'files' => 'true', 'autocomplete' => 'off']) }}
                                 {{ Form::label('name', 'Beer Name', ['class' => 'beer-form__label']) }}
                                 {{ Form::text('name', $beer->name) }}
 
-                                @include('dashboard.beer.brewer-autocomplete', ['brewers' => $brewers])
+                                @include('dashboard.beer.brewer-autocomplete', ['brewer' => $beer->brewers[0]])
 
                                 {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
                             {{ Form::close() }}
