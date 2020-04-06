@@ -21,7 +21,7 @@ class FlagRepository
         'croatia' => 'hr',
         'cuba' => 'cu',
         'czech republic' => 'cz',
-        'denmark' => 'de',
+        'denmark' => 'dk',
         'dominica' => 'dm',
         'dominican republic' => 'do',
         'ecuador' => 'ec',
