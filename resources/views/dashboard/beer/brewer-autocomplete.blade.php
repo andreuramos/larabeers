@@ -48,14 +48,14 @@
                 $(".brewer_autocomplete_list").addClass('hidden');
             }
         });
-        $("input[name='brewer_name']").focusout(function() {
-            let $suggestions = $(".brewer_autocomplete_list");
-            if (!$suggestions.hasClass('hidden')) {
-                let $first_suggestion = $(".brewer_autocomplete_list__item").first();
-                let brewer_id = $first_suggestion.attr('data-brewer-id');
-                let brewer_name = $first_suggestion.html();
-                selectBrewer(brewer_id, brewer_name);
-            }
-        })
+        // $("input[name='brewer_name']").focusout(function() {
+        //     let $suggestions = $(".brewer_autocomplete_list");
+        //     if (!$suggestions.hasClass('hidden')) {
+        //         let $first_suggestion = $(".brewer_autocomplete_list__item").first();
+        //         let brewer_id = $first_suggestion.attr('data-brewer-id');
+        //         let brewer_name = $first_suggestion.html();
+        //         selectBrewer(brewer_id, brewer_name);
+        //     }
+        // })
     });
 </script>
