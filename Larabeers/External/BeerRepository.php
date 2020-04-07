@@ -5,6 +5,7 @@ namespace Larabeers\External;
 use App\Beer as EloquentBeer;
 use Larabeers\Entities\Beer;
 use Larabeers\Entities\BeerCriteria;
+use Larabeers\Entities\Brewer;
 use Larabeers\Entities\Style;
 
 class BeerRepository
@@ -36,6 +37,7 @@ class BeerRepository
         }
 
         $eloquent_beer->save();
+        $this->saveBrewer($eloquent_beer, $beer->brewers[0]);
     }
 
     public function findByCriteria(BeerCriteria $criteria): array
@@ -103,5 +105,13 @@ class BeerRepository
         $eloquent_beer->created_at = $beer->created_at;
 
         return $eloquent_beer;
+    }
+
+    private function saveBrewer(EloquentBeer $beer, Brewer $brewer)
+    {
+        $current_brewer = $beer->brewers()->first();
+        if ($current_brewer->id !== $brewer->id) {
+            $beer->brewers()->sync([$brewer->id]);
+        }
     }
 }

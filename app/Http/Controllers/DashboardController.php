@@ -157,10 +157,15 @@ class DashboardController extends Controller
     public function update_beer(Request $request, $id)
     {
         $name = $request->get('name');
+        $brewer_id = $request->get('brewer_id');
 
-        $this->beer_updater->execute($id, $name);
+        try {
+            $this->beer_updater->execute($id, $name, $brewer_id);
+            $request->session()->flash('success', "Beer updated successfully");
+        } catch (\Exception $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
 
-        $request->session()->flash('success', "Beer updated successfully");
         return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
     }
 

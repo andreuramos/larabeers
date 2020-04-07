@@ -3,7 +3,9 @@
 namespace Larabeers\Services\Tests;
 
 use Larabeers\Entities\Beer;
+use Larabeers\Entities\Brewer;
 use Larabeers\External\BeerRepository;
+use Larabeers\External\BrewerRepository;
 use Larabeers\Services\UpdateBeer;
 use Larabeers\Utils\NormalizeString;
 use \PHPUnit\Framework\TestCase;
@@ -13,12 +15,14 @@ class UpdateBeerTest extends TestCase
 {
     private $prophet;
     private $beer_repository;
+    private $brewer_repository;
     private $normalize_string;
 
     public function setUp(): void
     {
         $this->prophet = new Prophet();
         $this->beer_repository = $this->prophet->prophesize(BeerRepository::class);
+        $this->brewer_repository = $this->prophet->prophesize(BrewerRepository::class);
         $this->normalize_string = $this->prophet->prophesize(NormalizeString::class);
     }
 
@@ -40,17 +44,45 @@ class UpdateBeerTest extends TestCase
             ->willReturn(null);
 
         $service = $this->getService();
-        $service->execute(0, "");
+        $service->execute(0, "", 0);
+    }
+
+    /**
+     * @expectedException \Larabeers\Exceptions\BrewerNotFoundException
+     */
+    public function test_unexisting_brewer()
+    {
+        $old_beer = new Beer();
+        $old_beer->id = 1;
+        $old_beer->name = "OLDNAME";
+
+        $this->beer_repository->findById(1)
+            ->shouldBeCalled()
+            ->willReturn($old_beer);
+
+        $this->brewer_repository->findById(2)
+            ->shouldBeCalled()
+            ->willReturn(null);
+
+        $this->getService()->execute(1,"OLDNAME",2);
     }
 
     public function test_changing_name_updates_normalized_too()
     {
+        $old_brewer = new Brewer();
+        $old_brewer->id = 1;
+        $new_brewer_id = 2;
+        $new_brewer = new Brewer();
+        $new_brewer->id = $new_brewer_id;
+
         $old_beer = new Beer();
         $old_beer->id = 1;
+        $old_beer->brewers[] = $old_brewer;
         $old_beer->name = "OldName";
 
         $new_beer = new Beer();
         $new_beer->id = 1;
+        $new_beer->brewers[] = $new_brewer;
         $new_beer->name="NewName";
         $new_beer->normalized_name = "newname";
 
@@ -58,6 +90,10 @@ class UpdateBeerTest extends TestCase
             ->findById(1)
             ->shouldBeCalled()
             ->willReturn($old_beer);
+        $this->brewer_repository
+            ->findById($new_brewer_id)
+            ->shouldBeCalled()
+            ->willReturn($new_brewer);
         $this->normalize_string
             ->execute("NewName")
             ->shouldBeCalled()
@@ -67,7 +103,7 @@ class UpdateBeerTest extends TestCase
             ->shouldBeCalled();
 
         $service = $this->getService();
-        $service->execute(1,"NewName");
+        $service->execute(1,"NewName", $new_brewer_id);
 
         $this->beer_repository->save($new_beer)->shouldHaveBeenCalled();
     }
@@ -76,6 +112,7 @@ class UpdateBeerTest extends TestCase
     {
         return new UpdateBeer(
             $this->beer_repository->reveal(),
+            $this->brewer_repository->reveal(),
             $this->normalize_string->reveal()
         );
     }
