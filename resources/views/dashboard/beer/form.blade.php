@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div class="beer-form__field-block">
-                                    @include('dashboard.beer.style-autocomplete', ['style' => $beer->style])
+                                    @include('dashboard.beer.style-autocomplete', ['style' => $beer->style->name])
                                 </div>
 
                                 {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
