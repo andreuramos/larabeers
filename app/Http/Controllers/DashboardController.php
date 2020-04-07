@@ -20,19 +20,19 @@ use Larabeers\Utils\NormalizeString;
 class DashboardController extends Controller
 {
     private $beer_repository;
-    private $beer_updater;
-    private $label_creator;
+    private $update_beer;
+    private $create_label_to_beer;
     private $update_label;
 
     public function __construct(
         BeerRepository $beer_repository,
-        UpdateBeer $beer_updater,
-        CreateLabelToBeer $label_creator,
+        CreateLabelToBeer $create_label_to_beer,
+        UpdateBeer $update_beer,
         UpdateLabel $update_label
     ) {
         $this->beer_repository = $beer_repository;
-        $this->beer_updater = $beer_updater;
-        $this->label_creator = $label_creator;
+        $this->create_label_to_beer = $create_label_to_beer;
+        $this->update_beer = $update_beer;
         $this->update_label = $update_label;
     }
 
@@ -160,7 +160,7 @@ class DashboardController extends Controller
         $brewer_id = $request->get('brewer_id');
 
         try {
-            $this->beer_updater->execute($id, $name, $brewer_id);
+            $this->update_beer->execute($id, $name, $brewer_id);
             $request->session()->flash('success', "Beer updated successfully");
         } catch (\Exception $e) {
             $request->session()->flash('error', $e->getMessage());
@@ -173,7 +173,7 @@ class DashboardController extends Controller
     {
         $image = $request->file('label');
         if ($image) {
-            $label_id = $this->label_creator->execute($beer_id, $image->getRealPath(), [
+            $this->create_label_to_beer->execute($beer_id, $image->getRealPath(), [
                 'year' => $request->get('year'),
                 'album' => $request->get('album'),
                 'page' => $request->get('page'),
