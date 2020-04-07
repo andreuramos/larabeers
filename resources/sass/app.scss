@@ -14,7 +14,7 @@ body {
     min-height: 100vh !important;
     background-color: lightgray !important;
 }
-
+/* TODO: move below rules to a common scss file */
 .alert {
     max-width: 1140px;
     margin-left: auto;
@@ -30,4 +30,15 @@ body {
         max-width: 250px;
         max-heigth: 250px;
     }
+}
+
+input {
+    border: solid 1px lightgrey;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+input:focus {
+    border-bottom: solid 3px $primary;
+    margin-bottom: -2px;
 }

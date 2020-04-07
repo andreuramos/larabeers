@@ -5,19 +5,35 @@
             <div class="col-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-beer"></i> Edit Beer
+                        <div class="row">
+                            <div class="col-10">
+                                <i class="fa fa-beer"></i> Beer Data
+                            </div>
+                            <div class="col-2">
+                                <a class="btn btn-outline-secondary" href="{{ url('/beer/'. $beer->id) }}">Back</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="beer-form">
                             {{ Form::open(['action' => ['DashboardController@update_beer', $beer->id], 'files' => 'true', 'autocomplete' => 'off']) }}
-                                {{ Form::label('name', 'Beer Name', ['class' => 'beer-form__label']) }}
-                                {{ Form::text('name', $beer->name) }}
+                                <div class="beer-form__field-block">
+                                    <label for="name" class="beer-form__field-block__label">
+                                        Beer Name &nbsp; <i class="fa fa-beer"></i>
+                                    </label>
+                                    {{ Form::text('name', $beer->name) }}
+                                </div>
 
-                                @include('dashboard.beer.brewer-autocomplete', ['brewer' => $beer->brewers[0]])
+                                <div class="beer-form__field-block">
+                                    @include('dashboard.beer.brewer-autocomplete', ['brewer' => $beer->brewers[0]])
+                                </div>
+
+                                <div class="beer-form__field-block">
+                                    @include('dashboard.beer.style-autocomplete', ['style' => $beer->style])
+                                </div>
 
                                 {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
                             {{ Form::close() }}
-                            <a class="btn btn-secondary" href="{{ url('/beer/'. $beer->id) }}">Cancel</a>
                         </div>
                     </div>
                 </div>
