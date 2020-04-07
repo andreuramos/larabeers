@@ -4,6 +4,7 @@ namespace Larabeers\Services\Tests;
 
 use Larabeers\Entities\Beer;
 use Larabeers\Entities\Brewer;
+use Larabeers\Entities\Style;
 use Larabeers\External\BeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\UpdateBeer;
@@ -44,7 +45,7 @@ class UpdateBeerTest extends TestCase
             ->willReturn(null);
 
         $service = $this->getService();
-        $service->execute(0, "", 0);
+        $service->execute(0, "", 0, new Style("anything"));
     }
 
     /**
@@ -64,7 +65,7 @@ class UpdateBeerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn(null);
 
-        $this->getService()->execute(1,"OLDNAME",2);
+        $this->getService()->execute(1,"OLDNAME",2, new Style("anything"));
     }
 
     public function test_changing_name_updates_normalized_too()
@@ -75,16 +76,20 @@ class UpdateBeerTest extends TestCase
         $new_brewer = new Brewer();
         $new_brewer->id = $new_brewer_id;
 
+        $old_style = new Style("old style ale");
         $old_beer = new Beer();
         $old_beer->id = 1;
         $old_beer->brewers[] = $old_brewer;
         $old_beer->name = "OldName";
+        $old_beer->style = $old_style;
 
+        $new_style = new Style("new style lager");
         $new_beer = new Beer();
         $new_beer->id = 1;
         $new_beer->brewers[] = $new_brewer;
         $new_beer->name="NewName";
         $new_beer->normalized_name = "newname";
+        $new_beer->style = $new_style;
 
         $this->beer_repository
             ->findById(1)
@@ -103,7 +108,7 @@ class UpdateBeerTest extends TestCase
             ->shouldBeCalled();
 
         $service = $this->getService();
-        $service->execute(1,"NewName", $new_brewer_id);
+        $service->execute(1,"NewName", $new_brewer_id, $new_style);
 
         $this->beer_repository->save($new_beer)->shouldHaveBeenCalled();
     }

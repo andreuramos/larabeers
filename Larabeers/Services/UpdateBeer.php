@@ -2,6 +2,7 @@
 
 namespace Larabeers\Services;
 
+use Larabeers\Entities\Style;
 use Larabeers\Exceptions\BeerNotFoundException;
 use Larabeers\Exceptions\BrewerNotFoundException;
 use Larabeers\External\BeerRepository;
@@ -24,7 +25,7 @@ class UpdateBeer
         $this->normalize_string = $normalize_string;
     }
 
-    public function execute(int $id, string $name, int $brewer_id): void
+    public function execute(int $id, string $name, int $brewer_id, Style $style): void
     {
         $beer = $this->beer_repository->findById($id);
         if (!$beer) {
@@ -41,6 +42,8 @@ class UpdateBeer
             throw new BrewerNotFoundException("Brewer $brewer_id not found while updating beer $id");
         }
         $beer->brewers[0] = $brewer;
+
+        $beer->style = $style;
 
         $this->beer_repository->save($beer);
     }

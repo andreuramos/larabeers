@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Larabeers\Entities\BeerCriteria;
+use Larabeers\Entities\Style;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
@@ -158,9 +159,11 @@ class DashboardController extends Controller
     {
         $name = $request->get('name');
         $brewer_id = $request->get('brewer_id');
+        $style_name = $request->get('beer_style');
 
         try {
-            $this->update_beer->execute($id, $name, $brewer_id);
+            $style = new Style($style_name);
+            $this->update_beer->execute($id, $name, $brewer_id, $style);
             $request->session()->flash('success', "Beer updated successfully");
         } catch (\Exception $e) {
             $request->session()->flash('error', $e->getMessage());
