@@ -9,19 +9,30 @@ use Larabeers\Entities\Style;
 
 class BeerRepository
 {
+    private BrewerRepository $brewer_repository;
+    private LabelRepository $label_repository;
+
+    public function __construct(
+        BrewerRepository $brewer_repository,
+        LabelRepository $label_repository
+    ) {
+        $this->brewer_repository = $brewer_repository;
+        $this->label_repository = $label_repository;
+    }
+
     public function findById(int $id): ?Beer
     {
         $beer = EloquentBeer::find($id);
-        return self::eloquentToEntityBeer($beer);
+        return $this->eloquentToEntityBeer($beer);
     }
 
     public function save(Beer $beer): void
     {
         if ($beer->id) {
             $eloquent_beer = EloquentBeer::find($beer->id);
-            $eloquent_beer = self::populateEloquentBeer($eloquent_beer, $beer);
+            $eloquent_beer = $this->populateEloquentBeer($eloquent_beer, $beer);
         } else {
-            $eloquent_beer = self::entityToEloquentBeer($beer);
+            $eloquent_beer = $this->entityToEloquentBeer($beer);
         }
 
         $eloquent_beer->save();
@@ -53,11 +64,8 @@ class BeerRepository
         return $results;
     }
 
-    private static function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
+    private function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
     {
-        $brewer_repository = new BrewerRepository();
-        $label_repository = new LabelRepository(); //TODO: inject this
-
         $beer = new Beer();
         $beer->id = $eloquent_beer->id;
         $beer->name = $eloquent_beer->name;
@@ -65,16 +73,16 @@ class BeerRepository
         $beer->style = new Style($eloquent_beer->type);
         $beer->created_at = $eloquent_beer->created_at;
         foreach($eloquent_beer->brewers()->get() as $brewer) {
-            $beer->brewers[] = $brewer_repository->findById($brewer->id);
+            $beer->brewers[] = $this->brewer_repository->findById($brewer->id);
         }
         foreach($eloquent_beer->labels()->get() as $label) {
-            $beer->labels[] = $label_repository->findById($label->id);
+            $beer->labels[] = $this->label_repository->findById($label->id);
         }
 
         return $beer;
     }
 
-    private static function entityToEloquentBeer(Beer $beer): EloquentBeer
+    private function entityToEloquentBeer(Beer $beer): EloquentBeer
     {
         $eloquent_beer = new EloquentBeer();
         $eloquent_beer->id = $beer->id;
@@ -86,7 +94,7 @@ class BeerRepository
         return $eloquent_beer;
     }
 
-    private static function populateEloquentBeer(EloquentBeer $eloquent_beer, Beer $beer): EloquentBeer
+    private function populateEloquentBeer(EloquentBeer $eloquent_beer, Beer $beer): EloquentBeer
     {
         $eloquent_beer->id = $beer->id;
         $eloquent_beer->name = $beer->name;

@@ -19,16 +19,18 @@ use Larabeers\Utils\NormalizeString;
 
 class DashboardController extends Controller
 {
-
+    private $beer_repository;
     private $beer_updater;
     private $label_creator;
     private $update_label;
 
     public function __construct(
+        BeerRepository $beer_repository,
         UpdateBeer $beer_updater,
         CreateLabelToBeer $label_creator,
         UpdateLabel $update_label
     ) {
+        $this->beer_repository = $beer_repository;
         $this->beer_updater = $beer_updater;
         $this->label_creator = $label_creator;
         $this->update_label = $update_label;
@@ -43,12 +45,10 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $repo = new BeerRepository();
-
         $criteria = new BeerCriteria();
         $criteria->addOrder('created_at');
         $criteria->addLimit(10);
-        $last_beers = $repo->findByCriteria($criteria);
+        $last_beers = $this->beer_repository->findByCriteria($criteria);
 
         return view('dashboard', [
             'beers' => Beer::count(),
@@ -134,8 +134,7 @@ class DashboardController extends Controller
 
     public function edit_beer($id)
     {
-        $repo = new BeerRepository();
-        $beer = $repo->findById($id);
+        $beer = $this->beer_repository->findById($id);
         if (!$beer) {
             abort(404);
         }
