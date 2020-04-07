@@ -9,7 +9,7 @@ class Beer
     public $id;
     public $name;
     public $normalized_name;
-    public $type;
+    public $style;
     public $created_at;
     public $brewers;
     public $labels;
