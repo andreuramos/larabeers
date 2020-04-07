@@ -9,7 +9,7 @@ class Label
     public ?int $id;
     public int $beer_id;
 
-    public int $year;
+    public ?int $year;
     public int $month;
 
     public int $album;
