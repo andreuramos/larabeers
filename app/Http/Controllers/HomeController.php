@@ -6,15 +6,19 @@ use App\Beer;
 use App\Brewer;
 use Illuminate\Http\Request;
 use Larabeers\Services\SearchBrewer;
+use Larabeers\Services\SearchStyle;
 
 class HomeController extends Controller
 {
     private $search_brewer;
+    private $search_style;
 
     public function __construct(
-        SearchBrewer $search_brewer
+        SearchBrewer $search_brewer,
+        SearchStyle $search_style
     ) {
         $this->search_brewer = $search_brewer;
+        $this->search_style = $search_style;
     }
 
     public function home()
@@ -68,6 +72,18 @@ class HomeController extends Controller
                 'id' => $brewer->id,
                 'name' => $brewer->name
             ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function ajax_style_autocomplete(Request $request)
+    {
+        $query = $request->get('query');
+        $results = [];
+
+        foreach($this->search_style->execute($query) as $style) {
+            $results[] = $style->name;
         }
 
         return response()->json($results);

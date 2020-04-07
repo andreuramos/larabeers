@@ -1,8 +1,26 @@
-{{ Form::label('brewer_name', "Brewer", ['class' => 'beer-form__label']) }}
-{{ Form::text('brewer_name', $brewer ? $brewer->name : null) }}
-{{ Form::hidden('brewer_id', $brewer ? $brewer->id : null) }}
-<div class="brewer_autocomplete_list hidden">
+<label for="brewer_name" class="beer-form__field-block__label">Brewer &nbsp; <i class="fa fa-industry"></i></label>
+<div class="beer-form__field-block__input">
+    {{ Form::text('brewer_name', $brewer ? $brewer->name : null, ['id' => 'brewer_name']) }}
+    {{ Form::hidden('brewer_id', $brewer ? $brewer->id : null, ['id' => 'brewer_id']) }}
+    <div class="brewer_autocomplete_list autocomplete_list hidden"></div>
+</div>
 
+<div
+    class="modal fade"
+    id="brewer-modal"
+    role="dialog"
+    aria-hidden="true"
+    tabindex="-1"
+>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><i class="fa fa-industry"></i>&nbsp; Create new Brewer</div>
+            <div class="modal-body">the form goes here</div>
+            <div class="modal-footer">
+                <a class="btn btn-primary">Save</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -11,6 +29,10 @@
         $("#brewer_id").val(id);
         $("#brewer_name").val(name);
         $(".brewer_autocomplete_list").addClass('hidden');
+    }
+
+    function openBrewerModal(brewer_name) {
+        $("#brewer-modal").modal();
     }
 
     $(document).ready(function(){
