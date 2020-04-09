@@ -11,8 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Larabeers\Entities\BeerCriteria;
+use Larabeers\Entities\City;
+use Larabeers\Entities\Country;
 use Larabeers\Entities\Style;
 use Larabeers\External\BeerRepository;
+use Larabeers\Services\CreateBrewer;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
 use Larabeers\Services\UpdateLabel;
@@ -21,17 +24,20 @@ use Larabeers\Utils\NormalizeString;
 class DashboardController extends Controller
 {
     private $beer_repository;
-    private $update_beer;
+    private $create_brewer;
     private $create_label_to_beer;
+    private $update_beer;
     private $update_label;
 
     public function __construct(
         BeerRepository $beer_repository,
+        CreateBrewer $create_brewer,
         CreateLabelToBeer $create_label_to_beer,
         UpdateBeer $update_beer,
         UpdateLabel $update_label
     ) {
         $this->beer_repository = $beer_repository;
+        $this->create_brewer = $create_brewer;
         $this->create_label_to_beer = $create_label_to_beer;
         $this->update_beer = $update_beer;
         $this->update_label = $update_label;
@@ -158,7 +164,7 @@ class DashboardController extends Controller
     public function update_beer(Request $request, $id)
     {
         $name = $request->get('name');
-        $brewer_id = $request->get('brewer_id');
+        $brewer_id = $request->get('autocomplete_brewer_id');
         $style_name = $request->get('beer_style');
 
         try {
@@ -277,5 +283,36 @@ class DashboardController extends Controller
         $client->setAccessType('offline');
         $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
         return $client;
+    }
+
+    public function create_brewer(Request $request)
+    {
+
+    }
+
+    public function ajax_create_brewer(Request $request)
+    {
+        $name = (string) $request->post('name');
+        $city_name = (string) $request->post('city');
+        $country_name = (string) $request->post('country');
+
+        try {
+            // @TODO: Build city through factory
+            $country = new Country($country_name);
+            $city = new City($city_name, $country);
+            $id = $this->create_brewer->execute($name, $city);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        return response()->json([
+            'id' => $id,
+            'name' => $name
+        ]);
+    }
+
+    public function update_brewer(Request $request, int $id)
+    {
+
     }
 }

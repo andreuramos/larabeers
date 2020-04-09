@@ -1,7 +1,7 @@
 <label for="brewer_name" class="beer-form__field-block__label">Brewer &nbsp; <i class="fa fa-industry"></i></label>
 <div class="beer-form__field-block__input">
-    {{ Form::text('brewer_name', $brewer ? $brewer->name : null, ['id' => 'brewer_name']) }}
-    {{ Form::hidden('brewer_id', $brewer ? $brewer->id : null, ['id' => 'brewer_id']) }}
+    {{ Form::text('autocomplete_brewer_name', $brewer ? $brewer->name : null, ['id' => 'autocomplete_brewer_name']) }}
+    {{ Form::hidden('autocomplete_brewer_id', $brewer ? $brewer->id : null, ['id' => 'autocomplete_brewer_id']) }}
     <div class="brewer_autocomplete_list autocomplete_list hidden"></div>
 </div>
 
@@ -15,10 +15,45 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header"><i class="fa fa-industry"></i>&nbsp; Create new Brewer</div>
-            <div class="modal-body">the form goes here</div>
-            <div class="modal-footer">
-                <a class="btn btn-primary">Save</a>
+            <div class="modal-body">
+                <span id="brewer_error" class="alert alert-danger hidden" role="alert"></span>
+                @include('dashboard.brewer.form', ['brewer' => null])
             </div>
+            <script>
+                $(document).ready(function() {
+                    $("#submit_brewer").click(function(e) {
+                        e.preventDefault();
+                        $("#brewer_error").addClass('hidden');
+                        $(this).html('<i class="fa fa-circle-notch fa-spin"></i>')
+                        var brewer_data = {
+                            '_token': "{{ csrf_token() }}",
+                            'name': $("#brewer_name").val(),
+                            'country': $("#brewer_country").val(),
+                            'city': $("#brewer_city").val()
+                        };
+                        $.ajax({
+                            url: '/ajax/create_brewer',
+                            method: 'POST',
+                            data: brewer_data,
+                            success: function(data) {
+                                $("#autocomplete_brewer_id").val(data.id);
+                                $("#autocomplete_brewer_name").val(data.name);
+                                $("#sumbit_brewer").html('Save');
+                                $("#brewer_name").val('');
+                                $("#brewer_country").val('');
+                                $("#brewer_city").val('');
+                                $("#brewer-modal").modal('toggle');
+                                $(".brewer_autocomplete_list").addClass('hidden');
+                            },
+                            error: function(error) {
+                                console.log(error);
+                                $("#brewer_error").removeClass('hidden').html("Error: " + error.responseJSON.error);
+                                $("#submit_brewer").html('Save')
+                            }
+                        });
+                    });
+                })
+            </script>
         </div>
     </div>
 </div>
@@ -26,8 +61,8 @@
 
 <script type="text/javascript">
     function selectBrewer(id,name) {
-        $("#brewer_id").val(id);
-        $("#brewer_name").val(name);
+        $("#autocomplete_brewer_id").val(id);
+        $("#autocomplete_brewer_name").val(name);
         $(".brewer_autocomplete_list").addClass('hidden');
     }
 
@@ -36,7 +71,7 @@
     }
 
     $(document).ready(function(){
-        $("input[name='brewer_name']").keyup(function () {
+        $("input[name='autocomplete_brewer_name']").keyup(function () {
             let query = $(this).val();
             if (query.length > 2) {
                 $.ajax({

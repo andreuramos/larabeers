@@ -26,6 +26,7 @@ class BrewerRepository
         }
 
         $eloquent_brewer->name = $brewer->name;
+        $eloquent_brewer->normalized_name = $brewer->normalized_name;
         $eloquent_brewer->country = $brewer->city->country->name;
         $eloquent_brewer->city = $brewer->city->name;
 
@@ -39,6 +40,7 @@ class BrewerRepository
         $brewer = new Brewer();
         $brewer->id = $eloquent_brewer->id;
         $brewer->name = $eloquent_brewer->name;
+        $brewer->normalized_name = $eloquent_brewer->normalized_name;
         $country = new Country($eloquent_brewer->country);
         $brewer->city = new City($eloquent_brewer->city, $country);
 

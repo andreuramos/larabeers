@@ -20,6 +20,7 @@ Route::group(['prefix' => '/ajax'], function(){
     Route::get('search', "HomeController@ajax_search");
     Route::get('brewer_autocomplete', "HomeController@ajax_brewer_autocomplete");
     Route::get('style_autocomplete', "HomeController@ajax_style_autocomplete");
+    Route::post('create_brewer', "DashboardController@ajax_create_brewer");
 });
 Route::group(['prefix' => '/beer'], function() {
     Route::get('/{id}', "HomeController@show_beer");
@@ -27,7 +28,12 @@ Route::group(['prefix' => '/beer'], function() {
     Route::post('/{id}/update', "DashboardController@update_beer");
     Route::post('/{id}/new_label', "DashboardController@add_label_to_beer");
 });
-Route::get('/brewer/{id}', "HomeController@show_brewer");
+Route::group(['prefix' => '/brewer'], function() {
+    Route::get('/{id}', "HomeController@show_brewer");
+    Route::post('/create', 'DashboardController@create_brewer');
+    Route::post('/{id}/update', 'DashboardController@update_brewer');
+});
+
 
 Route::group(['prefix' => '/stats'], function(){
     Route::get('countries', "HomeController@list_countries");
