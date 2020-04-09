@@ -4,6 +4,7 @@ namespace Larabeers\External;
 
 use App\Brewer as EloquentBrewer;
 use Larabeers\Entities\Brewer;
+use Larabeers\Entities\Country;
 
 class BrewerRepository
 {
@@ -12,7 +13,24 @@ class BrewerRepository
         $eloquent_brewer = EloquentBrewer::find($id);
         if (!$eloquent_brewer) return null;
 
-        return self::eloquentToEntityBrewer($eloquent_brewer);
+        return $this->eloquentToEntityBrewer($eloquent_brewer);
+    }
+
+    public function save(Brewer $brewer): int
+    {
+        if ($brewer->id) {
+            $eloquent_brewer = EloquentBrewer::find($brewer->id);
+        } else {
+            $eloquent_brewer = new EloquentBrewer();
+        }
+
+        $eloquent_brewer->name = $brewer->name;
+        $eloquent_brewer->country = $brewer->city->country->name;
+        $eloquent_brewer->city = $brewer->city->name;
+
+        $eloquent_brewer->save();
+
+        return $eloquent_brewer->id;
     }
 
     private function eloquentToEntityBrewer(EloquentBrewer $eloquent_brewer): Brewer
@@ -20,7 +38,8 @@ class BrewerRepository
         $brewer = new Brewer();
         $brewer->id = $eloquent_brewer->id;
         $brewer->name = $eloquent_brewer->name;
-        $brewer->country = $eloquent_brewer->country;
+        $country = new Country($eloquent_brewer->country);
+        $brewer->city = new City($eloquent_brewer->city, $country);
 
         return $brewer;
     }

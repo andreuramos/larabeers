@@ -15,8 +15,8 @@
             </li>
             <li class="list-group-item">
                 <i class="fa fa-globe-europe"></i>&nbsp;
-                {{ $beer->brewers->first()->country }}&nbsp;/&nbsp;
-                {{ $beer->brewers->first()->city }}
+                {{ $beer->brewers->first()->city->country->name }}&nbsp;/&nbsp;
+                {{ $beer->brewers->first()->city->name }}
             </li>
             <li class="list-group-item">
                 <i class="fa fa-font"></i>&nbsp;
