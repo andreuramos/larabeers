@@ -5,18 +5,22 @@ namespace App\Http\Controllers;
 use App\Beer;
 use App\Brewer;
 use Illuminate\Http\Request;
+use Larabeers\External\BeerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
 
 class HomeController extends Controller
 {
+    private $beer_repository;
     private $search_brewer;
     private $search_style;
 
     public function __construct(
+        BeerRepository $beer_repository,
         SearchBrewer $search_brewer,
         SearchStyle $search_style
     ) {
+        $this->beer_repository = $beer_repository;
         $this->search_brewer = $search_brewer;
         $this->search_style = $search_style;
     }
@@ -51,7 +55,7 @@ class HomeController extends Controller
         ];
         return view('frontend.home', [
             'stats' => $stats,
-            'beers' => Beer::random(5)
+            'beers' => $this->beer_repository->random(5)
         ]);
     }
 

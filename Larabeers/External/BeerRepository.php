@@ -66,6 +66,18 @@ class BeerRepository
         return $results;
     }
 
+    public function random(int $limit = 5): array
+    {
+        $results = [];
+
+        $eloquent_beers = EloquentBeer::inRandomOrder()->take($limit)->get();
+        foreach ($eloquent_beers as $eloquent_beer) {
+            $results[] = $this->eloquentToEntityBeer($eloquent_beer);
+        }
+
+        return $results;
+    }
+
     private function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
     {
         $beer = new Beer();

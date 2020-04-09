@@ -7,7 +7,7 @@
             <a href="{{ url('/beer/'.$beer->id) }}">{{ $beer->name }}</a>
         </div>
         <span class="beer-list__beer__data__flag">
-            <img class="country-flag" src="{{ $beer->brewers[0]->country->flag }}" title="{{ $beer->brewers[0]->city->country->name }}">
+            <img class="country-flag" src="{{ $beer->brewers[0]->city->country->flag }}" title="{{ $beer->brewers[0]->city->country->name }}">
         </span>
         <span class="beer-list__beer__data__brewer">{{ $beer->brewers[0]->name }}</span>
         <div class="badge badge-secondary">{{ $beer->labels[0]->year }}</div>

@@ -4,6 +4,7 @@ namespace Larabeers\External;
 
 use App\Brewer as EloquentBrewer;
 use Larabeers\Entities\Brewer;
+use Larabeers\Entities\City;
 use Larabeers\Entities\Country;
 
 class BrewerRepository
