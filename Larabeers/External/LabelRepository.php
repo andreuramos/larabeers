@@ -2,10 +2,12 @@
 
 namespace Larabeers\External;
 
-use App\Sticker;
 use Larabeers\Entities\Image;
 use Larabeers\Entities\Label;
+use Larabeers\Entities\Tag;
 use App\Label as EloquentLabel;
+use App\Sticker;
+use App\Tag as EloquentTag;
 
 class LabelRepository
 {
@@ -40,6 +42,10 @@ class LabelRepository
 
             $sticker->path = $label->sticker->url;
             $sticker->save();
+        }
+
+        if (!empty($label->tags)) {
+            $this->syncTags($eloquent_label, $label->tags);
         }
     }
 
@@ -78,6 +84,7 @@ class LabelRepository
         $label->album = $eloquent_label->album;
         $label->page = $eloquent_label->page;
         $label->position = $eloquent_label->position;
+        $label->tags = [];
 
         if (count($eloquent_label->stickers)) {
             $sticker = new Image();
@@ -87,6 +94,29 @@ class LabelRepository
             $label->sticker = null;
         }
 
+        if (count($eloquent_label->tags)) {
+            foreach ($eloquent_label->tags as $eloquent_tag) {
+                $label->tags[] = new Tag($eloquent_tag);
+            }
+        }
+
         return $label;
+    }
+
+    private function syncTags(EloquentLabel $eloquent_label, array $tags)
+    {
+        $tag_ids = [];
+
+        foreach ($tags as $tag) {
+            $eloquent_tag = EloquentTag::where('text', $tag->text)->first();
+            if (!$eloquent_tag) {
+                $eloquent_tag = new EloquentTag();
+                $eloquent_tag->text = $tag->text;
+                $eloquent_tag->save();
+            }
+            $tag_ids[] = $eloquent_tag->id;
+        }
+
+        $eloquent_label->tags->sync($tag_ids);
     }
 }

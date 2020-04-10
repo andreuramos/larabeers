@@ -16,6 +16,8 @@ class Label
     public int $page;
     public int $position;
 
+    public array $tags;
+
     public function __construct()
     {
         $this->id = null;
