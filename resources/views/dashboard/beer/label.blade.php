@@ -44,11 +44,11 @@
                     <div class="row">
                         {{ Form::hidden('label_id', $label ? $label->id : null) }}
                         {{ Form::hidden('beer_id', $beer_id) }}
-                        <div class="label-form__image col-xs-12 col-sm-6">
+                        <div class="label-form__image col-12 col-sm-6">
                             @include('dashboard.beer.image-input', ['id' => "input" . ($label ? $label->id : 'new')])
                         </div>
 
-                        <div class="label-form__data col-xs-12 col-sm-6">
+                        <div class="label-form__data col-12 col-sm-6">
                             <span class="label-form__data__label">Year&nbsp;<i class="fa fa-calendar-alt"></i></span>
                             {{ Form::text('year', $label ? $label->year : null) }}
                             <span class="label-form__data__label">Album&nbsp;<i class="fa fa-book"></i></span>
@@ -60,9 +60,8 @@
                             <br>
                         </div>
 
-                        <div class="label-form__tags col-12">
-                            {{ Form::label('tags', "Tags") }}
-                            {{ Form::text('tags', "") }}
+                        <div class="col-12">
+                            @include('dashboard.beer.tag-autocomplete', ['tags' => $label ? $label->tags : []])
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,15 @@ body {
     }
 }
 
+.label-badge {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+
+    a {
+        color: white;
+    }
+}
+
 input {
     border: solid 1px lightgrey;
     padding-left: 0.5em;

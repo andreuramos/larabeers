@@ -96,7 +96,7 @@ class LabelRepository
 
         if (count($eloquent_label->tags)) {
             foreach ($eloquent_label->tags as $eloquent_tag) {
-                $label->tags[] = new Tag($eloquent_tag);
+                $label->tags[] = new Tag($eloquent_tag->text);
             }
         }
 
