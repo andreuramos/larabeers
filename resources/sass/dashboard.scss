@@ -96,7 +96,9 @@
 .label-form {
 
     &__image {
-
+        &__label {
+            width: 100%;
+        }
     }
 
     &__data {
@@ -141,4 +143,16 @@
         cursor: pointer;
         background-color: lightgrey;
     }
+}
+
+.brewer-form {
+    margin-bottom: 2em;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.preview-file-input {
+    border: solid 1px lightgray;
+
 }

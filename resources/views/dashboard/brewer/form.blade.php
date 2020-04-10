@@ -1,3 +1,4 @@
+<div class="brewer-form">
     <div class="field-block">
         <div class="field-block__label">
             <label for="brewer_name">Name</label>
@@ -24,4 +25,5 @@
             <input type="text" id="brewer_city" name="brewer_city">
         </div>
     </div>
-    <a class="btn btn-primary col-12" style="color: white" id="submit_brewer">Save</a>
+</div>
+<a class="btn btn-primary col-12" style="color: white" id="submit_brewer">Save</a>
