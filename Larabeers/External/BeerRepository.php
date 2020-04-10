@@ -78,6 +78,15 @@ class BeerRepository
         return $results;
     }
 
+    public function search(string $query): array
+    {
+        $results = [];
+        foreach(EloquentBeer::search($query) as $eloquent_beer) {
+            $results[] = $this->eloquentToEntityBeer($eloquent_beer);
+        }
+        return $results;
+    }
+
     private function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
     {
         $beer = new Beer();

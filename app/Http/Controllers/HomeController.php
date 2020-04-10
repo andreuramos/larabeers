@@ -61,7 +61,7 @@ class HomeController extends Controller
 
     public function ajax_search(Request $request)
     {
-        $beers = Beer::search($request->get('query'));
+        $beers = $this->beer_repository->search($request->get('query'));
         return view("frontend.beer_list", ["beers" => $beers]);
     }
 
