@@ -6,11 +6,11 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-6 col-sm-10">
                                 <i class="fa fa-beer"></i> Beer Data
                             </div>
-                            <div class="col-2">
-                                <a class="btn btn-outline-secondary" href="{{ url('/beer/'. $beer->id) }}">Back</a>
+                            <div class="col-6 col-sm-2">
+                                <a class="btn btn-outline-secondary w-100" href="{{ url('/beer/'. $beer->id) }}">Back</a>
                             </div>
                         </div>
                     </div>
