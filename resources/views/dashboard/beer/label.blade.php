@@ -61,7 +61,10 @@
                         </div>
 
                         <div class="col-12">
-                            @include('dashboard.beer.tag-autocomplete', ['tags' => $label ? $label->tags : []])
+                            @include('dashboard.beer.tag-autocomplete', [
+                                'tags' => $label ? $label->tags : [],
+                                'label_id' => $label ? $label->id : 'new'
+                                ])
                         </div>
                     </div>
                 </div>
