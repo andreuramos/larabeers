@@ -1,6 +1,7 @@
-<div class="label-form__tags col-12">
+<div class="label-form__tags col-12" data-label="{{ $label_id }}">
     <label class="label-form__tags__label" for="tags">Tags</label>
     {{ Form::text('tags', "", ['id' => "label-$label_id-tag-autocomplete"]) }}
+    <div class="tag-autocomplete-list autocomplete_list hidden"></div>
     {{ Form::hidden('tag_names', implode('|', $tags), ['id' => "label-$label_id-tag-names"]) }}
 </div>
 <div class="label-form__tag-list-{{$label_id}} col-12">
@@ -26,8 +27,10 @@
             if (tag_text.length > 2) {
                 $.ajax({
                     url: '/ajax/tag_autocomplete?query=' + tag_text,
+                    method: 'GET',
                     success: function(data) {
-
+                        console.log(data);
+                        let $autocomplete_list = $("div[data-label='{{$label_id}}]").children('.autocomplete-list');
                     }
                 });
             }

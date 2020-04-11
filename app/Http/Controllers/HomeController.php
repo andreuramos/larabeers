@@ -8,21 +8,25 @@ use Illuminate\Http\Request;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
+use Larabeers\Services\SearchTag;
 
 class HomeController extends Controller
 {
     private $beer_repository;
     private $search_brewer;
     private $search_style;
+    private $search_tag;
 
     public function __construct(
         BeerRepository $beer_repository,
         SearchBrewer $search_brewer,
-        SearchStyle $search_style
+        SearchStyle $search_style,
+        SearchTag $search_tag
     ) {
         $this->beer_repository = $beer_repository;
         $this->search_brewer = $search_brewer;
         $this->search_style = $search_style;
+        $this->search_tag = $search_tag;
     }
 
     public function home()
@@ -88,6 +92,18 @@ class HomeController extends Controller
 
         foreach($this->search_style->execute($query) as $style) {
             $results[] = $style->name;
+        }
+
+        return response()->json($results);
+    }
+
+    public function ajax_tag_autocomplete(Request $request)
+    {
+        $query = $request->get('query');
+        $results = [];
+
+        foreach ($this->search_tag->execute($query) as $tag) {
+            $results[] = $tag->text;
         }
 
         return response()->json($results);

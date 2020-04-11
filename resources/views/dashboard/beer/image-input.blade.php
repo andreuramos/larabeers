@@ -19,6 +19,5 @@
                 reader.readAsDataURL($input.files[0]);
             }
         });
-        console.log($._data( $("#input-file-{{ $id }}"), "events" ));
     });
 </script>

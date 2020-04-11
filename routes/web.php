@@ -20,6 +20,7 @@ Route::group(['prefix' => '/ajax'], function(){
     Route::get('search', "HomeController@ajax_search");
     Route::get('brewer_autocomplete', "HomeController@ajax_brewer_autocomplete");
     Route::get('style_autocomplete', "HomeController@ajax_style_autocomplete");
+    Route::get('tag_autocomplete', "HomeController@ajax_tag_autocomplete");
     Route::post('create_brewer', "DashboardController@ajax_create_brewer");
 });
 Route::group(['prefix' => '/beer'], function() {
