@@ -23,7 +23,6 @@
                     let $autocomplete_list = $(".style-autocomplete-list");
                     $autocomplete_list.removeClass('hidden');
                     $autocomplete_list.html('');
-                    console.log(data);
                     if (data.length > 0) {
                         $.each(data, function (idx, style) {
                             let suggestion = '<div class="autocomplete_list__item" onclick="selectStyle(\'' + style + '\')">' + style + '</div>';
