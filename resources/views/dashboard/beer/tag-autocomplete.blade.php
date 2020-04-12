@@ -33,11 +33,9 @@
         let $tags_input = $("#label-" + label_id + "-tag-names");
         let tags = [];
         if ($tags_input.val() !== "") {
-            console.log("tags was not empty")
             tags = $tags_input.val().split('|');
         }
         if (!tags.includes(name)) {
-            console.log("adding new tag & badge in label-form__tag-list-"+label_id);
             tags.push(name);
             $(".label-form__tag-list-"+label_id).append(buildBadge(name, label_id));
         }
@@ -71,14 +69,7 @@
             var tag_text = $(this).val();
             if (e.keyCode == 13 && tag_text.length) { // enter
                 e.preventDefault();
-                var tags = $("#label-{{$label_id}}-tag-names").val().split('|');
-                if (!tags.includes(tag_text)) {
-                    tags.push(tag_text);
-                    $("#label-{{$label_id}}-tag-names").val(tags.join('|'));
-                    let badge = buildBadge(tag_text, '{{$label_id}}');
-                    $(this).parent().siblings('.label-form__tag-list-{{$label_id}}').append(badge);
-                }
-                $(this).val("");
+                selectTag(tag_text,'{{$label_id}}');
             }
         })
     })

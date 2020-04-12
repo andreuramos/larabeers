@@ -26,7 +26,7 @@ class CreateLabelToBeer
         $this->label_repository = $label_repository;
     }
 
-    public function execute(int $beer_id, $tmp_file_path, array $metadata): void
+    public function execute(int $beer_id, $tmp_file_path, array $metadata, array $tags = null): void
     {
         if (!$tmp_file_path) throw new \Exception("No image provided");
 
@@ -44,6 +44,10 @@ class CreateLabelToBeer
         $label->page = $metadata['page'];
         $label->position = $metadata['position'];
         $label->sticker = $uploaded_image;
+
+        if ($tags !== null) {
+            $label->tags = $tags;
+        }
 
         $this->label_repository->save($label);
     }

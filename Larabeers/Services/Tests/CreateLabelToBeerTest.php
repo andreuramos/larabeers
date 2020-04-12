@@ -4,6 +4,7 @@ namespace Larabeers\Services\Tests;
 
 use Larabeers\Entities\Image;
 use Larabeers\Entities\Label;
+use Larabeers\Entities\Tag;
 use Larabeers\Exceptions\UploadFailedException;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;
@@ -114,6 +115,42 @@ class CreateLabelToBeerTest extends TestCase
 
         $service = $this->getService();
         $service->execute(1, $image_path, $label_data);
+    }
+
+    public function test_tags_are_stored()
+    {
+        $image_path = "/tmp/image/path.jpg";
+        $image = new Image();
+        $image->url = "http://cloud.storage.url/resource/hash";
+        $label_data = [
+            'year' => 2020,
+            'album' => 1,
+            'page' => 1,
+            'position' => 1
+        ];
+        $tags = [new Tag("some"), new Tag("tags")];
+        $label = new Label();
+        $label->beer_id = 1;
+        $label->year = 2020;
+        $label->album = 1;
+        $label->page = 1;
+        $label->position = 1;
+        $label->sticker = $image;
+        $label->tags = $tags;
+
+        $this->get_file_type->execute($image_path)
+            ->shouldBeCalled()
+            ->willReturn(self::IMAGE_JPG);
+
+        $this->image_uploader->upload($image_path)
+            ->shouldBeCalled()
+            ->willReturn($image);
+
+        $this->label_repository->save($label)
+            ->shouldBeCalled();
+
+        $service = $this->getService();
+        $service->execute(1, $image_path, $label_data, $tags);
     }
 
     private function getService()

@@ -170,16 +170,29 @@ class DashboardController extends Controller
     public function add_label_to_beer(Request $request, $beer_id)
     {
         $image = $request->file('label');
-        if ($image) {
+        if (!$image) {
+            $request->session()->flash('error', "New label must contain an image");
+        }
+
+        $tag_names = $request->get('tag_names');
+        $tags = [];
+        if ($tag_names) {
+            foreach (explode('|', $tag_names) as $tag_name) {
+                $tags[] = new Tag($tag_name);
+            }
+        }
+        try {
             $this->create_label_to_beer->execute($beer_id, $image->getRealPath(), [
                 'year' => $request->get('year'),
                 'album' => $request->get('album'),
                 'page' => $request->get('page'),
                 'position' => $request->get('position'),
-            ]);
+            ], $tags);
+            $request->session()->flash('success', "Label added successfully");
+        } catch (\Exception $e) {
+            $request->session()->flash('error', $e->getMessage());
         }
 
-        $request->session()->flash('success', "Label added successfully");
         return redirect()->action('DashboardController@edit_beer', ['id' => $beer_id]);
     }
 
