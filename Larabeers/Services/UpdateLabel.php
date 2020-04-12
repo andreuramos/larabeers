@@ -45,8 +45,10 @@ class UpdateLabel
 
         if ($path_to_file !== null) {
             $this->checkFileType($path_to_file);
-            $image = $this->image_uploader->upload($path_to_file);
-            $label->sticker = $image;
+            $image_url = $this->image_uploader->upload($path_to_file);
+            $sticker = new Image();
+            $sticker->url = $image_url;
+            $label->sticker = $sticker;
         }
 
         if ($metadata !== null) {

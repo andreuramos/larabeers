@@ -105,7 +105,7 @@ class UpdateLabelTest extends TestCase
 
         $this->image_uploader->upload($file_path)
             ->shouldBeCalled()
-            ->willReturn($new_image);
+            ->willReturn($new_url);
 
         $this->label_repository->save($label_with_new_image)
             ->shouldBeCalled();

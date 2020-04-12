@@ -35,7 +35,9 @@ class CreateLabelToBeer
             throw new UploadFailedException("Unsupported image type");
         }
 
-        $uploaded_image = $this->label_uploader->upload($tmp_file_path);
+        $sticker_url = $this->label_uploader->upload($tmp_file_path);
+        $sticker = new Image();
+        $sticker->url = $sticker_url;
 
         $label = new Label();
         $label->beer_id = $beer_id;
@@ -43,7 +45,7 @@ class CreateLabelToBeer
         $label->album = $metadata['album'];
         $label->page = $metadata['page'];
         $label->position = $metadata['position'];
-        $label->sticker = $uploaded_image;
+        $label->sticker = $sticker;
 
         if ($tags !== null) {
             $label->tags = $tags;

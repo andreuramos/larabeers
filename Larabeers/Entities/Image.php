@@ -7,4 +7,6 @@ class Image
     const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg'];
 
     public $url;
+    public $thumbnail;
+    public $small;
 }

@@ -6,5 +6,5 @@ use Larabeers\Entities\Image;
 
 interface ImageUploader
 {
-    public function upload(string $image_path): Image;
+    public function upload(string $image_path): string;
 }

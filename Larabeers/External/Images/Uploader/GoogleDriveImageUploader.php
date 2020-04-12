@@ -20,7 +20,7 @@ class GoogleDriveImageUploader implements ImageUploader
         $this->client = $this->getGoogleClient();
     }
 
-    public function upload(string $image_path): Image
+    public function upload(string $image_path): string
     {
         $google_drive_service = new Google_Service_Drive($this->authenticate($this->client));
 
@@ -37,12 +37,7 @@ class GoogleDriveImageUploader implements ImageUploader
 
         $this->setPublicAccess($google_drive_service, $file);
 
-        $public_url = self::PUBLIC_FILE_URL . $file->id;
-
-        $image_path = new Image();
-        $image_path->url = $public_url;
-
-        return $image_path;
+        return self::PUBLIC_FILE_URL . $file->id;
     }
 
     private function getGoogleClient(): Google_Client

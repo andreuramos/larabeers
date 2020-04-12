@@ -87,7 +87,8 @@ class CreateLabelToBeerTest extends TestCase
     {
         $image_path = "/tmp/image/path.jpg";
         $image = new Image();
-        $image->url = "http://cloud.storage.url/resource/hash";
+        $image_url = "http://cloud.storage.url/resource/hash";
+        $image->url = $image_url;
         $label_data = [
             'year' => 2020,
             'album' => 1,
@@ -108,7 +109,7 @@ class CreateLabelToBeerTest extends TestCase
 
         $this->image_uploader->upload($image_path)
             ->shouldBeCalled()
-            ->willReturn($image);
+            ->willReturn($image_url);
 
         $this->label_repository->save($label)
             ->shouldBeCalled();
@@ -121,7 +122,8 @@ class CreateLabelToBeerTest extends TestCase
     {
         $image_path = "/tmp/image/path.jpg";
         $image = new Image();
-        $image->url = "http://cloud.storage.url/resource/hash";
+        $image_url = "http://cloud.storage.url/resource/hash";
+        $image->url = $image_url;
         $label_data = [
             'year' => 2020,
             'album' => 1,
@@ -144,7 +146,7 @@ class CreateLabelToBeerTest extends TestCase
 
         $this->image_uploader->upload($image_path)
             ->shouldBeCalled()
-            ->willReturn($image);
+            ->willReturn($image_url);
 
         $this->label_repository->save($label)
             ->shouldBeCalled();
