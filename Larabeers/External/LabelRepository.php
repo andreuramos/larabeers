@@ -44,9 +44,7 @@ class LabelRepository
             $sticker->save();
         }
 
-        if (!empty($label->tags)) {
-            $this->syncTags($eloquent_label, $label->tags);
-        }
+        $this->syncTags($eloquent_label, $label->tags);
     }
 
     private static function populateEloquentLabel(EloquentLabel $eloquent_label, Label $label): EloquentLabel
@@ -117,6 +115,6 @@ class LabelRepository
             $tag_ids[] = $eloquent_tag->id;
         }
 
-        $eloquent_label->tags->sync($tag_ids);
+        $eloquent_label->tags()->sync($tag_ids);
     }
 }

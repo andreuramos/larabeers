@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Beer;
 use App\Brewer;
 use App\Label;
-use App\Tag;
+use App\Tag as EloquentTag;
 use Google_Service_Drive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,7 @@ use Larabeers\Entities\BeerCriteria;
 use Larabeers\Entities\City;
 use Larabeers\Entities\Country;
 use Larabeers\Entities\Style;
+use Larabeers\Entities\Tag;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Services\CreateLabelToBeer;
@@ -101,9 +102,9 @@ class DashboardController extends Controller
                 $beer->id, $row[9], $row[10], $row[4], $row[5], $row[6], $row[14]
             );
 
-            $tag = Tag::where('text', $row[13])->first();
+            $tag = EloquentTag::where('text', $row[13])->first();
             if (!$tag) {
-                $tag = Tag::create([
+                $tag = EloquentTag::create([
                     'text' => $row[13]
                 ]);
             }
@@ -193,13 +194,21 @@ class DashboardController extends Controller
             'position' => $request->get('position'),
         ];
 
+        $tag_names = $request->get('tag_names');
+        $tags = [];
+        if ($tag_names) {
+            foreach (explode('|', $tag_names) as $tag_name) {
+                $tags[] = new Tag($tag_name);
+            }
+        }
+
         if ($request->has('label')) {
             $image = $request->file('label')->getRealPath();
         } else {
             $image = null;
         }
 
-        $this->update_label->execute($label_id, $image, $metadata);
+        $this->update_label->execute($label_id, $image, $metadata, $tags);
 
         $request->session()->flash('success', "Label updated successfully");
         return redirect()->action('DashboardController@edit_beer', ['id' => $beer_id]);

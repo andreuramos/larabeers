@@ -4,8 +4,10 @@ namespace Larabeers\Services\Tests;
 
 use Larabeers\Entities\Image;
 use Larabeers\Entities\Label;
+use Larabeers\Entities\Tag;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;
+use Larabeers\External\TagRepository;
 use Larabeers\Services\UpdateLabel;
 use Larabeers\Utils\GetFileType;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +19,7 @@ class UpdateLabelTest extends TestCase
     private $label_repository;
     private $file_type_getter;
     private $image_uploader;
+    private $tag_repository;
 
     public function setUp()
     {
@@ -24,6 +27,7 @@ class UpdateLabelTest extends TestCase
         $this->label_repository = $this->prophet->prophesize(LabelRepository::class);
         $this->file_type_getter = $this->prophet->prophesize(GetFileType::class);
         $this->image_uploader = $this->prophet->prophesize(ImageUploader::class);
+        $this->tag_repository = $this->prophet->prophesize(TagRepository::class);
     }
 
     public function tearDown()
@@ -147,12 +151,55 @@ class UpdateLabelTest extends TestCase
         $service->execute($label_id, null, $label_metadata);
     }
 
+    /**
+     * @expectedException \Larabeers\Exceptions\ServiceArgumentException
+     * @expectedExceptionMessage Tag 0 is not a \Larabeers\Entities\Tag object
+     */
+    public function test_tags_class_check()
+    {
+        $label_id = 1;
+
+        $label = new Label();
+        $label->id = 1;
+
+        $this->label_repository->findById($label_id)
+            ->shouldBeCalled()
+            ->willReturn($label);
+
+        $this->getService()->execute($label_id, null, null, ["not a tag object"]);
+    }
+
+    public function test_tags_stored()
+    {
+        $label_id = 1;
+        $old_tags = [new Tag("these are"), new Tag("old tags")];
+        $new_tags = [new Tag("and these"), new Tag("are new")];
+
+        $label = new Label();
+        $label->id = $label_id;
+        $label->tags = $old_tags;
+
+        $updated_label = new Label();
+        $updated_label->id = $label_id;
+        $updated_label->tags = $new_tags;
+
+        $this->label_repository->findById($label_id)
+            ->shouldBeCalled()
+            ->willReturn($label);
+
+        $this->label_repository->save($updated_label)
+            ->shouldBeCalled();
+
+        $this->getService()->execute($label_id, null, null, $new_tags);
+    }
+
     private function getService()
     {
         return new UpdateLabel(
             $this->label_repository->reveal(),
             $this->file_type_getter->reveal(),
-            $this->image_uploader->reveal()
+            $this->image_uploader->reveal(),
+            $this->tag_repository->reveal()
         );
     }
 }
