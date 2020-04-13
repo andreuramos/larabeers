@@ -41,7 +41,10 @@
         <div class="row justify-content-center mt-3">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Last Beers</div>
+                    <div class="card-header">
+                        <span>Last Beers</span>
+                        <a href="{{ url('/beer/new') }}" style="float:right" class="btn btn-primary">Add beer</a>
+                    </div>
                     <div class="card-body">
                         @include('frontend.beer_list', ['beers' => $last_beers])
                     </div>
