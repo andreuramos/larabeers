@@ -35,6 +35,7 @@ class BeerRepository
             $eloquent_beer = $this->populateEloquentBeer($eloquent_beer, $beer);
         } else {
             $eloquent_beer = $this->entityToEloquentBeer($beer);
+            $eloquent_beer->created_at = date_create()->format('Y-m-d H:i:s');
         }
 
         $eloquent_beer->save();
