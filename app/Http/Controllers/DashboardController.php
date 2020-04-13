@@ -229,13 +229,12 @@ class DashboardController extends Controller
 
     public function settings(Request $request)
     {
-
         $account_connected = false;
-        $refresh_token = Auth::user()->google_refresh_token; //$_COOKIE['google_refresh_token'];
+        $refresh_token = Auth::user()->google_refresh_token;
+        $client = $this->getGoogleClient();
+        $auth_url = $client->createAuthUrl();
 
         if ($refresh_token !== null) {
-            $client = $this->getGoogleClient();
-            $auth_url = $client->createAuthUrl();
             $access = $client->fetchAccessTokenWithRefreshToken(Crypt::decrypt($refresh_token));
 
             if (!array_key_exists('error', $access)) {
