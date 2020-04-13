@@ -41,6 +41,7 @@ class LabelRepository
             }
 
             $sticker->path = $label->sticker->url;
+            $sticker->thumbnail = $label->sticker->thumbnail;
             $sticker->save();
         }
 
@@ -86,7 +87,9 @@ class LabelRepository
 
         if (count($eloquent_label->stickers)) {
             $sticker = new Image();
-            $sticker->url = $eloquent_label->stickers->first()->path;
+            $eloquent_sticker = $eloquent_label->stickers->first();
+            $sticker->url = $eloquent_sticker->path;
+            $sticker->thumbnail = $eloquent_sticker->thumbnail;
             $label->sticker = $sticker;
         } else {
             $label->sticker = null;
