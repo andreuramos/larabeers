@@ -26,7 +26,7 @@ class CreateLabelToBeer
         $this->label_repository = $label_repository;
     }
 
-    public function execute(int $beer_id, $tmp_file_path, array $metadata, array $tags = null): void
+    public function execute(int $beer_id, string $tmp_file_path, array $metadata, array $tags = null): void
     {
         if (!$tmp_file_path) throw new \Exception("No image provided");
 
@@ -35,9 +35,7 @@ class CreateLabelToBeer
             throw new UploadFailedException("Unsupported image type");
         }
 
-        $sticker_url = $this->label_uploader->upload($tmp_file_path);
-        $sticker = new Image();
-        $sticker->url = $sticker_url;
+        $sticker = $this->uploadSticker($tmp_file_path);
 
         $label = new Label();
         $label->beer_id = $beer_id;
@@ -52,5 +50,18 @@ class CreateLabelToBeer
         }
 
         $this->label_repository->save($label);
+    }
+
+    private function uploadSticker(string $tmp_file_path): Image
+    {
+        $sticker_url = $this->label_uploader->upload($tmp_file_path);
+        $sticker = new Image();
+        $sticker->url = $sticker_url;
+
+//        $thumbnail_path = $this->resize_image->execute($tmp_file_path, 50);
+//        $thumbnail_url = $this->label_uploader->upload($thumbnail_path);
+//        $sticker->thumbnail = $thumbnail_url;
+
+        return $sticker;
     }
 }
