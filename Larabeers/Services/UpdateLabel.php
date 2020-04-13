@@ -12,6 +12,7 @@ use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;
 use Larabeers\External\TagRepository;
 use Larabeers\Utils\GetFileType;
+use Larabeers\Utils\ResizeImage;
 
 class UpdateLabel
 {
@@ -19,17 +20,20 @@ class UpdateLabel
     private $get_file_type;
     private $image_uploader;
     private $tag_repository;
+    private $resize_image;
 
     public function __construct(
         LabelRepository $label_repository,
         GetFileType $get_file_type,
         ImageUploader $image_uploader,
-        TagRepository $tag_repository
+        TagRepository $tag_repository,
+        ResizeImage $resize_image
     ) {
         $this->label_repository = $label_repository;
         $this->get_file_type = $get_file_type;
         $this->image_uploader = $image_uploader;
         $this->tag_repository = $tag_repository;
+        $this->resize_image = $resize_image;
     }
 
     public function execute(
@@ -44,10 +48,7 @@ class UpdateLabel
         }
 
         if ($path_to_file !== null) {
-            $this->checkFileType($path_to_file);
-            $image_url = $this->image_uploader->upload($path_to_file);
-            $sticker = new Image();
-            $sticker->url = $image_url;
+            $sticker = $this->uploadSticker($path_to_file);
             $label->sticker = $sticker;
         }
 
@@ -77,5 +78,20 @@ class UpdateLabel
         if (!in_array($file_type, Image::SUPPORTED_MIMES)) {
             throw new UploadFailedException("File type $file_type not supported");
         }
+    }
+
+    private function uploadSticker(?string $path_to_file): Image
+    {
+        $this->checkFileType($path_to_file);
+        $image_url = $this->image_uploader->upload($path_to_file);
+
+        $thumbnail_path = $this->resize_image->execute($path_to_file, ResizeImage::THUMBNAIL_WIDTH);
+        $thumbnail_url = $this->image_uploader->upload($thumbnail_path);
+
+        $sticker = new Image();
+        $sticker->url = $image_url;
+        $sticker->thumbnail = $thumbnail_url;
+
+        return $sticker;
     }
 }

@@ -10,6 +10,7 @@ use Larabeers\External\LabelRepository;
 use Larabeers\External\TagRepository;
 use Larabeers\Services\UpdateLabel;
 use Larabeers\Utils\GetFileType;
+use Larabeers\Utils\ResizeImage;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophet;
 
@@ -19,6 +20,7 @@ class UpdateLabelTest extends TestCase
     private $label_repository;
     private $file_type_getter;
     private $image_uploader;
+    private $resize_image;
     private $tag_repository;
 
     public function setUp()
@@ -27,6 +29,7 @@ class UpdateLabelTest extends TestCase
         $this->label_repository = $this->prophet->prophesize(LabelRepository::class);
         $this->file_type_getter = $this->prophet->prophesize(GetFileType::class);
         $this->image_uploader = $this->prophet->prophesize(ImageUploader::class);
+        $this->resize_image = $this->prophet->prophesize(ResizeImage::class);
         $this->tag_repository = $this->prophet->prophesize(TagRepository::class);
     }
 
@@ -80,12 +83,15 @@ class UpdateLabelTest extends TestCase
         $file_path = "tmp/gulden_draak.jpg";
         $old_url = "https://old.sticker.url/file.jpg";
         $new_url = "https://new.sticker.url/file.jpg";
+        $thumb_path = "tmp/gulden_draak_50px.png";
+        $thumb_url = "https://new.sticker.url/thumb.png";
 
         $image = new Image();
         $image->url = $old_url;
 
         $new_image = new Image();
         $new_image->url = $new_url;
+        $new_image->thumbnail = $thumb_url;
 
         $label = new Label();
         $label->id = $label_id;
@@ -106,6 +112,14 @@ class UpdateLabelTest extends TestCase
         $this->image_uploader->upload($file_path)
             ->shouldBeCalled()
             ->willReturn($new_url);
+
+        $this->resize_image->execute($file_path, ResizeImage::THUMBNAIL_WIDTH)
+            ->shouldBeCalled()
+            ->willReturn($thumb_path);
+
+        $this->image_uploader->upload($thumb_path)
+            ->shouldBeCalled()
+            ->willReturn($thumb_url);
 
         $this->label_repository->save($label_with_new_image)
             ->shouldBeCalled();
@@ -199,7 +213,8 @@ class UpdateLabelTest extends TestCase
             $this->label_repository->reveal(),
             $this->file_type_getter->reveal(),
             $this->image_uploader->reveal(),
-            $this->tag_repository->reveal()
+            $this->tag_repository->reveal(),
+            $this->resize_image->reveal()
         );
     }
 }

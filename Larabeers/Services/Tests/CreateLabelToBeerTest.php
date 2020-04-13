@@ -10,6 +10,7 @@ use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Utils\GetFileType;
+use Larabeers\Utils\ResizeImage;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophet;
 
@@ -20,6 +21,7 @@ class CreateLabelToBeerTest extends TestCase
     private $get_file_type;
     private $image_uploader;
     private $label_repository;
+    private $resize_image;
 
     public function setUp()
     {
@@ -27,6 +29,7 @@ class CreateLabelToBeerTest extends TestCase
         $this->get_file_type = $this->prophet->prophesize(GetFileType::class);
         $this->image_uploader = $this->prophet->prophesize(ImageUploader::class);
         $this->label_repository = $this->prophet->prophesize(LabelRepository::class);
+        $this->resize_image = $this->prophet->prophesize(ResizeImage::class);
     }
 
     public function tearDown()
@@ -86,9 +89,12 @@ class CreateLabelToBeerTest extends TestCase
     public function test_image_is_uploaded_then_label_created_with_url()
     {
         $image_path = "/tmp/image/path.jpg";
+        $thumb_path = "/tmp/image/thumb.png";
         $image = new Image();
         $image_url = "http://cloud.storage.url/resource/hash";
+        $thumb_url = "http://cloud.storage.url/resource/thumb";
         $image->url = $image_url;
+        $image->thumbnail = $thumb_url;
         $label_data = [
             'year' => 2020,
             'album' => 1,
@@ -111,6 +117,14 @@ class CreateLabelToBeerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($image_url);
 
+        $this->resize_image->execute($image_path, ResizeImage::THUMBNAIL_WIDTH)
+            ->shouldBeCalled()
+            ->willReturn($thumb_path);
+
+        $this->image_uploader->upload($thumb_path)
+            ->shouldBeCalled()
+            ->willReturn($thumb_url);
+
         $this->label_repository->save($label)
             ->shouldBeCalled();
 
@@ -121,9 +135,12 @@ class CreateLabelToBeerTest extends TestCase
     public function test_tags_are_stored()
     {
         $image_path = "/tmp/image/path.jpg";
+        $thumb_path = "/tmp/image/thumb.png";
         $image = new Image();
         $image_url = "http://cloud.storage.url/resource/hash";
+        $thumb_url = "http://cloud.storage.url/resource/thumb";
         $image->url = $image_url;
+        $image->thumbnail = $thumb_url;
         $label_data = [
             'year' => 2020,
             'album' => 1,
@@ -148,6 +165,14 @@ class CreateLabelToBeerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($image_url);
 
+        $this->resize_image->execute($image_path, ResizeImage::THUMBNAIL_WIDTH)
+            ->shouldBeCalled()
+            ->willReturn($thumb_path);
+
+        $this->image_uploader->upload($thumb_path)
+            ->shouldBeCalled()
+            ->willReturn($thumb_url);
+
         $this->label_repository->save($label)
             ->shouldBeCalled();
 
@@ -160,7 +185,8 @@ class CreateLabelToBeerTest extends TestCase
         return new CreateLabelToBeer(
             $this->get_file_type->reveal(),
             $this->image_uploader->reveal(),
-            $this->label_repository->reveal()
+            $this->label_repository->reveal(),
+            $this->resize_image->reveal()
         );
     }
 }
