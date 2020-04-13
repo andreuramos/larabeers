@@ -10,13 +10,19 @@
                                 <i class="fa fa-beer"></i> Beer Data
                             </div>
                             <div class="col-6 col-sm-2">
-                                <a class="btn btn-outline-secondary w-100" href="{{ url('/beer/'. $beer->id) }}">Back</a>
+                                @if ($beer->id)
+                                    <a class="btn btn-outline-secondary w-100" href="{{ url('/beer/'. $beer->id) }}">Back</a>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="beer-form">
-                            {{ Form::open(['action' => ['DashboardController@update_beer', $beer->id], 'files' => 'true', 'autocomplete' => 'off']) }}
+                            {{ Form::open([
+                                'action' => $beer->id ? ['DashboardController@update_beer', $beer->id] : ['DashboardController@create_beer'],
+                                'files' => 'true',
+                                'autocomplete' => 'off']
+                            ) }}
                                 <div class="beer-form__field-block">
                                     <label for="name" class="beer-form__field-block__label">
                                         Beer Name &nbsp; <i class="fa fa-beer"></i>

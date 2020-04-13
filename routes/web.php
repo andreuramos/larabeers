@@ -24,6 +24,8 @@ Route::group(['prefix' => '/ajax'], function(){
     Route::post('create_brewer', "DashboardController@ajax_create_brewer");
 });
 Route::group(['prefix' => '/beer'], function() {
+    Route::get('/new', "DashboardController@new_beer");
+    Route::post('/create', "DashboardController@create_beer");
     Route::get('/{id}', "HomeController@show_beer");
     Route::get('/{id}/edit', "DashboardController@edit_beer");
     Route::post('/{id}/update', "DashboardController@update_beer");

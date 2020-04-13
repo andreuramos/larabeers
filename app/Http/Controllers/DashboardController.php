@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Beer;
-use App\Brewer;
+use App\Beer as EloquentBeer;
+use App\Brewer as EloquentBrewer;
 use App\Label;
 use App\Tag as EloquentTag;
 use Google_Service_Drive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Larabeers\Entities\Beer;
 use Larabeers\Entities\BeerCriteria;
+use Larabeers\Entities\Brewer;
 use Larabeers\Entities\City;
 use Larabeers\Entities\Country;
 use Larabeers\Entities\Style;
 use Larabeers\Entities\Tag;
 use Larabeers\External\BeerRepository;
+use Larabeers\Services\CreateBeer;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\UpdateBeer;
@@ -25,6 +28,7 @@ use Larabeers\Utils\NormalizeString;
 class DashboardController extends Controller
 {
     private $beer_repository;
+    private $create_beer;
     private $create_brewer;
     private $create_label_to_beer;
     private $update_beer;
@@ -32,12 +36,14 @@ class DashboardController extends Controller
 
     public function __construct(
         BeerRepository $beer_repository,
+        CreateBeer $create_beer,
         CreateBrewer $create_brewer,
         CreateLabelToBeer $create_label_to_beer,
         UpdateBeer $update_beer,
         UpdateLabel $update_label
     ) {
         $this->beer_repository = $beer_repository;
+        $this->create_beer = $create_beer;
         $this->create_brewer = $create_brewer;
         $this->create_label_to_beer = $create_label_to_beer;
         $this->update_beer = $update_beer;
@@ -59,8 +65,8 @@ class DashboardController extends Controller
         $last_beers = $this->beer_repository->findByCriteria($criteria);
 
         return view('dashboard', [
-            'beers' => Beer::count(),
-            'brewers' => Brewer::count(),
+            'beers' => EloquentBeer::count(),
+            'brewers' => EloquentBrewer::count(),
             'last_beers' => $last_beers
         ]);
     }
@@ -77,7 +83,7 @@ class DashboardController extends Controller
         while (($row = fgetcsv($fd)) !== FALSE) {
             $csv_brewer = $row[0];
             $csv_beer = $row[1];
-            if (Beer::where('name', $csv_beer)->first() || !$csv_beer)
+            if (EloquentBeer::where('name', $csv_beer)->first() || !$csv_beer)
                 continue;
             echo "Importing " . $row[1] . "<br>";
             $new_beers++;
@@ -90,7 +96,7 @@ class DashboardController extends Controller
                 ]);
             }
 
-            $beer = Beer::create([
+            $beer = EloquentBeer::create([
                 'name' => $csv_beer,
                 'normalized_name' => NormalizeString::execute($csv_beer),
                 'type' => $row[2]
@@ -138,6 +144,32 @@ class DashboardController extends Controller
             Label::create($label_data);
         }
         return $label;
+    }
+
+    public function new_beer()
+    {
+        $beer = new Beer();
+        $beer->brewers[] = new Brewer();
+        $beer->style = new Style("");
+        $beer->labels = [];
+        return view('dashboard.beer.form', ['beer' => $beer]);
+    }
+
+    public function create_beer(Request $request)
+    {
+        $name = $request->get('name');
+        $brewer_id = $request->get('autocomplete_brewer_id');
+        $style_name = $request->get('beer_style');
+
+        //try {
+            $style = new Style($style_name);
+            $id = $this->create_beer->execute($name, $brewer_id, $style);
+            $request->session()->flash('success', "Beer created successfully");
+            return redirect()->action('DashboardController@edit_beer', ['id' => $id]);
+        /*} catch (\Exception $e) {
+            $request->session()->flash('error', $e->getMessage());
+            return redirect()->back();
+        }*/
     }
 
     public function edit_beer($id)

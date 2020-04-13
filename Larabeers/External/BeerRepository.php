@@ -108,9 +108,11 @@ class BeerRepository
         $beer->normalized_name = $eloquent_beer->normalized_name;
         $beer->style = new Style($eloquent_beer->type);
         $beer->created_at = $eloquent_beer->created_at;
+        $beer->brewers = [];
         foreach($eloquent_beer->brewers()->get() as $brewer) {
             $beer->brewers[] = $this->brewer_repository->findById($brewer->id);
         }
+        $beer->labels = [];
         foreach($eloquent_beer->labels()->get() as $label) {
             $beer->labels[] = $this->label_repository->findById($label->id);
         }
@@ -121,7 +123,9 @@ class BeerRepository
     private function entityToEloquentBeer(Beer $beer): EloquentBeer
     {
         $eloquent_beer = new EloquentBeer();
-        $eloquent_beer->id = $beer->id;
+        if ($beer->id) {
+            $eloquent_beer->id = $beer->id;
+        }
         $eloquent_beer->name = $beer->name;
         $eloquent_beer->normalized_name = $beer->normalized_name;
         $eloquent_beer->type = $beer->style->name;
@@ -144,7 +148,7 @@ class BeerRepository
     private function saveBrewer(EloquentBeer $beer, Brewer $brewer)
     {
         $current_brewer = $beer->brewers()->first();
-        if ($current_brewer->id !== $brewer->id) {
+        if (!$current_brewer || $current_brewer->id !== $brewer->id) {
             $beer->brewers()->sync([$brewer->id]);
         }
     }

@@ -9,18 +9,22 @@ use Larabeers\Exceptions\DuplicatedBeerException;
 use Larabeers\Exceptions\ServiceArgumentException;
 use Larabeers\External\BeerRepository;
 use Larabeers\External\BrewerRepository;
+use Larabeers\Utils\NormalizeString;
 
 class CreateBeer
 {
     private $beer_repository;
     private $brewer_repository;
+    private $normalize_string;
 
     public function __construct(
         BeerRepository $beer_repository,
-        BrewerRepository $brewer_repository
+        BrewerRepository $brewer_repository,
+        NormalizeString $normalize_string
     ) {
         $this->beer_repository = $beer_repository;
         $this->brewer_repository = $brewer_repository;
+        $this->normalize_string = $normalize_string;
     }
 
     public function execute(string $name, int $brewer_id, Style $style): int
@@ -39,8 +43,10 @@ class CreateBeer
         }
 
         $beer = new Beer();
+        $beer->name = $name;
         $beer->brewers[] = $brewer;
         $beer->style = $style;
+        $beer->normalized_name = $this->normalize_string->execute($name);
 
         $id = $this->beer_repository->save($beer);
 
