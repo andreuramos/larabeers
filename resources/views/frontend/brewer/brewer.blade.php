@@ -21,7 +21,7 @@
                         Brewed by {{$brewer->name}}
                     </div>
                     <div class="card-body">
-                        @include('frontend.beer_list', ['beers' => $brewer->beers])
+                        @include('frontend.beer_list', ['beers' => $beers])
                     </div>
                 </div>
             </div>

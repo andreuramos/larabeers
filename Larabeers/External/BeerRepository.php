@@ -153,4 +153,15 @@ class BeerRepository
             $beer->brewers()->sync([$brewer->id]);
         }
     }
+
+    public function findByBrewerId($id): array
+    {
+        $results = [];
+        foreach(EloquentBeer::whereHas('brewers', function($q) use($id){
+            $q->where('id',$id);
+        })->get()  as $eloquent_beer) {
+            $results[] = $this->eloquentToEntityBeer($eloquent_beer);
+        }
+        return $results;
+    }
 }

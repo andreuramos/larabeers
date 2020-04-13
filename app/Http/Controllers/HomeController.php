@@ -6,6 +6,7 @@ use App\Beer;
 use App\Brewer;
 use Illuminate\Http\Request;
 use Larabeers\External\BeerRepository;
+use Larabeers\External\BrewerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
 use Larabeers\Services\SearchTag;
@@ -13,17 +14,20 @@ use Larabeers\Services\SearchTag;
 class HomeController extends Controller
 {
     private $beer_repository;
+    private $brewer_repository;
     private $search_brewer;
     private $search_style;
     private $search_tag;
 
     public function __construct(
         BeerRepository $beer_repository,
+        BrewerRepository $brewer_repository,
         SearchBrewer $search_brewer,
         SearchStyle $search_style,
         SearchTag $search_tag
     ) {
         $this->beer_repository = $beer_repository;
+        $this->brewer_repository = $brewer_repository;
         $this->search_brewer = $search_brewer;
         $this->search_style = $search_style;
         $this->search_tag = $search_tag;
@@ -111,7 +115,7 @@ class HomeController extends Controller
 
     public function show_beer($id)
     {
-        $beer = Beer::find($id);
+        $beer = $this->beer_repository->findById($id);
         if (!$beer)
             abort(404);
         return view('frontend.beer.beer', ['beer' => $beer]);
@@ -119,10 +123,11 @@ class HomeController extends Controller
 
     public function show_brewer($id)
     {
-        $brewer = Brewer::find($id);
+        $brewer = $this->brewer_repository->findById($id);
         if (!$brewer)
             abort(404);
-        return view('frontend.brewer.brewer', ['brewer' => $brewer]);
+        $beers = $this->beer_repository->findByBrewerId($id);
+        return view('frontend.brewer.brewer', ['brewer' => $brewer, 'beers' => $beers]);
     }
 
     private static function sort_countries($a, $b) {
