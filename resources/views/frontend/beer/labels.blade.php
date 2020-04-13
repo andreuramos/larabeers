@@ -9,8 +9,8 @@
             <div class="carousel-item {{ $i==0?"active":"" }}">
                 {{--<img src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" class="d-block w-100">--}}
                 <div class="bg-secondary d-block w-100" style="height:50vh">
-                    @if($label->stickers->first())
-                        <img src="{{ $label->stickers->first()->path }}" class="d-block w-100">
+                    @if($label->sticker)
+                        <img src="{{ $label->sticker->url }}" class="d-block w-100">
                     @else
                         <img src="{{ URL::asset('img/label-template.jpg') }}" class="d-block w-100">
                     @endif
@@ -26,7 +26,7 @@
             </div>
         @endforeach
     </div>
-    @if( $labels->count() > 1)
+    @if( count($labels) > 1)
         <a class="carousel-control-prev" href="#labelsCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>

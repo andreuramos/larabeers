@@ -11,16 +11,16 @@
         <ul class="list-group">
             <li class="list-group-item">
                 <i class="fa fa-industry"></i>&nbsp;
-                <a href="{{ url('/brewer/'.$beer->brewers->first()->id) }}">{{ $beer->brewers->first()->name }}</a>
+                <a href="{{ url('/brewer/'.$beer->brewers[0]->id) }}">{{ $beer->brewers[0]->name }}</a>
             </li>
             <li class="list-group-item">
                 <i class="fa fa-globe-europe"></i>&nbsp;
-                {{ $beer->brewers->first()->country }}&nbsp;/&nbsp;
-                {{ $beer->brewers->first()->city }}
+                {{ $beer->brewers[0]->city->country->name }}&nbsp;/&nbsp;
+                {{ $beer->brewers[0]->city->name }}
             </li>
             <li class="list-group-item">
                 <i class="fa fa-font"></i>&nbsp;
-                {{ $beer->type }}
+                {{ $beer->style->name }}
             </li>
         </ul>
     </div>
