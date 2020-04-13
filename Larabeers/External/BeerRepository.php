@@ -3,6 +3,7 @@
 namespace Larabeers\External;
 
 use App\Beer as EloquentBeer;
+use App\Brewer as EloquentBrewer;
 use Larabeers\Entities\Beer;
 use Larabeers\Entities\BeerCriteria;
 use Larabeers\Entities\Brewer;
@@ -27,7 +28,7 @@ class BeerRepository
         return $this->eloquentToEntityBeer($beer);
     }
 
-    public function save(Beer $beer): void
+    public function save(Beer $beer): int
     {
         if ($beer->id) {
             $eloquent_beer = EloquentBeer::find($beer->id);
@@ -38,6 +39,8 @@ class BeerRepository
 
         $eloquent_beer->save();
         $this->saveBrewer($eloquent_beer, $beer->brewers[0]);
+
+        return $eloquent_beer->id;
     }
 
     public function findByCriteria(BeerCriteria $criteria): array
@@ -85,6 +88,16 @@ class BeerRepository
             $results[] = $this->eloquentToEntityBeer($eloquent_beer);
         }
         return $results;
+    }
+
+    public function alreadyExists(string $name, Brewer $brewer): bool
+    {
+        $brewer = EloquentBrewer::find($brewer->id);
+        if (!$brewer) return false;
+        foreach ($brewer->beers()->get() as $beer) {
+            if ($beer->name == $name) return true;
+        }
+        return false;
     }
 
     private function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer

@@ -21,7 +21,7 @@ class CreateBrewer
         $this->normalize_string = $normalize_string;
     }
 
-    public function execute(string $name, City $city)
+    public function execute(string $name, City $city): int
     {
         if ($name === "") {
             throw new ServiceArgumentException("name parameter must not be empty");
