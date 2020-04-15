@@ -292,6 +292,7 @@ class DashboardController extends Controller
         $client->setClientSecret(env('GOOGLE_API_SECRET'));
         $client->setRedirectUri(url('/dashboard/settings/google_auth_comeback'));
         $client->setAccessType('offline');
+        $client->setApprovalPrompt('force');
         $access = $client->fetchAccessTokenWithAuthCode($code);
 
         //handle errors
