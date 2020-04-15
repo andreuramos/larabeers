@@ -87,9 +87,9 @@ class DashboardController extends Controller
                 continue;
             echo "Importing " . $row[1] . "<br>";
             $new_beers++;
-            $brewer = Brewer::where('name', $csv_brewer)->first();
+            $brewer = EloquentBrewer::where('name', $csv_brewer)->first();
             if (!$brewer) {
-                $brewer = Brewer::create([
+                $brewer = EloquentBrewer::create([
                     'name' => $csv_brewer,
                     'country' => $row[7],
                     'city' => $row[8]
@@ -295,10 +295,13 @@ class DashboardController extends Controller
         $access = $client->fetchAccessTokenWithAuthCode($code);
 
         //handle errors
-        if (array_key_exists('error', $access)) {
+        if (array_key_exists('error', $access) || !array_key_exists('refresh_token', $access)) {
+            $error = array_key_exists('error_description', $access) ?
+                $access['error_description'] :
+                print_r($access,1);
             return redirect()
                 ->action('DashboardController@settings')
-                ->with('error', $access['error_description']);
+                ->with('error', $error);
         }
         $refresh_token = $access['refresh_token'];
 
