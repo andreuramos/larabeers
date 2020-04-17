@@ -295,15 +295,13 @@ class DashboardController extends Controller
         $client->setApprovalPrompt('force');
         $access = $client->fetchAccessTokenWithAuthCode($code);
 
-        //handle errors
-        if (array_key_exists('error', $access) || !array_key_exists('refresh_token', $access)) {
-            $error = array_key_exists('error_description', $access) ?
-                $access['error_description'] :
-                print_r($access,1);
+        $error = $this->get_google_comeback_errors($access);
+        if ($error) {
             return redirect()
                 ->action('DashboardController@settings')
                 ->with('error', $error);
         }
+
         $refresh_token = $access['refresh_token'];
 
         $user = Auth::user();
@@ -359,5 +357,21 @@ class DashboardController extends Controller
     public function update_brewer(Request $request, int $id)
     {
 
+    }
+
+    /**
+     * @param array $access
+     * @return mixed|string|null
+     */
+    private function get_google_comeback_errors(array $access)
+    {
+        $error = null;
+        if (array_key_exists('error', $access)) {
+            $error = $access['error_description'];
+        }
+        if (!array_key_exists('refresh_token', $access)) {
+            $error = "Refresh token not found. Try removing permissions on your account to this app";
+        }
+        return $error;
     }
 }
