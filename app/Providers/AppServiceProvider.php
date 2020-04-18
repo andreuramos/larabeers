@@ -13,10 +13,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            \Larabeers\External\Images\Uploader\ImageUploader::class,
-            \Larabeers\External\Images\Uploader\GoogleDriveImageUploader::class
-        );
+        if(env('APP_ENV', 'production') == 'local'){
+            $this->app->bind(
+                \Larabeers\External\Images\Uploader\ImageUploader::class,
+                \Larabeers\External\Images\Uploader\LocalStorageImageUploader::class
+            );
+        } else {
+            $this->app->bind(
+                \Larabeers\External\Images\Uploader\ImageUploader::class,
+                \Larabeers\External\Images\Uploader\GoogleDriveImageUploader::class
+            );
+        }
     }
 
     /**
