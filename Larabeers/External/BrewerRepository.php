@@ -6,6 +6,7 @@ use App\Brewer as EloquentBrewer;
 use Larabeers\Entities\Brewer;
 use Larabeers\Entities\City;
 use Larabeers\Entities\Country;
+use Larabeers\Entities\Image;
 
 class BrewerRepository
 {
@@ -29,6 +30,13 @@ class BrewerRepository
         $eloquent_brewer->normalized_name = $brewer->normalized_name;
         $eloquent_brewer->country = $brewer->city->country->name;
         $eloquent_brewer->city = $brewer->city->name;
+        $eloquent_brewer->latitude = $brewer->latitude;
+        $eloquent_brewer->longitude = $brewer->longitude;
+        $eloquent_brewer->website = $brewer->website;
+        $eloquent_brewer->address = $brewer->address;
+        if ($brewer->logo) {
+            $eloquent_brewer->logo = $brewer->logo->url;
+        }
 
         $eloquent_brewer->save();
 
@@ -43,6 +51,16 @@ class BrewerRepository
         $brewer->normalized_name = $eloquent_brewer->normalized_name;
         $country = new Country($eloquent_brewer->country);
         $brewer->city = new City($eloquent_brewer->city, $country);
+        $brewer->latitude = $eloquent_brewer->latitude;
+        $brewer->longitude = $eloquent_brewer->longitude;
+        $brewer->website = $eloquent_brewer->website;
+        $brewer->address = $eloquent_brewer->address;
+
+        if ($eloquent_brewer->logo) {
+            $logo = new Image();
+            $logo->url = $eloquent_brewer->logo;
+            $brewer->logo = $logo;
+        }
 
         return $brewer;
     }
