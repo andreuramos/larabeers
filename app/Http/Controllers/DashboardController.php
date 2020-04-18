@@ -194,37 +194,6 @@ class DashboardController extends Controller
         return $client;
     }
 
-    public function create_brewer(Request $request)
-    {
-
-    }
-
-    public function ajax_create_brewer(Request $request)
-    {
-        $name = (string) $request->post('name');
-        $city_name = (string) $request->post('city');
-        $country_name = (string) $request->post('country');
-
-        try {
-            // @TODO: Build city through factory
-            $country = new Country($country_name);
-            $city = new City($city_name, $country);
-            $id = $this->create_brewer->execute($name, $city);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-
-        return response()->json([
-            'id' => $id,
-            'name' => $name
-        ]);
-    }
-
-    public function update_brewer(Request $request, int $id)
-    {
-
-    }
-
     /**
      * @param array $access
      * @return mixed|string|null

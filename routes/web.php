@@ -21,7 +21,7 @@ Route::group(['prefix' => '/ajax'], function(){
     Route::get('brewer_autocomplete', "HomeController@ajax_brewer_autocomplete");
     Route::get('style_autocomplete', "HomeController@ajax_style_autocomplete");
     Route::get('tag_autocomplete', "HomeController@ajax_tag_autocomplete");
-    Route::post('create_brewer', "DashboardController@ajax_create_brewer");
+    Route::post('create_brewer', "BrewerController@ajax_create_brewer");
 });
 Route::group(['prefix' => '/beer'], function() {
     Route::get('/new', "BeerController@new_beer");
@@ -32,9 +32,9 @@ Route::group(['prefix' => '/beer'], function() {
     Route::post('/{id}/new_label', "BeerController@add_label_to_beer");
 });
 Route::group(['prefix' => '/brewer'], function() {
-    Route::get('/{id}', "HomeController@show_brewer");
-    Route::post('/create', 'DashboardController@create_brewer');
-    Route::post('/{id}/update', 'DashboardController@update_brewer');
+    Route::get('/{id}', "BrewerController@show_brewer");
+    Route::post('/create', 'BrewerController@create_brewer');
+    Route::post('/{id}/update', 'BrewerController@update_brewer');
 });
 
 

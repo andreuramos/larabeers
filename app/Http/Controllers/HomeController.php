@@ -113,15 +113,6 @@ class HomeController extends Controller
         return response()->json($results);
     }
 
-    public function show_brewer($id)
-    {
-        $brewer = $this->brewer_repository->findById($id);
-        if (!$brewer)
-            abort(404);
-        $beers = $this->beer_repository->findByBrewerId($id);
-        return view('frontend.brewer.brewer', ['brewer' => $brewer, 'beers' => $beers]);
-    }
-
     private static function sort_countries($a, $b) {
         if ($a['beers'] == $b['beers']) return 0;
         return $a['beers'] > $b['beers'] ? -1 : 1;
