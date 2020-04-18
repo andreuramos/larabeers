@@ -113,14 +113,6 @@ class HomeController extends Controller
         return response()->json($results);
     }
 
-    public function show_beer($id)
-    {
-        $beer = $this->beer_repository->findById($id);
-        if (!$beer)
-            abort(404);
-        return view('frontend.beer.beer', ['beer' => $beer]);
-    }
-
     public function show_brewer($id)
     {
         $brewer = $this->brewer_repository->findById($id);

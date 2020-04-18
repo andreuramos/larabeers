@@ -24,12 +24,12 @@ Route::group(['prefix' => '/ajax'], function(){
     Route::post('create_brewer', "DashboardController@ajax_create_brewer");
 });
 Route::group(['prefix' => '/beer'], function() {
-    Route::get('/new', "DashboardController@new_beer");
-    Route::post('/create', "DashboardController@create_beer");
-    Route::get('/{id}', "HomeController@show_beer");
-    Route::get('/{id}/edit', "DashboardController@edit_beer");
-    Route::post('/{id}/update', "DashboardController@update_beer");
-    Route::post('/{id}/new_label', "DashboardController@add_label_to_beer");
+    Route::get('/new', "BeerController@new_beer");
+    Route::post('/create', "BeerController@create_beer");
+    Route::get('/{id}', "BeerController@show_beer");
+    Route::get('/{id}/edit', "BeerController@edit_beer");
+    Route::post('/{id}/update', "BeerController@update_beer");
+    Route::post('/{id}/new_label', "BeerController@add_label_to_beer");
 });
 Route::group(['prefix' => '/brewer'], function() {
     Route::get('/{id}', "HomeController@show_brewer");
@@ -42,7 +42,8 @@ Route::group(['prefix' => '/stats'], function(){
     Route::get('countries', "HomeController@list_countries");
 });
 
-Route::post('label/{id}/edit', "DashboardController@update_label");
+// TODO: change url to /beer/{id}/label/{id}/edit and move to beer group
+Route::post('label/{id}/edit', "BeerController@update_label");
 
 
 Route::group(['prefix' => '/dashboard'], function () {
