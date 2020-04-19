@@ -5,6 +5,7 @@ namespace Larabeers\Utils;
 class ResizeImage
 {
     const THUMBNAIL_WIDTH = 50;
+    const LARGE_WIDTH = 540;
 
     public function execute(string $src_image_path, int $width): string
     {

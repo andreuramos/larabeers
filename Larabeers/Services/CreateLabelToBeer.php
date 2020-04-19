@@ -58,7 +58,8 @@ class CreateLabelToBeer
 
     private function uploadSticker(string $tmp_file_path): Image
     {
-        $sticker_url = $this->image_uploader->upload($tmp_file_path);
+        $large_path = $this->resize_image->execute($tmp_file_path, ResizeImage::LARGE_WIDTH);
+        $sticker_url = $this->image_uploader->upload($large_path);
 
         $thumbnail_path = $this->resize_image->execute($tmp_file_path, ResizeImage::THUMBNAIL_WIDTH);
         $thumbnail_url = $this->image_uploader->upload($thumbnail_path);

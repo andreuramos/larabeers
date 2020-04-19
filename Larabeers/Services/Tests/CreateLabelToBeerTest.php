@@ -73,12 +73,17 @@ class CreateLabelToBeerTest extends TestCase
     public function test_image_failed_to_upload()
     {
         $tmp_file_path = "/tmp_file_path/image/path.jpg";
+        $large_path = "/tmp/image/large.jpg";
 
         $this->get_file_type->execute($tmp_file_path)
             ->shouldBeCalled()
             ->willReturn(self::IMAGE_JPG);
 
-        $this->image_uploader->upload($tmp_file_path)
+        $this->resize_image->execute($tmp_file_path, ResizeImage::LARGE_WIDTH)
+            ->shouldBeCalled()
+            ->willReturn($large_path);
+
+        $this->image_uploader->upload($large_path)
             ->shouldBeCalled()
             ->willThrow(new UploadFailedException("failed to upload resource"));
 
@@ -89,6 +94,7 @@ class CreateLabelToBeerTest extends TestCase
     public function test_image_is_uploaded_then_label_created_with_url()
     {
         $image_path = "/tmp/image/path.jpg";
+        $large_path = "/tmp/image/large.jpg";
         $thumb_path = "/tmp/image/thumb.png";
         $image = new Image();
         $image_url = "http://cloud.storage.url/resource/hash";
@@ -113,7 +119,11 @@ class CreateLabelToBeerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn(self::IMAGE_JPG);
 
-        $this->image_uploader->upload($image_path)
+        $this->resize_image->execute($image_path, ResizeImage::LARGE_WIDTH)
+            ->shouldBeCalled()
+            ->willReturn($large_path);
+
+        $this->image_uploader->upload($large_path)
             ->shouldBeCalled()
             ->willReturn($image_url);
 
@@ -135,6 +145,7 @@ class CreateLabelToBeerTest extends TestCase
     public function test_tags_are_stored()
     {
         $image_path = "/tmp/image/path.jpg";
+        $large_path = "/tmp/image/large.jpg";
         $thumb_path = "/tmp/image/thumb.png";
         $image = new Image();
         $image_url = "http://cloud.storage.url/resource/hash";
@@ -161,7 +172,11 @@ class CreateLabelToBeerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn(self::IMAGE_JPG);
 
-        $this->image_uploader->upload($image_path)
+        $this->resize_image->execute($image_path, ResizeImage::LARGE_WIDTH)
+            ->shouldBeCalled()
+            ->willReturn($large_path);
+
+        $this->image_uploader->upload($large_path)
             ->shouldBeCalled()
             ->willReturn($image_url);
 
