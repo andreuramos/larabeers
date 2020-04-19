@@ -16,7 +16,7 @@ class ResizeImage
         $dst = imagecreatetruecolor($width, $height);
         imagecopyresized($dst, $src_file, 0, 0, 0, 0, $width,$height,$src_width,$src_height);
 
-        $dst_image_path = __DIR__ . '/../../public/upload/' . uniqid();
+        $dst_image_path = __DIR__ . '/' . uniqid() . "_thumb";
         imagepng($dst, $dst_image_path);
 
         return $dst_image_path;
