@@ -22,6 +22,14 @@
                 <i class="fa fa-font"></i>&nbsp;
                 {{ $beer->style->name }}
             </li>
+            <li class="list-group-item">
+                <i class="fa fa-book"></i>
+                {{ $beer->labels[0]->album }}
+                <i class="fa fa-book-open"></i>
+                {{ $beer->labels[0]->page }}
+                <i class="fa fa-th"></i>
+                {{ $beer->labels[0]->position }}
+            </li>
         </ul>
     </div>
 </div>
