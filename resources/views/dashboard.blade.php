@@ -43,7 +43,9 @@
                 <div class="card">
                     <div class="card-header">
                         <span>Last Beers</span>
-                        <a href="{{ url('/beer/new') }}" style="float:right" class="btn btn-primary">Add beer</a>
+                        <a href="{{ url('/brewer/new') }}" style="float:right;" class="btn btn-primary">Add Brewer</a>
+                        &nbsp;
+                        <a href="{{ url('/beer/new') }}" style="float:right; margin-right:1em;" class="btn btn-primary">Add Beer</a>
                     </div>
                     <div class="card-body">
                         @include('frontend.beer_list', ['beers' => $last_beers])

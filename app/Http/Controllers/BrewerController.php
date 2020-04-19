@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Larabeers\Entities\Brewer;
 use Larabeers\Entities\City;
 use Larabeers\Entities\Country;
 use Larabeers\External\BeerRepository;
@@ -49,7 +50,7 @@ class BrewerController extends Controller
 
     public function new_brewer()
     {
-
+        return view('dashboard.brewer.form', ['brewer' => new Brewer()]);
     }
 
     public function create_brewer(Request $request)
