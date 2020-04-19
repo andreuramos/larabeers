@@ -4,7 +4,7 @@ namespace Larabeers\Entities;
 
 class Image
 {
-    const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg'];
+    const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg', 'image/png'];
 
     public $url;
     public $thumbnail;
