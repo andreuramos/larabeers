@@ -36,7 +36,7 @@ class CreateLabelToBeer
 
         $file_type = $this->get_file_type->execute($tmp_file_path);
         if (! in_array($file_type, Image::SUPPORTED_MIMES)) {
-            throw new UploadFailedException("Unsupported image type");
+            throw new UploadFailedException("Unsupported image type: $file_type");
         }
 
         $sticker = $this->uploadSticker($tmp_file_path);

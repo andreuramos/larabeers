@@ -52,7 +52,7 @@ class CreateLabelToBeerTest extends TestCase
 
     /**
      * @expectedException \Larabeers\Exceptions\UploadFailedException
-     * @expectedExceptionMessage Unsupported image type
+     * @expectedExceptionMessage Unsupported image type: document/pdf
      */
     public function test_image_is_actually_an_image()
     {
