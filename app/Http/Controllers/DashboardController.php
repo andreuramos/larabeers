@@ -10,8 +10,8 @@ use Google_Service_Drive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Larabeers\Entities\BeerCriteria;
-use Larabeers\Entities\City;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Utils\NormalizeString;
@@ -42,9 +42,13 @@ class DashboardController extends Controller
         $criteria->addOrder('created_at');
         $criteria->addLimit(10);
         $last_beers = $this->beer_repository->findByCriteria($criteria);
+        $beers_with_picture = $this->countBeersWithPicture();
 
+        $beers_count = EloquentBeer::count();
         return view('dashboard', [
-            'beers' => EloquentBeer::count(),
+            'beers' => $beers_count,
+            'beers_with_picture' => $beers_with_picture,
+            'beers_with_picture_percent' => round(($beers_with_picture / $beers_count ) * 100, 2),
             'brewers' => EloquentBrewer::count(),
             'last_beers' => $last_beers
         ]);
@@ -208,5 +212,12 @@ class DashboardController extends Controller
             $error = "Refresh token not found. Try removing permissions on your account to this app";
         }
         return $error;
+    }
+
+    private function countBeersWithPicture()
+    {
+        $sql = 'SELECT count(distinct(beer_id)) FROM stickers JOIN labels ON stickers.label_id = labels.id;';
+        $res = DB::select($sql);
+        return (int) $res[0]->count;
     }
 }
