@@ -16,7 +16,7 @@
                     @endif
                 </div>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>{{ $label->year }}</h5>
+                    <span class="badge badge-secondary"><h4>{{ $label->year }}</h4></span>
                     <p>
                         @foreach($label->tags as $tag)
                             <span class="badge badge-primary"><i class="fa fa-tag"></i>&nbsp;{{ $tag->text }}</span>

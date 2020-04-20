@@ -23,11 +23,11 @@
                 {{ $beer->style->name }}
             </li>
             <li class="list-group-item">
-                <i class="fa fa-book"></i>
+                <i class="fa fa-book" title="Album"></i>
                 {{ $beer->labels[0]->album }}
-                <i class="fa fa-book-open"></i>
+                <i class="fa fa-book-open" title="Page"></i>
                 {{ $beer->labels[0]->page }}
-                <i class="fa fa-th"></i>
+                <i class="fa fa-th" title="Position"></i>
                 {{ $beer->labels[0]->position }}
             </li>
         </ul>

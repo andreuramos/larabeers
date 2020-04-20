@@ -16,6 +16,10 @@
                             <label>{{ __('Brewers') }}</label>
                             <span>{{ $brewers }}</span>
                         </div>
+                        <div class="col-6">
+                            <label>{{ __("Beers with picture") }}</label>
+                            <span>{{ $beers_with_picture }} ({{ $beers_with_picture_percent }}%)</span>
+                        </div>
                     </div>
                 </div>
             </div>
