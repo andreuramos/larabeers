@@ -17,7 +17,7 @@
             <div class="modal-header"><i class="fa fa-industry"></i>&nbsp; Create new Brewer</div>
             <div class="modal-body">
                 <span id="brewer_error" class="alert alert-danger hidden" role="alert"></span>
-                @include('dashboard.brewer.form', ['brewer' => null])
+                @include('dashboard.brewer.basic-form', ['brewer' => null])
             </div>
             <script>
                 $(document).ready(function() {

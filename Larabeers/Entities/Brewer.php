@@ -13,4 +13,9 @@ class Brewer
     public $longitude;
     public $address;
     public $website;
+
+    public function __construct()
+    {
+        $this->logo = new Image();
+    }
 }
