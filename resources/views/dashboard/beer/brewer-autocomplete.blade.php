@@ -18,6 +18,7 @@
             <div class="modal-body">
                 <span id="brewer_error" class="alert alert-danger hidden" role="alert"></span>
                 @include('dashboard.brewer.basic-form', ['brewer' => null])
+                <a class="btn btn-primary col-12" style="color: white" id="submit_brewer">Save</a>
             </div>
             <script>
                 $(document).ready(function() {

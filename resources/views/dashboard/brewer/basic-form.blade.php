@@ -26,4 +26,3 @@
         </div>
     </div>
 </div>
-<a class="btn btn-primary col-12" style="color: white" id="submit_brewer">Save</a>
