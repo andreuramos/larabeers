@@ -17,8 +17,10 @@
             <div class="modal-header"><i class="fa fa-industry"></i>&nbsp; Create new Brewer</div>
             <div class="modal-body">
                 <span id="brewer_error" class="alert alert-danger hidden" role="alert"></span>
+                <div class="autocomplete-brewer-form">
                 @include('dashboard.brewer.basic-form', ['brewer' => null])
                 <a class="btn btn-primary col-12" style="color: white" id="submit_brewer">Save</a>
+                </div>
             </div>
             <script>
                 $(document).ready(function() {

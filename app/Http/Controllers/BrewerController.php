@@ -55,7 +55,22 @@ class BrewerController extends Controller
 
     public function create_brewer(Request $request)
     {
+        $name = $request->get('brewer_name');
+        $city_name = $request->get('brewer_city');
+        $country_name = $request->get('brewer_country');
+        $address = $request->get('address');
+        $lat = $request->get('lat');
+        $lng = $request->get('lng');
 
+        try {
+            $country = new Country($country_name);
+            $city = new City($city_name, $country);
+            $brewer_id = $this->create_brewer->execute($name, $city, $address, $lat, $lng);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+        return redirect('brewer/'.$brewer_id);
     }
 
     public function ajax_create_brewer(Request $request)
