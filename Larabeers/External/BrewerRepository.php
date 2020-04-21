@@ -34,7 +34,7 @@ class BrewerRepository
         $eloquent_brewer->longitude = $brewer->longitude;
         $eloquent_brewer->website = $brewer->website;
         $eloquent_brewer->address = $brewer->address;
-        if ($brewer->logo) {
+        if ($brewer->logo->url) {
             $eloquent_brewer->logo = $brewer->logo->url;
         }
 

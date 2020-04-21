@@ -20,6 +20,7 @@ class BrewerController extends Controller
     private $beer_repository;
     private $brewer_repository;
     private $create_brewer;
+    private $update_brewer;
 
     public function __construct(
         BeerRepository $beer_repository,
@@ -55,23 +56,39 @@ class BrewerController extends Controller
 
     public function create_brewer(Request $request)
     {
-        $name = $request->get('brewer_name');
-        $city_name = $request->get('brewer_city');
-        $country_name = $request->get('brewer_country');
-        $address = $request->get('address');
-        $lat = $request->get('lat');
-        $lng = $request->get('lng');
+        list($name, $city_name, $country_name, $data) = $this->get_form_params($request);
 
         try {
             $country = new Country($country_name);
             $city = new City($city_name, $country);
-            $brewer_id = $this->create_brewer->execute($name, $city, $address, $lat, $lng);
+            $brewer_id = $this->create_brewer->execute($name, $city, $data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
 
         return redirect('brewer/'.$brewer_id);
     }
+
+    public function edit_brewer($id)
+    {
+        $brewer = $this->brewer_repository->findById($id);
+        return view('dashboard.brewer.form', ['brewer' => $brewer]);
+    }
+
+    public function update_brewer(Request $request, int $id)
+    {
+        list($name, $city_name, $country_name, $data) = $this->get_form_params($request);
+
+        try {
+            $country = new Country($country_name);
+            $city = new City($city_name, $country);
+            $brewer_id = $this->update_brewer->execute($id, $name, $city, $data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+        session()->flash('success', "Brewer updated correctly");
+        return redirect('brewer/'.$brewer_id);    }
 
     public function ajax_create_brewer(Request $request)
     {
@@ -94,8 +111,28 @@ class BrewerController extends Controller
         ]);
     }
 
-    public function update_brewer(Request $request, int $id)
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function get_form_params(Request $request): array
     {
+        $name = $request->get('brewer_name');
+        $city_name = $request->get('brewer_city');
+        $country_name = $request->get('brewer_country');
 
+        $logo = null;
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo')->getRealPath();
+        }
+
+        $data = [
+            'address' => $request->get('address'),
+            'lat' => $request->get('lat'),
+            'lng' => $request->get('lng'),
+            'website' => $request->get('website'),
+            'logo' => $logo
+        ];
+        return array($name, $city_name, $country_name, $data);
     }
 }

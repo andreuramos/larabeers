@@ -8,7 +8,7 @@ class Brewer
     public $name;
     public $normalized_name;
     public ?City $city;
-    public ?Image $logo;
+    public Image $logo;
     public $latitude;
     public $longitude;
     public $address;
