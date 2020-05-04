@@ -14,7 +14,7 @@
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-Route::group(['prefix' => '/api'], function() {
+Route::group(['prefix' => '/api', 'middleware' => 'cors'], function() {
     Route::get('random', 'ApiController@randomBeers');
 });
 
@@ -26,6 +26,7 @@ Route::group(['prefix' => '/ajax'], function(){
     Route::get('style_autocomplete', "HomeController@ajax_style_autocomplete");
     Route::get('tag_autocomplete', "HomeController@ajax_tag_autocomplete");
     Route::post('create_brewer', "BrewerController@ajax_create_brewer");
+    Route::get('geocode', "DashboardController@ajax_geocode");
 });
 Route::group(['prefix' => '/beer'], function() {
     Route::get('/new', "BeerController@new_beer");
