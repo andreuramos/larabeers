@@ -14,6 +14,10 @@
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
+Route::group(['prefix' => '/api'], function() {
+    Route::get('random', 'ApiController@randomBeers');
+});
+
 Route::get('/', "HomeController@home");
 Route::post('/find', "HomeController@find");
 Route::group(['prefix' => '/ajax'], function(){
