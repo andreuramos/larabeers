@@ -57,5 +57,8 @@
                 </div>
             </div>
         </div>
+
+        <div id="example"></div>
+
     </div>
 @endsection
