@@ -29,7 +29,12 @@
             &__flag {
                 img {
                     width: 20px;
+                    margin-right: 0.5em;
                 }
+            }
+
+            &__year-badge{
+                margin-left: 0.5em;
             }
         }
     }
