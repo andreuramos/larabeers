@@ -6,3 +6,12 @@ export const randomBeers = async () => {
         throw error;
     }
 }
+
+export const searchBeers = async (query) => {
+    try {
+        const response = await fetch('/api/search?query=' + query);
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+}
