@@ -20,6 +20,8 @@
                 </div>
 
                @include('frontend.search', ['beers' => $beers])
+
+                <div id="searchableBeerList"></div>
             </div>
         </div>
     </div>
