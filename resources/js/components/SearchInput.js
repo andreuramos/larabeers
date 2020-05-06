@@ -8,6 +8,7 @@ export default class SearchInput extends Component
             query: null
         }
     }
+
     render() {
         return (
             <React.Fragment>
@@ -15,6 +16,7 @@ export default class SearchInput extends Component
                 <input
                     type="text"
                     placeholder={this.props.placeholder}
+                    onKeyUp={this.props.handleKeyUp}
                     />
             </React.Fragment>
         )

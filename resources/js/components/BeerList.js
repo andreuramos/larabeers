@@ -13,8 +13,7 @@ export default class BeerList extends Component
         const beerList = this.props.beers.map(function(beer) {
             return <BeerListItem beer={beer} key={beer.id} />;
         });
-        console.log("showing beers.,,,");
-        console.log(this.props.beers);
+
         return (
             <div className="list-group">
                 { beerList }

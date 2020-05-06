@@ -33,18 +33,18 @@ export default class BeerListItem extends Component
                         />
                     </div>
                     <div className="beer-list__beer__data">
-                    <div className="beer-list__beer__name">
-                        <a href="beer_url_here">{ this.props.beer.name }</a>
+                        <div className="beer-list__beer__name">
+                            <a href={'/beer/'  + this.props.beer.id}>{ this.props.beer.name }</a>
+                        </div>
+                        <span className="beer-list__beer__data__flag">
+                            <img className="country-flag" src={this.props.beer.flag} title="country_name_here"/>
+                        </span>
+                        <span className="beer-list__beer__data__brewer">{ this.props.beer.brewer }</span>
+                        <div
+                            className="badge badge-secondary beer-list__beer__data__year-badge"
+                            style={this.props.beer.year ? {} : {visibility: 'hidden'}}
+                        > { this.props.beer.year }</div>
                     </div>
-                    <span className="beer-list__beer__data__flag">
-                        <img className="country-flag" src={this.props.beer.flag} title="country_name_here"/>
-                    </span>
-                    <span className="beer-list__beer__data__brewer">{ this.props.beer.brewer }</span>
-                    <div
-                        className="badge badge-secondary beer-list__beer__data__year-badge"
-                        style={this.props.beer.year ? {} : {visibility: 'hidden'}}
-                    > { this.props.beer.year }</div>
-                </div>
                 </div>
             </div>
         )

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchInput from "./SearchInput";
 import BeerList from "./BeerList";
-import {randomBeers} from "../api";
+import {randomBeers, searchBeers} from "../api";
 
 export default class SearchableBeerList extends Component {
     constructor() {
@@ -20,18 +20,31 @@ export default class SearchableBeerList extends Component {
                 beers: data,
             });
         });
+
+        this.searcherKeyUp = this.searcherKeyUp.bind(this);
     }
 
-
-    searchBeers(query) {
-
+    searcherKeyUp(event) {
+        const query = event.target.value;
+        console.log(query.length);
+        if (query.length < 3) {
+            return;
+        }
+        this.setState({ loading: true, message: null });
+        searchBeers(query).then( data => {
+            this.setState({
+                loading: false,
+                message: "showing " + data.length + ' results',
+                beers: data,
+            });
+        })
     }
 
     render() {
         return (
             <div className="card mt-3">
                 <div className="card-header">
-                    <SearchInput placeholder="Find Beers" />
+                    <SearchInput placeholder="Find Beers" handleKeyUp={this.searcherKeyUp} />
                 </div>
                 <div className="card-body px-0 px-md-2">
                     <span> { this.state.message }</span>
