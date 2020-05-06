@@ -66401,12 +66401,13 @@ module.exports = function(module) {
 /*!***********************************!*\
   !*** ./resources/js/api/index.js ***!
   \***********************************/
-/*! exports provided: randomBeers */
+/*! exports provided: randomBeers, searchBeers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomBeers", function() { return randomBeers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchBeers", function() { return searchBeers; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -66445,6 +66446,38 @@ var randomBeers = /*#__PURE__*/function () {
 
   return function randomBeers() {
     return _ref.apply(this, arguments);
+  };
+}();
+var searchBeers = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(query) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return fetch('/api/search?query=' + query);
+
+          case 3:
+            response = _context2.sent;
+            return _context2.abrupt("return", response.json());
+
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            throw _context2.t0;
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 7]]);
+  }));
+
+  return function searchBeers(_x) {
+    return _ref2.apply(this, arguments);
   };
 }();
 
@@ -66600,8 +66633,6 @@ var BeerList = /*#__PURE__*/function (_Component) {
           key: beer.id
         });
       });
-      console.log("showing beers.,,,");
-      console.log(this.props.beers);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list-group"
       }, beerList);
@@ -66704,7 +66735,7 @@ var BeerListItem = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "beer-list__beer__name"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "beer_url_here"
+        href: '/beer/' + this.props.beer.id
       }, this.props.beer.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "beer-list__beer__data__flag"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -66869,7 +66900,8 @@ var SearchInput = /*#__PURE__*/function (_Component) {
         className: "fa fa-search mr-2"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        placeholder: this.props.placeholder
+        placeholder: this.props.placeholder,
+        onKeyUp: this.props.handleKeyUp
       }));
     }
   }]);
@@ -66950,12 +66982,34 @@ var SearchableBeerList = /*#__PURE__*/function (_Component) {
         beers: data
       });
     });
+    _this.searcherKeyUp = _this.searcherKeyUp.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(SearchableBeerList, [{
-    key: "searchBeers",
-    value: function searchBeers(query) {}
+    key: "searcherKeyUp",
+    value: function searcherKeyUp(event) {
+      var _this2 = this;
+
+      var query = event.target.value;
+      console.log(query.length);
+
+      if (query.length < 3) {
+        return;
+      }
+
+      this.setState({
+        loading: true,
+        message: null
+      });
+      Object(_api__WEBPACK_IMPORTED_MODULE_4__["searchBeers"])(query).then(function (data) {
+        _this2.setState({
+          loading: false,
+          message: "showing " + data.length + ' results',
+          beers: data
+        });
+      });
+    }
   }, {
     key: "render",
     value: function render() {
@@ -66964,7 +67018,8 @@ var SearchableBeerList = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        placeholder: "Find Beers"
+        placeholder: "Find Beers",
+        handleKeyUp: this.searcherKeyUp
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body px-0 px-md-2"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " ", this.state.message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
