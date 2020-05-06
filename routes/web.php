@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::group(['prefix' => '/api', 'middleware' => ['cors']], function() {
     Route::get('random', 'ApiController@randomBeers');
+    Route::get('search', 'ApiController@searchBeers');
 });
 
 Route::get('/', "HomeController@home");
