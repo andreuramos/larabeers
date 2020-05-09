@@ -2,6 +2,9 @@
     &__beer {
         width: 100%;
         display: flex;
+        margin-bottom: .5em;
+        border: 1px lightgray solid;
+        box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2);
 
         &__image {
             max-width: 15%;

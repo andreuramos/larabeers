@@ -66634,7 +66634,7 @@ var BeerList = /*#__PURE__*/function (_Component) {
         });
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "list-group"
+        className: "beer-list"
       }, beerList);
     }
   }]);
@@ -66712,7 +66712,7 @@ var BeerListItem = /*#__PURE__*/function (_Component) {
     value: function render() {
       var picture_placeholder = "img/label-template.jpg";
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "list-group-item px-0 px-md-2"
+        className: "px-0 px-md-2"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-12 beer-list__beer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66992,7 +66992,6 @@ var SearchableBeerList = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       var query = event.target.value;
-      console.log(query.length);
 
       if (query.length < 3) {
         return;

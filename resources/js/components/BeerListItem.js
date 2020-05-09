@@ -19,7 +19,7 @@ export default class BeerListItem extends Component
     render() {
         const picture_placeholder = "img/label-template.jpg";
         return (
-            <div className="list-group-item px-0 px-md-2">
+            <div className="px-0 px-md-2">
                 <div className="col-12 beer-list__beer">
                     <div className="beer-list__beer__image">
                         <img

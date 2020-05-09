@@ -15,7 +15,7 @@ export default class BeerList extends Component
         });
 
         return (
-            <div className="list-group">
+            <div className="beer-list">
                 { beerList }
             </div>
         );

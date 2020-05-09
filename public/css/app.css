@@ -10885,6 +10885,9 @@ a.text-dark:focus {
 .beer-list__beer {
   width: 100%;
   display: flex;
+  margin-bottom: 0.5em;
+  border: 1px lightgray solid;
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
 .beer-list__beer__image {
