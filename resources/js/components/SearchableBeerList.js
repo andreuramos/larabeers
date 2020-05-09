@@ -26,7 +26,6 @@ export default class SearchableBeerList extends Component {
 
     searcherKeyUp(event) {
         const query = event.target.value;
-        console.log(query.length);
         if (query.length < 3) {
             return;
         }
