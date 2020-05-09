@@ -66713,7 +66713,8 @@ var BeerListItem = /*#__PURE__*/function (_Component) {
       var picture_placeholder = "img/label-template.jpg";
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "px-0 px-md-2"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: '/beer/' + this.props.beer.id,
         className: "col-12 beer-list__beer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "beer-list__beer__image"
@@ -66734,7 +66735,7 @@ var BeerListItem = /*#__PURE__*/function (_Component) {
         className: "beer-list__beer__data"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "beer-list__beer__name"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         href: '/beer/' + this.props.beer.id
       }, this.props.beer.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "beer-list__beer__data__flag"

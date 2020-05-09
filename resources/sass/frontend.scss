@@ -4,7 +4,15 @@
         display: flex;
         margin-bottom: .5em;
         border: 1px lightgray solid;
-        box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2);
+        box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2);
+        cursor: pointer;
+        color: black;
+
+        &:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.5);
+        }
 
         &__image {
             max-width: 15%;
@@ -21,7 +29,9 @@
             padding: 0.5em;
 
             &__name {
-                width:100%
+                width:100%;
+                font-size: large;
+                text-overflow: ellipsis;
             }
             &__brewer {
                 color: #6c757d !important;

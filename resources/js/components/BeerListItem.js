@@ -20,7 +20,7 @@ export default class BeerListItem extends Component
         const picture_placeholder = "img/label-template.jpg";
         return (
             <div className="px-0 px-md-2">
-                <div className="col-12 beer-list__beer">
+                <a href={'/beer/'  + this.props.beer.id} className="col-12 beer-list__beer">
                     <div className="beer-list__beer__image">
                         <img
                             src={picture_placeholder}
@@ -34,7 +34,7 @@ export default class BeerListItem extends Component
                     </div>
                     <div className="beer-list__beer__data">
                         <div className="beer-list__beer__name">
-                            <a href={'/beer/'  + this.props.beer.id}>{ this.props.beer.name }</a>
+                            <span href={'/beer/'  + this.props.beer.id}>{ this.props.beer.name }</span>
                         </div>
                         <span className="beer-list__beer__data__flag">
                             <img className="country-flag" src={this.props.beer.flag} title="country_name_here"/>
@@ -45,7 +45,7 @@ export default class BeerListItem extends Component
                             style={this.props.beer.year ? {} : {visibility: 'hidden'}}
                         > { this.props.beer.year }</div>
                     </div>
-                </div>
+                </a>
             </div>
         )
     }
