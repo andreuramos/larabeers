@@ -47,7 +47,7 @@ class FlagRepository
         'morocco' => 'ma',
         'netherlands' => 'nl',
         'norway' => 'no',
-        'panama' => 'pa',
+        'panamá' => 'pa',
         'perú' => 'pe',
         'poland' => 'pl',
         'portugal' => 'pt',
