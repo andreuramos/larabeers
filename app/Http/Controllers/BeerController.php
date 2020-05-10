@@ -116,6 +116,9 @@ class BeerController extends Controller
         if (!$image) {
             $request->session()->flash('error', "New label must contain an image");
         }
+        $file_route = public_path() . '/upload/';
+        $image->move($file_route,$image->getClientOriginalName());
+        $file_path = $file_route . '/' . $image->getClientOriginalName();
 
         $tag_names = $request->get('tag_names');
         $tags = [];
@@ -125,7 +128,7 @@ class BeerController extends Controller
             }
         }
         try {
-            $this->create_label_to_beer->execute($beer_id, $image->getRealPath(), [
+            $this->create_label_to_beer->execute($beer_id, $file_path, [
                 'year' => $request->get('year'),
                 'album' => $request->get('album'),
                 'page' => $request->get('page'),
