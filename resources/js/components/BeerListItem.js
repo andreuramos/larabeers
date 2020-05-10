@@ -37,7 +37,7 @@ export default class BeerListItem extends Component
                             <span href={'/beer/'  + this.props.beer.id}>{ this.props.beer.name }</span>
                         </div>
                         <span className="beer-list__beer__data__flag">
-                            <img className="country-flag" src={this.props.beer.flag} title="country_name_here"/>
+                            <img className="country-flag" src={this.props.beer.flag} title={this.props.beer.country}/>
                         </span>
                         <span className="beer-list__beer__data__brewer">{ this.props.beer.brewer }</span>
                         <div

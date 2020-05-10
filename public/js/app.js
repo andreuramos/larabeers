@@ -66742,7 +66742,7 @@ var BeerListItem = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "country-flag",
         src: this.props.beer.flag,
-        title: "country_name_here"
+        title: this.props.beer.country
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "beer-list__beer__data__brewer"
       }, this.props.beer.brewer), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

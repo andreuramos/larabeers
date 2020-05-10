@@ -59,7 +59,8 @@ class ApiController extends Controller
             'brewer' => $beer->brewers[0]->name,
             'thumbnail' => $image,
             'flag' => $this->flag_repository->get($beer->brewers[0]->city->country->name),
-            'year' => $year
+            'year' => $year,
+            'country' => $beer->brewers[0]->city->country->name
         ];
     }
 }
