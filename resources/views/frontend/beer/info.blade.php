@@ -22,6 +22,7 @@
                 <i class="fa fa-font"></i>&nbsp;
                 {{ $beer->style->name }}
             </li>
+            @if (count($beer->labels))
             <li class="list-group-item">
                 <i class="fa fa-book" title="Album"></i>
                 {{ $beer->labels[0]->album }}
@@ -30,6 +31,7 @@
                 <i class="fa fa-th" title="Position"></i>
                 {{ $beer->labels[0]->position }}
             </li>
+            @endif
         </ul>
     </div>
 </div>
