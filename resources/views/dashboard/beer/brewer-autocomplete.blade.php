@@ -89,7 +89,9 @@
                     $autocomplete_list.html('');
                     if (data.length > 0) {
                         $.each(data, function(idx, brewer) {
-                            let suggestion = '<div class="autocomplete_list__item" onclick="selectBrewer(' + brewer.id + ',\'' + brewer.name+'\')" data-brewer-id="'+brewer.id+'">'+brewer.name+'</div>';
+                            let escaped_brewer_name = brewer.name.replace(/'/g, "\\'");
+                            console.log(escaped_brewer_name);
+                            let suggestion = '<div class="autocomplete_list__item" onclick="selectBrewer(' + brewer.id + ',\'' + escaped_brewer_name+'\')" data-brewer-id="'+brewer.id+'">'+brewer.name+'</div>';
                             $autocomplete_list.append(suggestion);
                         });
                     }
