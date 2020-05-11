@@ -66619,15 +66619,7 @@ var BeerList = /*#__PURE__*/function (_Component) {
   _createClass(BeerList, [{
     key: "render",
     value: function render() {
-      var empty_list = this.props.beers.length === 0;
-
-      if (empty_list) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "list-group"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "No results"));
-      }
-
-      var beerList = this.props.beers.map(function (beer) {
+      var beers = this.props.beers.map(function (beer) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BeerListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
           beer: beer,
           key: beer.id
@@ -66635,7 +66627,7 @@ var BeerList = /*#__PURE__*/function (_Component) {
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "beer-list"
-      }, beerList);
+      }, beers);
     }
   }]);
 
