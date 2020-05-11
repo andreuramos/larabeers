@@ -5,15 +5,15 @@ Personal project to manage a **beer sticker collection** made with Laravel 5.
 ### Features
 
 - Summary of the collection stats
+- Search for beers in the collection (now implemented with React)
 - Location distribution of the beers
-- Search for beers in the collection
 - Upload beers from a csv
+- Insert a single beer
 - Beer & Brewer page
 - Show images hosted in external storage
 
 ### Future Features
 
-- Insert a single beer
 - Improve location & location stats (countries, provinces, cities , ...)
 - Implement other "CDN" integration other than Google Drive
 
