@@ -67022,10 +67022,12 @@ var SearchableBeerList = /*#__PURE__*/function (_Component) {
         handleKeyUp: this.searcherKeyUp
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body px-0 px-md-2"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " ", this.state.message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "ml-4"
+      }, " ", this.state.message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container mt-2"
       }, this.state.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-spinner fa-spin"
+        className: "loading fa fa-spinner fa-spin"
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BeerList__WEBPACK_IMPORTED_MODULE_3__["default"], {
         beers: this.state.beers
       }))));

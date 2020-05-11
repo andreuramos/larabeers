@@ -46,10 +46,10 @@ export default class SearchableBeerList extends Component {
                     <SearchInput placeholder="Find Beers" handleKeyUp={this.searcherKeyUp} />
                 </div>
                 <div className="card-body px-0 px-md-2">
-                    <span> { this.state.message }</span>
-                    <div className="container">
+                    <span className="ml-4"> { this.state.message }</span>
+                    <div className="container mt-2">
                     {this.state.loading ?
-                        <i className="fa fa-spinner fa-spin"/> :
+                        <i className="loading fa fa-spinner fa-spin"/> :
                         <BeerList beers={this.state.beers} />
                     }
                     </div>
