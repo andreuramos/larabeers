@@ -101,6 +101,12 @@ class BeerRepository
         return false;
     }
 
+    public function delete(Beer $beer): void
+    {
+        $eloquent_beer = EloquentBeer::find($beer->id);
+        $eloquent_beer->delete();
+    }
+
     private function eloquentToEntityBeer(EloquentBeer $eloquent_beer): Beer
     {
         $beer = new Beer();
