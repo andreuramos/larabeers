@@ -11,6 +11,7 @@ use Larabeers\Entities\Tag;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateBeer;
 use Larabeers\Services\CreateLabelToBeer;
+use Larabeers\Services\DeleteBeer;
 use Larabeers\Services\UpdateBeer;
 use Larabeers\Services\UpdateLabel;
 
@@ -18,12 +19,13 @@ class BeerController extends Controller
 {
     private $private_methods = [
         'new_beer', 'create_beer', 'edit_beer', 'update_beer',
-        'add_label_to_beer', 'update_label'
+        'add_label_to_beer', 'update_label', 'delete_beer',
     ];
 
     private $beer_repository;
     private $create_beer;
     private $create_label_to_beer;
+    private $delete_beer;
     private $update_beer;
     private $update_label;
 
@@ -31,12 +33,14 @@ class BeerController extends Controller
         BeerRepository $beer_repository,
         CreateBeer $create_beer,
         CreateLabelToBeer $create_label_to_beer,
+        DeleteBeer $delete_beer,
         UpdateBeer $update_beer,
         UpdateLabel $update_label
     ) {
         $this->beer_repository = $beer_repository;
         $this->create_beer = $create_beer;
         $this->create_label_to_beer = $create_label_to_beer;
+        $this->delete_beer = $delete_beer;
         $this->update_beer = $update_beer;
         $this->update_label = $update_label;
     }
@@ -171,5 +175,18 @@ class BeerController extends Controller
 
         $request->session()->flash('success', "Label updated successfully");
         return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+    }
+
+    public function delete_beer(Request $request, int $beer_id)
+    {
+        $beer = $this->beer_repository->findById($beer_id);
+        try {
+            $this->delete_beer->execute($beer);
+            $request->session()->flash('success', "Beer deleted successfully");
+        } catch (\Exception $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
+
+        return redirect()->action('DashboardController@index');
     }
 }
