@@ -4,6 +4,7 @@
         <h3 class="col-10"><i class="fa fa-info"></i></h3>
         @if(Auth::user())
                 <a href="{{ url('/beer/'.$beer->id.'/edit') }}" class="btn btn-outline-primary"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="{{ url('/beer/'.$beer->id.'/delete') }}" class="btn btn-outline-danger"><i class="fa fa-times"></i> Delete</a>
         @endif
         </div>
     </div>
