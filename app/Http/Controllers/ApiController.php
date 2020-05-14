@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Larabeers\Domain\Beer\Beer;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\FlagRepository;
 
 class ApiController extends Controller
@@ -14,7 +14,7 @@ class ApiController extends Controller
     private $flag_repository;
 
     public function __construct(
-        BeerRepository $beer_repository,
+        EloquentBeerRepository $beer_repository,
         FlagRepository $flag_repository
     ) {
         $this->beer_repository = $beer_repository;

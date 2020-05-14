@@ -5,7 +5,7 @@ namespace Larabeers\Services\Tests;
 use Larabeers\Domain\Beer\Beer;
 use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Beer\Style;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\CreateBeer;
 use Larabeers\Utils\NormalizeString;
@@ -19,7 +19,7 @@ class CreateBeerTest extends ServiceTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->beer_repository = $this->prophet->prophesize(BeerRepository::class);
+        $this->beer_repository = $this->prophet->prophesize(EloquentBeerRepository::class);
         $this->brewer_repository = $this->prophet->prophesize(BrewerRepository::class);
         $this->normalize_string = $this->prophet->prophesize(NormalizeString::class);
     }
@@ -58,7 +58,7 @@ class CreateBeerTest extends ServiceTestBase
             ->shouldBeCalled()
             ->willReturn($brewer);
 
-        $this->beer_repository->alreadyExists($name, $brewer)
+        $this->beer_repository->exists($name, $brewer)
             ->shouldBeCalled()
             ->willReturn(true);
 
@@ -82,7 +82,7 @@ class CreateBeerTest extends ServiceTestBase
             ->shouldBeCalled()
             ->willReturn($brewer);
 
-        $this->beer_repository->alreadyExists($name, $brewer)
+        $this->beer_repository->exists($name, $brewer)
             ->shouldBeCalled()
             ->willReturn(false);
 

@@ -8,7 +8,7 @@ use Larabeers\Domain\Beer\Beer;
 use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Beer\Style;
 use Larabeers\Domain\Label\Tag;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\Services\CreateBeer;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\DeleteBeer;
@@ -30,7 +30,7 @@ class BeerController extends Controller
     private $update_label;
 
     public function __construct(
-        BeerRepository $beer_repository,
+        EloquentBeerRepository $beer_repository,
         CreateBeer $create_beer,
         CreateLabelToBeer $create_label_to_beer,
         DeleteBeer $delete_beer,

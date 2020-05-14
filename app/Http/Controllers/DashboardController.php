@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Larabeers\Domain\Beer\BeerCriteria;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Utils\NormalizeString;
 
@@ -22,7 +22,7 @@ class DashboardController extends Controller
     private $create_brewer;
 
     public function __construct(
-        BeerRepository $beer_repository,
+        EloquentBeerRepository $beer_repository,
         CreateBrewer $create_brewer
     ) {
         $this->beer_repository = $beer_repository;

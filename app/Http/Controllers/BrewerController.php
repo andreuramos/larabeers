@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Location\Country;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\CreateBrewer;
 
@@ -23,7 +23,7 @@ class BrewerController extends Controller
     private $update_brewer;
 
     public function __construct(
-        BeerRepository $beer_repository,
+        EloquentBeerRepository $beer_repository,
         BrewerRepository $brewer_repository,
         CreateBrewer $create_brewer
     ) {

@@ -6,10 +6,11 @@ use App\Beer as EloquentBeer;
 use App\Brewer as EloquentBrewer;
 use Larabeers\Domain\Beer\Beer;
 use Larabeers\Domain\Beer\BeerCriteria;
+use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Beer\Style;
 
-class BeerRepository
+class EloquentBeerRepository implements BeerRepository
 {
     private BrewerRepository $brewer_repository;
     private LabelRepository $label_repository;
@@ -25,6 +26,9 @@ class BeerRepository
     public function findById(int $id): ?Beer
     {
         $beer = EloquentBeer::find($id);
+        if (!$beer) {
+            return null;
+        }
         return $this->eloquentToEntityBeer($beer);
     }
 
@@ -91,7 +95,7 @@ class BeerRepository
         return $results;
     }
 
-    public function alreadyExists(string $name, Brewer $brewer): bool
+    public function exists(string $name, Brewer $brewer): bool
     {
         $brewer = EloquentBrewer::find($brewer->id);
         if (!$brewer) return false;

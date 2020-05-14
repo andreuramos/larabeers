@@ -4,13 +4,13 @@ namespace Larabeers\Services;
 
 use Larabeers\Domain\Beer\Beer;
 use Larabeers\Exceptions\BeerNotFoundException;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 
 class DeleteBeer
 {
-    private BeerRepository $beer_repository;
+    private EloquentBeerRepository $beer_repository;
 
-    public function __construct(BeerRepository $beer_repository)
+    public function __construct(EloquentBeerRepository $beer_repository)
     {
         $this->beer_repository = $beer_repository;
     }

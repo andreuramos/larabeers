@@ -7,7 +7,7 @@ use Larabeers\Domain\Beer\Style;
 use Larabeers\Exceptions\BrewerNotFoundException;
 use Larabeers\Exceptions\DuplicatedBeerException;
 use Larabeers\Exceptions\ServiceArgumentException;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Utils\NormalizeString;
 
@@ -18,7 +18,7 @@ class CreateBeer
     private $normalize_string;
 
     public function __construct(
-        BeerRepository $beer_repository,
+        EloquentBeerRepository $beer_repository,
         BrewerRepository $brewer_repository,
         NormalizeString $normalize_string
     ) {
@@ -38,7 +38,7 @@ class CreateBeer
             throw new BrewerNotFoundException("Brewer $brewer_id not found");
         }
 
-        if ($this->beer_repository->alreadyExists($name, $brewer)) {
+        if ($this->beer_repository->exists($name, $brewer)) {
             throw new DuplicatedBeerException();
         }
 

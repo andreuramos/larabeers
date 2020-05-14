@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Beer;
 use App\Brewer;
 use Illuminate\Http\Request;
-use Larabeers\External\BeerRepository;
+use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
@@ -20,7 +20,7 @@ class HomeController extends Controller
     private $search_tag;
 
     public function __construct(
-        BeerRepository $beer_repository,
+        EloquentBeerRepository $beer_repository,
         BrewerRepository $brewer_repository,
         SearchBrewer $search_brewer,
         SearchStyle $search_style,
