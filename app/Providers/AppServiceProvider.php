@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
             \Larabeers\Domain\Beer\BeerRepository::class,
             \Larabeers\External\EloquentBeerRepository::class
         );
+        $this->app->bind(
+            \Larabeers\Domain\Brewer\BrewerRepository::class,
+            \Larabeers\External\EloquentBrewerRepository::class
+        );
     }
 
     /**

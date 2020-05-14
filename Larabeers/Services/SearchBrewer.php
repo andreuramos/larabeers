@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Utils\NormalizeString;
 
 class SearchBrewer
@@ -11,7 +11,7 @@ class SearchBrewer
     private $normalize_string;
 
     public function __construct(
-        BrewerRepository $brewer_repository,
+        EloquentBrewerRepository $brewer_repository,
         NormalizeString $normalize_string
     )
     {

@@ -6,7 +6,7 @@ use Larabeers\Domain\Beer\Beer;
 use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Beer\Style;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Services\UpdateBeer;
 use Larabeers\Utils\NormalizeString;
 use \PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ class UpdateBeerTest extends TestCase
     {
         $this->prophet = new Prophet();
         $this->beer_repository = $this->prophet->prophesize(BeerRepository::class);
-        $this->brewer_repository = $this->prophet->prophesize(BrewerRepository::class);
+        $this->brewer_repository = $this->prophet->prophesize(EloquentBrewerRepository::class);
         $this->normalize_string = $this->prophet->prophesize(NormalizeString::class);
     }
 

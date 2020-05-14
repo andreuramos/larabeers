@@ -3,7 +3,7 @@
 namespace Larabeers\Services\Tests;
 
 use Larabeers\Domain\Brewer\Brewer;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Utils\NormalizeString;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ class SearchBrewerTest extends TestCase
     public function setUp()
     {
         $this->prophet = new Prophet();
-        $this->brewer_repository = $this->prophet->prophesize(BrewerRepository::class);
+        $this->brewer_repository = $this->prophet->prophesize(EloquentBrewerRepository::class);
         $this->normalize_string = $this->prophet->prophesize(NormalizeString::class);
     }
 

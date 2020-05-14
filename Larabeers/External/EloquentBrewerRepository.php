@@ -4,11 +4,12 @@ namespace Larabeers\External;
 
 use App\Brewer as EloquentBrewer;
 use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Brewer\BrewerRepository;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Location\Country;
 use Larabeers\Domain\Common\Image;
 
-class BrewerRepository
+class EloquentBrewerRepository implements BrewerRepository
 {
     public function findById(int $id): ?Brewer
     {
@@ -43,6 +44,17 @@ class BrewerRepository
         return $eloquent_brewer->id;
     }
 
+    public function search(string $query): array
+    {
+        $results = [];
+        $db_results = EloquentBrewer::where('normalized_name', 'ilike', "%$query%")->get();
+        foreach ($db_results as $db_result) {
+            $results[] = $this->eloquentToEntityBrewer($db_result);
+        }
+
+        return $results;
+    }
+
     private function eloquentToEntityBrewer(EloquentBrewer $eloquent_brewer): Brewer
     {
         $brewer = new Brewer();
@@ -63,17 +75,6 @@ class BrewerRepository
         }
 
         return $brewer;
-    }
-
-    public function search(string $query): array
-    {
-        $results = [];
-        $db_results = EloquentBrewer::where('normalized_name', 'ilike', "%$query%")->get();
-        foreach ($db_results as $db_result) {
-            $results[] = $this->eloquentToEntityBrewer($db_result);
-        }
-
-        return $results;
     }
 
 }

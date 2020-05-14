@@ -6,7 +6,7 @@ use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Beer\Style;
 use Larabeers\Exceptions\BeerNotFoundException;
 use Larabeers\Exceptions\BrewerNotFoundException;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Utils\NormalizeString;
 
 class UpdateBeer
@@ -17,7 +17,7 @@ class UpdateBeer
 
     public function __construct(
         BeerRepository $beer_repostiory,
-        BrewerRepository $brewer_repository,
+        EloquentBrewerRepository $brewer_repository,
         NormalizeString $normalize_string
     ) {
         $this->beer_repository = $beer_repostiory;

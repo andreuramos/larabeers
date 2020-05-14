@@ -6,7 +6,7 @@ use App\Beer;
 use App\Brewer;
 use Illuminate\Http\Request;
 use Larabeers\External\EloquentBeerRepository;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
 use Larabeers\Services\SearchTag;
@@ -21,7 +21,7 @@ class HomeController extends Controller
 
     public function __construct(
         EloquentBeerRepository $beer_repository,
-        BrewerRepository $brewer_repository,
+        EloquentBrewerRepository $brewer_repository,
         SearchBrewer $search_brewer,
         SearchStyle $search_style,
         SearchTag $search_tag

@@ -8,7 +8,7 @@ use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Location\Country;
 use Larabeers\External\EloquentBeerRepository;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Services\CreateBrewer;
 
 class BrewerController extends Controller
@@ -24,7 +24,7 @@ class BrewerController extends Controller
 
     public function __construct(
         EloquentBeerRepository $beer_repository,
-        BrewerRepository $brewer_repository,
+        EloquentBrewerRepository $brewer_repository,
         CreateBrewer $create_brewer
     ) {
         $this->beer_repository = $beer_repository;

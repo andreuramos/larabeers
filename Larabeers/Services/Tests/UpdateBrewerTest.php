@@ -6,7 +6,7 @@ use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Location\Country;
 use Larabeers\Domain\Common\Image;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\Services\UpdateBrewer;
 use Larabeers\Utils\NormalizeString;
@@ -26,7 +26,7 @@ class UpdateBrewerTest extends ServiceTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->brewer_repository = $this->prophet->prophesize(BrewerRepository::class);
+        $this->brewer_repository = $this->prophet->prophesize(EloquentBrewerRepository::class);
         $this->image_uploader = $this->prophet->prophesize(ImageUploader::class);
         $this->normalize_string = $this->prophet->prophesize(NormalizeString::class);
 

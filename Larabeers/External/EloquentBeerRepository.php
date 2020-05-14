@@ -12,11 +12,11 @@ use Larabeers\Domain\Beer\Style;
 
 class EloquentBeerRepository implements BeerRepository
 {
-    private BrewerRepository $brewer_repository;
+    private EloquentBrewerRepository $brewer_repository;
     private LabelRepository $label_repository;
 
     public function __construct(
-        BrewerRepository $brewer_repository,
+        EloquentBrewerRepository $brewer_repository,
         LabelRepository $label_repository
     ) {
         $this->brewer_repository = $brewer_repository;

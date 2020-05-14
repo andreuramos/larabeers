@@ -6,7 +6,7 @@ use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Common\Image;
 use Larabeers\Exceptions\ServiceArgumentException;
-use Larabeers\External\BrewerRepository;
+use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\Utils\NormalizeString;
 
@@ -17,7 +17,7 @@ class CreateBrewer
     private $normalize_string;
 
     public function __construct(
-        BrewerRepository $brewer_repository,
+        EloquentBrewerRepository $brewer_repository,
         ImageUploader $image_uploader,
         NormalizeString $normalize_string
     ) {
