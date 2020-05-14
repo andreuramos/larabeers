@@ -24,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
                 \Larabeers\External\Images\Uploader\GoogleDriveImageUploader::class
             );
         }
+
+        $this->app->bind(
+            \Larabeers\Domain\Beer\BeerRepository::class,
+            \Larabeers\External\EloquentBeerRepository::class
+        );
     }
 
     /**
