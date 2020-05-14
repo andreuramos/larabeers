@@ -4,8 +4,9 @@ namespace Larabeers\External;
 
 use App\Tag as EloquentTag;
 use Larabeers\Domain\Label\Tag;
+use Larabeers\Domain\Label\TagRepository;
 
-class TagRepository
+class EloquentTagRepository implements TagRepository
 {
     public function search(string $query): array
     {

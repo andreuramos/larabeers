@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\External\TagRepository;
+use Larabeers\Domain\Label\TagRepository;
 
 class SearchTag
 {

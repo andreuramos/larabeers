@@ -41,6 +41,10 @@ class AppServiceProvider extends ServiceProvider
             \Larabeers\Domain\Beer\StyleRepository::class,
             \Larabeers\External\EloquentStyleRepository::class
         );
+        $this->app->bind(
+            \Larabeers\Domain\Label\TagRepository::class,
+            \Larabeers\External\EloquentTagRepository::class
+        );
     }
 
     /**

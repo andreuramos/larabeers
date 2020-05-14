@@ -3,7 +3,7 @@
 namespace Larabeers\Services\Tests;
 
 use Larabeers\Domain\Label\Tag;
-use Larabeers\External\TagRepository;
+use Larabeers\Domain\Label\TagRepository;
 use Larabeers\Services\SearchTag;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophet;
