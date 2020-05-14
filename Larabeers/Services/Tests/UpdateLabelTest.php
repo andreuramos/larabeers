@@ -4,9 +4,9 @@ namespace Larabeers\Services\Tests;
 
 use Larabeers\Domain\Common\Image;
 use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\LabelRepository;
 use Larabeers\Domain\Label\Tag;
 use Larabeers\External\Images\Uploader\ImageUploader;
-use Larabeers\External\LabelRepository;
 use Larabeers\External\TagRepository;
 use Larabeers\Services\UpdateLabel;
 use Larabeers\Utils\GetFileType;

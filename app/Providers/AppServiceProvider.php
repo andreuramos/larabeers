@@ -33,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
             \Larabeers\Domain\Brewer\BrewerRepository::class,
             \Larabeers\External\EloquentBrewerRepository::class
         );
+        $this->app->bind(
+            \Larabeers\Domain\Label\LabelRepository::class,
+            \Larabeers\External\EloquentLabelRepository::class
+        );
     }
 
     /**

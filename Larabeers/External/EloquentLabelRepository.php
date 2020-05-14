@@ -4,12 +4,13 @@ namespace Larabeers\External;
 
 use Larabeers\Domain\Common\Image;
 use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\LabelRepository;
 use Larabeers\Domain\Label\Tag;
 use App\Label as EloquentLabel;
 use App\Sticker;
 use App\Tag as EloquentTag;
 
-class LabelRepository
+class EloquentLabelRepository implements LabelRepository
 {
     public function findById(int $id): ?Label
     {
@@ -21,7 +22,7 @@ class LabelRepository
         return self::eloquentToEntityLabel($eloquent_label);
     }
 
-    public function save(Label $label)
+    public function save(Label $label): int
     {
         if ($label->id) {
             $eloquent_label = EloquentLabel::find($label->id);
@@ -46,6 +47,8 @@ class LabelRepository
         }
 
         $this->syncTags($eloquent_label, $label->tags);
+
+        return $eloquent_label->id;
     }
 
     private static function populateEloquentLabel(EloquentLabel $eloquent_label, Label $label): EloquentLabel

@@ -4,12 +4,12 @@ namespace Larabeers\Services;
 
 use Larabeers\Domain\Common\Image;
 use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\LabelRepository;
 use Larabeers\Domain\Label\Tag;
 use Larabeers\Exceptions\LabelNotFoundException;
 use Larabeers\Exceptions\ServiceArgumentException;
 use Larabeers\Exceptions\UploadFailedException;
 use Larabeers\External\Images\Uploader\ImageUploader;
-use Larabeers\External\LabelRepository;
 use Larabeers\External\TagRepository;
 use Larabeers\Utils\GetFileType;
 use Larabeers\Utils\ResizeImage;

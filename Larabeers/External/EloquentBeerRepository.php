@@ -9,14 +9,16 @@ use Larabeers\Domain\Beer\BeerCriteria;
 use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Beer\Style;
+use Larabeers\Domain\Brewer\BrewerRepository;
+use Larabeers\Domain\Label\LabelRepository;
 
 class EloquentBeerRepository implements BeerRepository
 {
-    private EloquentBrewerRepository $brewer_repository;
+    private BrewerRepository $brewer_repository;
     private LabelRepository $label_repository;
 
     public function __construct(
-        EloquentBrewerRepository $brewer_repository,
+        BrewerRepository $brewer_repository,
         LabelRepository $label_repository
     ) {
         $this->brewer_repository = $brewer_repository;
