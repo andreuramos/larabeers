@@ -8,7 +8,7 @@ use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Common\Image;
 use Larabeers\Exceptions\BrewerNotFoundException;
 use Larabeers\Exceptions\ServiceArgumentException;
-use Larabeers\External\Images\Uploader\ImageUploader;
+use Larabeers\Domain\Common\ImageUploader;
 use Larabeers\Utils\NormalizeString;
 
 class UpdateBrewer

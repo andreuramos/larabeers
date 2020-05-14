@@ -1,8 +1,6 @@
 <?php
 
-namespace Larabeers\External\Images\Uploader;
-
-use Larabeers\Domain\Common\Image;
+namespace Larabeers\Domain\Common;
 
 interface ImageUploader
 {

@@ -15,12 +15,12 @@ class AppServiceProvider extends ServiceProvider
     {
         if(env('APP_ENV', 'production') == 'local'){
             $this->app->bind(
-                \Larabeers\External\Images\Uploader\ImageUploader::class,
+                \Larabeers\Domain\Common\ImageUploader::class,
                 \Larabeers\External\Images\Uploader\LocalStorageImageUploader::class
             );
         } else {
             $this->app->bind(
-                \Larabeers\External\Images\Uploader\ImageUploader::class,
+                \Larabeers\Domain\Common\ImageUploader::class,
                 \Larabeers\External\Images\Uploader\GoogleDriveImageUploader::class
             );
         }

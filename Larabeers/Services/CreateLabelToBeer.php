@@ -6,7 +6,7 @@ use Larabeers\Domain\Common\Image;
 use Larabeers\Domain\Label\Label;
 use Larabeers\Domain\Label\LabelRepository;
 use Larabeers\Exceptions\UploadFailedException;
-use Larabeers\External\Images\Uploader\ImageUploader;
+use Larabeers\Domain\Common\ImageUploader;
 use Larabeers\Utils\GetFileType;
 use Larabeers\Utils\ResizeImage;
 

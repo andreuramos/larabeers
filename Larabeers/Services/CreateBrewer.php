@@ -7,7 +7,7 @@ use Larabeers\Domain\Brewer\BrewerRepository;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Common\Image;
 use Larabeers\Exceptions\ServiceArgumentException;
-use Larabeers\External\Images\Uploader\ImageUploader;
+use Larabeers\Domain\Common\ImageUploader;
 use Larabeers\Utils\NormalizeString;
 
 class CreateBrewer

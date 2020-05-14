@@ -2,6 +2,8 @@
 
 namespace Larabeers\External\Images\Uploader;
 
+use Larabeers\Domain\Common\ImageUploader;
+
 class LocalStorageImageUploader implements ImageUploader
 {
     private $upload_path;

@@ -7,7 +7,7 @@ use Larabeers\Domain\Brewer\BrewerRepository;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Location\Country;
 use Larabeers\Domain\Common\Image;
-use Larabeers\External\Images\Uploader\ImageUploader;
+use Larabeers\Domain\Common\ImageUploader;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Utils\NormalizeString;
 use PHPUnit\Framework\TestCase;

@@ -10,7 +10,7 @@ use Larabeers\Domain\Label\TagRepository;
 use Larabeers\Exceptions\LabelNotFoundException;
 use Larabeers\Exceptions\ServiceArgumentException;
 use Larabeers\Exceptions\UploadFailedException;
-use Larabeers\External\Images\Uploader\ImageUploader;
+use Larabeers\Domain\Common\ImageUploader;
 use Larabeers\Utils\GetFileType;
 use Larabeers\Utils\ResizeImage;
 
