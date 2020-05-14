@@ -5,6 +5,7 @@ namespace Larabeers\External;
 use App\Beer as EloquentBeer;
 use App\Brewer as EloquentBrewer;
 use Larabeers\Domain\Beer\Beer;
+use Larabeers\Domain\Beer\BeerCollection;
 use Larabeers\Domain\Beer\BeerCriteria;
 use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Brewer\Brewer;
@@ -50,9 +51,9 @@ class EloquentBeerRepository implements BeerRepository
         return $eloquent_beer->id;
     }
 
-    public function findByCriteria(BeerCriteria $criteria): array
+    public function findByCriteria(BeerCriteria $criteria): BeerCollection
     {
-        $results = [];
+        $results = new BeerCollection();
         $query = EloquentBeer::query();
 
         $order = $criteria->getOrder();
@@ -70,29 +71,29 @@ class EloquentBeerRepository implements BeerRepository
         $eloquent_results = $query->get();
 
         foreach($eloquent_results as $eloquent_result) {
-            $results[] = self::eloquentToEntityBeer($eloquent_result);
+            $results->add(self::eloquentToEntityBeer($eloquent_result));
         }
 
         return $results;
     }
 
-    public function random(int $limit = 5): array
+    public function random(int $limit = 5): BeerCollection
     {
-        $results = [];
+        $results = new BeerCollection();
 
         $eloquent_beers = EloquentBeer::inRandomOrder()->take($limit)->get();
         foreach ($eloquent_beers as $eloquent_beer) {
-            $results[] = $this->eloquentToEntityBeer($eloquent_beer);
+            $results->add($this->eloquentToEntityBeer($eloquent_beer));
         }
 
         return $results;
     }
 
-    public function search(string $query): array
+    public function search(string $query): BeerCollection
     {
-        $results = [];
+        $results = new BeerCollection();
         foreach(EloquentBeer::search($query) as $eloquent_beer) {
-            $results[] = $this->eloquentToEntityBeer($eloquent_beer);
+            $results->add($this->eloquentToEntityBeer($eloquent_beer));
         }
         return $results;
     }
