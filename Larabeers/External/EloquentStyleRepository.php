@@ -4,8 +4,9 @@ namespace Larabeers\External;
 
 use App\Beer;
 use Larabeers\Domain\Beer\Style;
+use Larabeers\Domain\Beer\StyleRepository;
 
-class StyleRepository
+class EloquentStyleRepository implements StyleRepository
 {
     public function search(string $query): array
     {

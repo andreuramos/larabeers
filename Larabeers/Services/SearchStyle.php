@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\External\StyleRepository;
+use Larabeers\Domain\Beer\StyleRepository;
 
 class SearchStyle
 {

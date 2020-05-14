@@ -3,7 +3,7 @@
 namespace Larabeers\Services\Tests;
 
 use Larabeers\Domain\Beer\Style;
-use Larabeers\External\StyleRepository;
+use Larabeers\Domain\Beer\StyleRepository;
 use Larabeers\Services\SearchStyle;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophet;
