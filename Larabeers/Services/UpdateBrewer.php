@@ -3,11 +3,11 @@
 namespace Larabeers\Services;
 
 use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Brewer\BrewerRepository;
 use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Common\Image;
 use Larabeers\Exceptions\BrewerNotFoundException;
 use Larabeers\Exceptions\ServiceArgumentException;
-use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\Utils\NormalizeString;
 
@@ -18,7 +18,7 @@ class UpdateBrewer
     private $normalize_string;
 
     public function __construct(
-        EloquentBrewerRepository $brewer_repository,
+        BrewerRepository $brewer_repository,
         ImageUploader $image_uploader,
         NormalizeString $normalize_string
     ) {
