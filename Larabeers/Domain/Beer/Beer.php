@@ -1,8 +1,6 @@
 <?php
 
-namespace Larabeers\Entities;
-
-use Larabeers\External\FlagRepository;
+namespace Larabeers\Domain\Beer;
 
 class Beer
 {

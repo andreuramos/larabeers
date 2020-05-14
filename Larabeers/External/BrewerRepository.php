@@ -3,10 +3,10 @@
 namespace Larabeers\External;
 
 use App\Brewer as EloquentBrewer;
-use Larabeers\Entities\Brewer;
-use Larabeers\Entities\City;
-use Larabeers\Entities\Country;
-use Larabeers\Entities\Image;
+use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Location\City;
+use Larabeers\Domain\Location\Country;
+use Larabeers\Domain\Common\Image;
 
 class BrewerRepository
 {

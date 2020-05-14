@@ -2,9 +2,9 @@
 
 namespace Larabeers\External;
 
-use Larabeers\Entities\Image;
-use Larabeers\Entities\Label;
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Common\Image;
+use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\Tag;
 use App\Label as EloquentLabel;
 use App\Sticker;
 use App\Tag as EloquentTag;

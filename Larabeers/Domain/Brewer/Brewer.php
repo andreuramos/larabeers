@@ -1,6 +1,9 @@
 <?php
 
-namespace Larabeers\Entities;
+namespace Larabeers\Domain\Brewer;
+
+use Larabeers\Domain\Location\City;
+use Larabeers\Domain\Common\Image;
 
 class Brewer
 {

@@ -2,9 +2,9 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Image;
-use Larabeers\Entities\Label;
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Common\Image;
+use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\Tag;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;
 use Larabeers\External\TagRepository;
@@ -167,7 +167,7 @@ class UpdateLabelTest extends TestCase
 
     /**
      * @expectedException \Larabeers\Exceptions\ServiceArgumentException
-     * @expectedExceptionMessage Tag 0 is not a \Larabeers\Entities\Tag object
+     * @expectedExceptionMessage Tag 0 is not a \Larabeers\Domain\Label\Tag object
      */
     public function test_tags_class_check()
     {

@@ -1,6 +1,8 @@
 <?php
 
-namespace Larabeers\Entities;
+namespace Larabeers\Domain\Label;
+
+use Larabeers\Domain\Common\Image;
 
 class Label
 {

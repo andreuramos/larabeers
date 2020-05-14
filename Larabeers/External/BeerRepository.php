@@ -4,10 +4,10 @@ namespace Larabeers\External;
 
 use App\Beer as EloquentBeer;
 use App\Brewer as EloquentBrewer;
-use Larabeers\Entities\Beer;
-use Larabeers\Entities\BeerCriteria;
-use Larabeers\Entities\Brewer;
-use Larabeers\Entities\Style;
+use Larabeers\Domain\Beer\Beer;
+use Larabeers\Domain\Beer\BeerCriteria;
+use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Beer\Style;
 
 class BeerRepository
 {

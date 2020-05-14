@@ -7,7 +7,7 @@ use Google_Service_Drive;
 use Google_Service_Drive_DriveFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Larabeers\Entities\Image;
+use Larabeers\Domain\Common\Image;
 
 class GoogleDriveImageUploader implements ImageUploader
 {

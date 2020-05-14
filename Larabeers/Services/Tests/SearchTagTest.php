@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Label\Tag;
 use Larabeers\External\TagRepository;
 use Larabeers\Services\SearchTag;
 use PHPUnit\Framework\TestCase;

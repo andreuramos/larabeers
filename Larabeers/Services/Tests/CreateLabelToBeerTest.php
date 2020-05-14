@@ -2,9 +2,9 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Image;
-use Larabeers\Entities\Label;
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Common\Image;
+use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\Tag;
 use Larabeers\Exceptions\UploadFailedException;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;

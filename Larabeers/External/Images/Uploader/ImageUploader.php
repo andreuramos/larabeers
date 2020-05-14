@@ -2,7 +2,7 @@
 
 namespace Larabeers\External\Images\Uploader;
 
-use Larabeers\Entities\Image;
+use Larabeers\Domain\Common\Image;
 
 interface ImageUploader
 {

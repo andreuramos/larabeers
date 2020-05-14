@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use Larabeers\Entities\Beer;
+use Larabeers\Domain\Beer\Beer;
 use Larabeers\External\BeerRepository;
 use Larabeers\External\FlagRepository;
 

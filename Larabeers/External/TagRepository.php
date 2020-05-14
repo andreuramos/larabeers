@@ -3,7 +3,7 @@
 namespace Larabeers\External;
 
 use App\Tag as EloquentTag;
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Label\Tag;
 
 class TagRepository
 {

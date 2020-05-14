@@ -1,6 +1,6 @@
 <?php
 
-namespace Larabeers\Entities;
+namespace Larabeers\Domain\Common;
 
 class Image
 {

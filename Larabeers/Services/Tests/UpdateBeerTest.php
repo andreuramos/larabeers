@@ -2,9 +2,9 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Beer;
-use Larabeers\Entities\Brewer;
-use Larabeers\Entities\Style;
+use Larabeers\Domain\Beer\Beer;
+use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Beer\Style;
 use Larabeers\External\BeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\UpdateBeer;

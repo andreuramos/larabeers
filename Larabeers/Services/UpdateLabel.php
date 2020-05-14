@@ -2,9 +2,9 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\Entities\Image;
-use Larabeers\Entities\Label;
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Common\Image;
+use Larabeers\Domain\Label\Label;
+use Larabeers\Domain\Label\Tag;
 use Larabeers\Exceptions\LabelNotFoundException;
 use Larabeers\Exceptions\ServiceArgumentException;
 use Larabeers\Exceptions\UploadFailedException;
@@ -62,7 +62,7 @@ class UpdateLabel
         if ($tags !== null) {
             foreach($tags as $i => $tag) {
                 if (!is_a($tag, Tag::class)) {
-                    throw new ServiceArgumentException("Tag $i is not a \Larabeers\Entities\Tag object");
+                    throw new ServiceArgumentException("Tag $i is not a \Larabeers\Domain\Label\Tag object");
                 }
             }
             $label->tags = $tags;

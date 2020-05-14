@@ -2,9 +2,9 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\Entities\Brewer;
-use Larabeers\Entities\City;
-use Larabeers\Entities\Image;
+use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Location\City;
+use Larabeers\Domain\Common\Image;
 use Larabeers\Exceptions\BrewerNotFoundException;
 use Larabeers\Exceptions\ServiceArgumentException;
 use Larabeers\External\BrewerRepository;

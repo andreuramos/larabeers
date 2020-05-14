@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Style;
+use Larabeers\Domain\Beer\Style;
 use Larabeers\External\StyleRepository;
 use Larabeers\Services\SearchStyle;
 use PHPUnit\Framework\TestCase;

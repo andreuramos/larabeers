@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Larabeers\Entities\Beer;
-use Larabeers\Entities\Brewer;
-use Larabeers\Entities\Style;
-use Larabeers\Entities\Tag;
+use Larabeers\Domain\Beer\Beer;
+use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Beer\Style;
+use Larabeers\Domain\Label\Tag;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateBeer;
 use Larabeers\Services\CreateLabelToBeer;

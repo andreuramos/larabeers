@@ -3,7 +3,7 @@
 namespace Larabeers\External;
 
 use App\Beer;
-use Larabeers\Entities\Style;
+use Larabeers\Domain\Beer\Style;
 
 class StyleRepository
 {

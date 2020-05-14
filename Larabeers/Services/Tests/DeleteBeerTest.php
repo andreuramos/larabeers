@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Beer;
+use Larabeers\Domain\Beer\Beer;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\DeleteBeer;
 

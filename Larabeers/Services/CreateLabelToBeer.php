@@ -2,8 +2,8 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\Entities\Image;
-use Larabeers\Entities\Label;
+use Larabeers\Domain\Common\Image;
+use Larabeers\Domain\Label\Label;
 use Larabeers\Exceptions\UploadFailedException;
 use Larabeers\External\Images\Uploader\ImageUploader;
 use Larabeers\External\LabelRepository;

@@ -2,8 +2,8 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\Entities\Beer;
-use Larabeers\Entities\Style;
+use Larabeers\Domain\Beer\Beer;
+use Larabeers\Domain\Beer\Style;
 use Larabeers\Exceptions\BrewerNotFoundException;
 use Larabeers\Exceptions\DuplicatedBeerException;
 use Larabeers\Exceptions\ServiceArgumentException;

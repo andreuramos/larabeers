@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Larabeers\Entities\Brewer;
-use Larabeers\Entities\City;
-use Larabeers\Entities\Country;
+use Larabeers\Domain\Brewer\Brewer;
+use Larabeers\Domain\Location\City;
+use Larabeers\Domain\Location\Country;
 use Larabeers\External\BeerRepository;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\CreateBrewer;

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
-use Larabeers\Entities\BeerCriteria;
+use Larabeers\Domain\Beer\BeerCriteria;
 use Larabeers\External\BeerRepository;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Utils\NormalizeString;

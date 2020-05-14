@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services;
 
-use Larabeers\Entities\Beer;
+use Larabeers\Domain\Beer\Beer;
 use Larabeers\Exceptions\BeerNotFoundException;
 use Larabeers\External\BeerRepository;
 

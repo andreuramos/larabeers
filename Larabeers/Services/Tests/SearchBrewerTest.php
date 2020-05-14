@@ -2,7 +2,7 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Entities\Brewer;
+use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\External\BrewerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Utils\NormalizeString;
