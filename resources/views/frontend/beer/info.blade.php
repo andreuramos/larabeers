@@ -21,7 +21,7 @@
             </li>
             <li class="list-group-item">
                 <i class="fa fa-font"></i>&nbsp;
-                {{ $beer->style->name }}
+                {{ $beer->style }}
             </li>
             @if (count($beer->labels))
             <li class="list-group-item">

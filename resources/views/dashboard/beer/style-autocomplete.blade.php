@@ -33,7 +33,7 @@
                     console.log(status);
                 })
             } else {
-                $(".brewer_autocomplete_list").addClass('hidden');
+                $(".style-autocomplete_list").addClass('hidden');
             }
         });
     });

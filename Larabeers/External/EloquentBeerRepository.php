@@ -142,7 +142,7 @@ class EloquentBeerRepository implements BeerRepository
         }
         $eloquent_beer->name = $beer->name;
         $eloquent_beer->normalized_name = $beer->normalized_name;
-        $eloquent_beer->type = $beer->style->name;
+        $eloquent_beer->type = $beer->style;
         $eloquent_beer->created_at = $beer->created_at;
 
         return $eloquent_beer;
@@ -153,7 +153,7 @@ class EloquentBeerRepository implements BeerRepository
         $eloquent_beer->id = $beer->id;
         $eloquent_beer->name = $beer->name;
         $eloquent_beer->normalized_name = $beer->normalized_name;
-        $eloquent_beer->type = $beer->style->name;
+        $eloquent_beer->type = $beer->style;
         $eloquent_beer->created_at = $beer->created_at;
 
         return $eloquent_beer;
