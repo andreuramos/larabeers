@@ -1,8 +1,10 @@
 <?php
 
-namespace Larabeers\External;
+namespace Larabeers\External\Images;
 
-class FlagRepository
+use Larabeers\Domain\Location\FlagRepository;
+
+class CountryflagsioFlagRepository implements FlagRepository
 {
     const BASE_URL = "https://www.countryflags.io/";
     const URL_TAIL = "/flat/24.png";

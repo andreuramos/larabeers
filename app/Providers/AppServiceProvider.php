@@ -45,6 +45,10 @@ class AppServiceProvider extends ServiceProvider
             \Larabeers\Domain\Label\TagRepository::class,
             \Larabeers\External\EloquentTagRepository::class
         );
+        $this->app->bind(
+            \Larabeers\Domain\Location\FlagRepository::class,
+            \Larabeers\External\Images\CountryflagsioFlagRepository::class
+        );
     }
 
     /**
