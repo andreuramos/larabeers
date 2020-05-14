@@ -11,4 +11,5 @@ interface BeerRepository
     public function findByCriteria(BeerCriteria $criteria): array;
     public function random(int $limit): array;
     public function exists(string $name, Brewer $brewer): bool;
+    public function delete(Beer $beer): void;
 }
