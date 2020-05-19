@@ -11,6 +11,11 @@ class Style
         $this->name = $name;
     }
 
+    public function __get($name)
+    {
+        if ($name == 'name') return $this->name;
+    }
+
     public function __toString()
     {
         return $this->name;

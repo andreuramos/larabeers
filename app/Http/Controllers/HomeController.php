@@ -95,7 +95,7 @@ class HomeController extends Controller
         $results = [];
 
         foreach($this->search_style->execute($query) as $style) {
-            $results[] = $style->__toString();
+            $results[] = $style->name;
         }
 
         return response()->json($results);
