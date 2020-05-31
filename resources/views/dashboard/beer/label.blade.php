@@ -50,13 +50,13 @@
 
                         <div class="label-form__data col-12 col-sm-6">
                             <span class="label-form__data__label">Year&nbsp;<i class="fa fa-calendar-alt"></i></span>
-                            {{ Form::text('year', $label ? $label->year : null) }}
+                            {{ Form::input('number', 'year', $label ? $label->year : null) }}
                             <span class="label-form__data__label">Album&nbsp;<i class="fa fa-book"></i></span>
-                            {{ Form::text('album', $label ? $label->album : null) }}
+                            {{ Form::input('number', 'album', $label ? $label->album : null) }}
                             <span class="label-form__data__label">Page&nbsp;<i class="fa fa-book-open"></i></span>
-                            {{ Form::text('page', $label ? $label->page : null) }}
+                            {{ Form::input('number', 'page', $label ? $label->page : null) }}
                             <span class="label-form__data__label">Position&nbsp;<i class="fa fa-th"></i></span>
-                            {{ Form::text('position', $label ? $label->position : null) }}
+                            {{ Form::input('number', 'position', $label ? $label->position : null) }}
                             <br>
                         </div>
 
