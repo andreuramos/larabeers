@@ -53,7 +53,9 @@
                         @foreach($beer->labels as $label)
                             @include('dashboard.beer.label', ['label' => $label, 'beer_id' => $beer->id])
                         @endforeach
-                        @include('dashboard.beer.label', ['label' => null, 'beer_id' => $beer->id])
+                        @if ($beer->id)
+                            @include('dashboard.beer.label', ['label' => null, 'beer_id' => $beer->id])
+                        @endif
                         </div>
                     </div>
                 </div>
