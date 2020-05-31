@@ -2,9 +2,10 @@
 
 namespace Larabeers\Domain\Common;
 
+use Countable;
 use Iterator;
 
-abstract class ItemCollection implements Iterator
+abstract class ItemCollection implements Iterator, Countable
 {
     protected $items;
     private $position;
@@ -39,5 +40,10 @@ abstract class ItemCollection implements Iterator
     public function valid()
     {
         return array_key_exists($this->position, $this->items);
+    }
+
+    public function count()
+    {
+        return count($this->items);
     }
 }
