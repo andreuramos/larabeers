@@ -60,7 +60,7 @@ class CountryflagsioFlagRepository implements FlagRepository
         'serbia' => 'rs',
         'singapore' => 'sg',
         'slovak republic' => 'sk',
-        'slovenia' => 'sl',
+        'slovenia' => 'si',
         'spain' => 'es',
         'sri lanka' => 'lk',
         'st vincent & the granadines' => 'vc',
