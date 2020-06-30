@@ -119,6 +119,7 @@ class BeerController extends Controller
         $image = $request->file('label');
         if (!$image) {
             $request->session()->flash('error', "New label must contain an image");
+            return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
         }
         $file_route = public_path() . '/upload/';
         $image->move($file_route,$image->getClientOriginalName());
