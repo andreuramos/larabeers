@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card w-100">
@@ -27,7 +28,7 @@
                         Brewed by {{$brewer->name}}
                     </div>
                     <div class="card-body">
-                        @include('frontend.beer_list', ['beers' => $beers])
+                        <div id="fixedBeerList" beer_ids="{{ $beer_ids }}"></div>
                     </div>
                 </div>
             </div>

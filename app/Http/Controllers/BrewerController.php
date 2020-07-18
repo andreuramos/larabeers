@@ -46,7 +46,13 @@ class BrewerController extends Controller
         if (!$brewer)
             abort(404);
         $beers = $this->beer_repository->findByBrewerId($id);
-        return view('frontend.brewer.brewer', ['brewer' => $brewer, 'beers' => $beers]);
+        $beer_ids = array_map(function($beer) {
+            return $beer->id;
+        }, $beers);
+        return view('frontend.brewer.brewer', [
+            'brewer' => $brewer,
+            'beer_ids' => implode(',', $beer_ids),
+        ]);
     }
 
     public function new_brewer()
