@@ -40,6 +40,20 @@ class ApiController extends Controller
         return response()->json($beers);
     }
 
+    public function findBeersById(Request $request)
+    {
+        $beer_ids = $request->get('beer_ids');
+
+        $beers = [];
+        foreach( explode(',', $beer_ids) as $beer_id) {
+            $beer = $this->beer_repository->findById($beer_id);
+            if (!$beer) continue;
+            $beers[] = $this->buildBeerDataArray($beer);
+        }
+
+        return response()->json($beers);
+    }
+
     private function buildBeerDataArray(Beer $beer): array
     {
         $image = URL::asset('img/label-template.jpg');
