@@ -15,3 +15,12 @@ export const searchBeers = async (query) => {
         throw error;
     }
 }
+
+export const findBeer = async(beer_ids) => {
+    try {
+        const response = await fetch('/api/find-by-id?beer_ids=' + beer_ids);
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+}
