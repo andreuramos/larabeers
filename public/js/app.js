@@ -66737,7 +66737,7 @@ var BeerListItem = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var picture_placeholder = "img/label-template.jpg";
+      var picture_placeholder = "/img/label-template.jpg";
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "px-0 px-md-2"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {

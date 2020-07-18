@@ -17,7 +17,7 @@ export default class BeerListItem extends Component
     }
 
     render() {
-        const picture_placeholder = "img/label-template.jpg";
+        const picture_placeholder = "/img/label-template.jpg";
         return (
             <div className="px-0 px-md-2">
                 <a href={'/beer/'  + this.props.beer.id} className="col-12 beer-list__beer">
