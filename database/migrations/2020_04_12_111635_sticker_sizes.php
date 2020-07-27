@@ -28,6 +28,9 @@ class StickerSizes extends Migration
     {
         Schema::table('stickers', function(Blueprint $t){
             $t->dropColumn('thumbnail');
+        });
+
+        Schema::table('stickers', function (Blueprint $t) {
             $t->dropColumn('small');
         });
     }

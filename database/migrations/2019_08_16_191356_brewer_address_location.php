@@ -30,8 +30,14 @@ class BrewerAddressLocation extends Migration
     {
         Schema::table('brewers', function (Blueprint $t) {
             $t->dropColumn('address');
+        });
+        Schema::table('brewers', function (Blueprint $t) {
             $t->dropColumn('latitude');
+        });
+        Schema::table('brewers', function (Blueprint $t) {
             $t->dropColumn('longitude');
+        });
+        Schema::table('brewers', function (Blueprint $t) {
             $t->dropColumn('logo');
         });
     }
