@@ -76,33 +76,33 @@
     $(document).ready(function(){
         $("input[name='autocomplete_brewer_name']").keyup(function () {
             let query = $(this).val();
-            if (query.length > 2) {
-                $.ajax({
-                    url: '/ajax/brewer_autocomplete',
-                    type: "GET",
-                    data: {
-                        query: query
-                    }
-                }).done(function(data){
-                    let $autocomplete_list = $(".brewer_autocomplete_list");
-                    $autocomplete_list.removeClass('hidden');
-                    $autocomplete_list.html('');
-                    if (data.length > 0) {
-                        $.each(data, function(idx, brewer) {
-                            let escaped_brewer_name = brewer.name.replace(/'/g, "\\'");
-                            console.log(escaped_brewer_name);
-                            let suggestion = '<div class="autocomplete_list__item" onclick="selectBrewer(' + brewer.id + ',\'' + escaped_brewer_name+'\')" data-brewer-id="'+brewer.id+'">'+brewer.name+'</div>';
-                            $autocomplete_list.append(suggestion);
-                        });
-                    }
-                    let create_brewer_node = '<div class="autocomplete_list__item" onclick="openBrewerModal(\'' + query + '\')"><strong> Create new Brewer </strong></div>';
-                    $autocomplete_list.append(create_brewer_node);
-                }).fail(function(xhr, status, error){
-                    console.log(status);
-                })
-            } else {
+            if (query.length <= 2) {
                 $(".brewer_autocomplete_list").addClass('hidden');
+                return;
             }
+
+            $.ajax({
+                url: '/ajax/brewer_autocomplete',
+                type: "GET",
+                data: {
+                    query: query
+                }
+            }).done(function(data){
+                let $autocomplete_list = $(".brewer_autocomplete_list");
+                $autocomplete_list.removeClass('hidden');
+                $autocomplete_list.html('');
+                if (data.length > 0) {
+                    $.each(data, function(idx, brewer) {
+                        let escaped_brewer_name = brewer.name.replace(/'/g, "\\'");
+                        let suggestion = '<div class="autocomplete_list__item" onclick="selectBrewer(' + brewer.id + ',\'' + escaped_brewer_name+'\')" data-brewer-id="'+brewer.id+'">'+brewer.name+'</div>';
+                        $autocomplete_list.append(suggestion);
+                    });
+                }
+                let create_brewer_node = '<div class="autocomplete_list__item" onclick="openBrewerModal(\'' + query + '\')"><strong> Create new Brewer </strong></div>';
+                $autocomplete_list.append(create_brewer_node);
+            }).fail(function(xhr, status, error){
+                console.log(status);
+            });
         });
     });
 </script>
