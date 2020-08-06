@@ -67,7 +67,12 @@ class BeerController extends Controller
         $beer->brewers[] = new Brewer();
         $beer->style = new Style("");
         $beer->labels = [];
-        return view('dashboard.beer.form', ['beer' => $beer]);
+        $brewer_ids = [];
+
+        return view('dashboard.beer.form', [
+            'beer' => $beer,
+            'brewer_ids' => implode(',', $brewer_ids)
+        ]);
     }
 
     public function create_beer(Request $request)

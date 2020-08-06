@@ -35,6 +35,10 @@
                                 </div>
 
                                 <div class="beer-form__field-block">
+                                    <div id="brewers-field" brewer_ids="{{ $brewer_ids }}"></div>
+                                </div>
+
+                                <div class="beer-form__field-block">
                                     @include('dashboard.beer.style-autocomplete', ['style' => $beer->style])
                                 </div>
 
