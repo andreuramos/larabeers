@@ -42,6 +42,7 @@ class DashboardController extends Controller
         $criteria->addOrder('created_at');
         $criteria->addLimit(10);
         $last_beers = $this->beer_repository->findByCriteria($criteria);
+        $last_beer_ids = array_map(function($beer) {return $beer->id;}, $last_beers->toArray());
         $beers_with_picture = $this->countBeersWithPicture();
 
         $beers_count = EloquentBeer::count();
@@ -50,7 +51,7 @@ class DashboardController extends Controller
             'beers_with_picture' => $beers_with_picture,
             'beers_with_picture_percent' => round(($beers_with_picture / $beers_count ) * 100, 2),
             'brewers' => EloquentBrewer::count(),
-            'last_beers' => $last_beers
+            'last_beer_ids' => implode(',',$last_beer_ids),
         ]);
     }
 

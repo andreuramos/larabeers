@@ -15,4 +15,9 @@ class BeerCollection extends ItemCollection
     {
         return $this->items[0];
     }
+
+    public function toArray(): array
+    {
+        return $this->items;
+    }
 }

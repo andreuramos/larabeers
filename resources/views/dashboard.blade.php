@@ -52,7 +52,7 @@
                         <a href="{{ url('/beer/new') }}" style="float:right; margin-right:1em;" class="btn btn-primary">Add Beer</a>
                     </div>
                     <div class="card-body">
-                        @include('frontend.beer_list', ['beers' => $last_beers])
+                        <div id="fixedBeerList" beer_ids="{{ $last_beer_ids }}"></div>
                     </div>
                 </div>
             </div>
