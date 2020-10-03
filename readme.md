@@ -15,7 +15,7 @@ Personal project to manage a **beer sticker collection** made with Laravel 5.
 ### Future Features
 
 - Improve location & location stats (countries, provinces, cities , ...)
-- Implement other "CDN" integration other than Google Drive
+- Beers with many brewers
 
 It can be accessed [here](http://larabeers.herokuapp.com)
 

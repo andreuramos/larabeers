@@ -13,6 +13,7 @@
         "ext-gd": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "cloudinary/cloudinary_php": "^1.18",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "google/apiclient": "^2.0",

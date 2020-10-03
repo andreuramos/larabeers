@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         } else {
             $this->app->bind(
                 \Larabeers\Domain\Common\ImageUploader::class,
-                \Larabeers\External\Images\Uploader\GoogleDriveImageUploader::class
+                \Larabeers\External\Images\Uploader\CloudinaryImageUploader::class
             );
         }
 
