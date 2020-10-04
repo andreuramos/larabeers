@@ -47,11 +47,32 @@ class migrate_to_cloudinary extends Command
 
         $batch_size = $this->argument('batch_size');
         $stickers = Sticker::where('path', 'like', '%google%')->limit($batch_size)->get();
-        echo " - " . count($stickers) . " Will be migrated\n";
-        foreach($stickers as $i => $sticker) {
+
+        $stickers_count = count($stickers);
+        echo " - $stickers_count stickers will be migrated\n";
+        foreach ($stickers as $sticker) {
             $upload = Uploader::upload($sticker->path);
             $sticker->path = $upload['url'];
             $sticker->save();
+            echo ".";
         }
+        echo "\n";
+
+        if ($stickers_count == $batch_size) {
+            return;
+        }
+
+        $items_left_in_batch = $batch_size - $stickers_count;
+        $thumbnails = Sticker::where('thumbnail', 'like', '%google%')->limit($items_left_in_batch)->get();
+        $found_thumbnails = count($thumbnails);
+
+        echo " - $found_thumbnails thumbnails will be migrated\n";
+        foreach ($thumbnails as $thumbnail) {
+            $upload = Uploader::upload($thumbnail->thumbnail);
+            $thumbnail->thumbnail = $upload['url'];
+            $thumbnail->save();
+            echo ".";
+        }
+        echo "\n";
     }
 }
