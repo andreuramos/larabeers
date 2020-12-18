@@ -18,6 +18,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['cors']], function() {
     Route::get('random', 'ApiController@randomBeers');
     Route::get('search', 'ApiController@searchBeers');
     Route::get('find-by-id', 'ApiController@findBeersById');
+    Route::get('count-by-year', 'ApiController@countBeersByYear');
 });
 
 Route::get('/', "HomeController@home");
