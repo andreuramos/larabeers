@@ -51,6 +51,7 @@ Route::group(['prefix' => '/brewer'], function() {
 
 Route::group(['prefix' => '/stats'], function(){
     Route::get('countries', "HomeController@list_countries");
+    Route::get('years', "HomeController@list_years");
 });
 
 // TODO: change url to /beer/{id}/label/{id}/edit and move to beer group

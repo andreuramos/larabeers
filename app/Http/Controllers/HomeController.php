@@ -139,4 +139,9 @@ class HomeController extends Controller
         return view('frontend.stats.countries', ['countries' => $countries]);
     }
 
+    public function list_years()
+    {
+        return view('frontend.stats.years');
+    }
+
 }
