@@ -19,3 +19,11 @@ Personal project to manage a **beer sticker collection** made with Laravel 5.
 
 It can be accessed [here](http://larabeers.herokuapp.com)
 
+### Test
+run:
+``` vendor/bin/phpunit ```
+
+### Run
+run:
+``` php artisan serve ```
+
