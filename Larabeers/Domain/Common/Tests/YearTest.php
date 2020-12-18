@@ -1,7 +1,6 @@
 <?php
 
 use Larabeers\Domain\Common\Year;
-use Larabeers\Exceptions\InvalidValueException;
 use PHPUnit\Framework\TestCase;
 
 class YearTest extends TestCase
