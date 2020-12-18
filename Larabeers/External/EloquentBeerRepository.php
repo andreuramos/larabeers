@@ -185,13 +185,13 @@ class EloquentBeerRepository implements BeerRepository
 
         $beer_ids = DB::select(
             "SELECT B.id, min(L.year) FROM beers B ".
-            "LEFT JOIN labels L on L.beer_id = B.id".
-            "WHERE year = $year".
-            "GROUP BY B.id"
+            "LEFT JOIN labels L on L.beer_id = B.id ".
+            "WHERE year = $year ".
+            "GROUP BY B.id;"
         );
 
         foreach ($beer_ids as $beer_id) {
-            $result->add($this->findById($beer_id['id']));
+            $result->add($this->findById($beer_id->id));
         }
 
         return $result;
