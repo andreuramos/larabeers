@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Larabeers\Domain\Beer\BeerCriteria;
+use Larabeers\Domain\Common\Year;
 use Larabeers\External\EloquentBeerRepository;
+use Larabeers\Services\CountBeersByYear;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Utils\NormalizeString;
 
@@ -20,13 +22,16 @@ class DashboardController extends Controller
 {
     private $beer_repository;
     private $create_brewer;
+    private $count_beers_by_year;
 
     public function __construct(
         EloquentBeerRepository $beer_repository,
-        CreateBrewer $create_brewer
+        CreateBrewer $create_brewer,
+        CountBeersByYear $count_beers_by_year
     ) {
         $this->beer_repository = $beer_repository;
         $this->create_brewer = $create_brewer;
+        $this->count_beers_by_year = $count_beers_by_year;
     }
 
     public function callAction($method, $parameters)
@@ -44,6 +49,10 @@ class DashboardController extends Controller
         $last_beers = $this->beer_repository->findByCriteria($criteria);
         $last_beer_ids = array_map(function($beer) {return $beer->id;}, $last_beers->toArray());
         $beers_with_picture = $this->countBeersWithPicture();
+        $this_year_beers = $this->getYearBeers(date_create()->format('Y'));
+        $last_year_beers = $this->getYearBeers(date_create()->sub(new \DateInterval("P1Y"))->format('Y'));
+
+        $previous_year_percent = round($this_year_beers / $last_year_beers * 100,2);
 
         $beers_count = EloquentBeer::count();
         return view('dashboard', [
@@ -51,6 +60,8 @@ class DashboardController extends Controller
             'beers_with_picture' => $beers_with_picture,
             'beers_with_picture_percent' => round(($beers_with_picture / $beers_count ) * 100, 2),
             'brewers' => EloquentBrewer::count(),
+            'this_year_beers' => $this_year_beers,
+            'previous_year_percent' => $previous_year_percent,
             'last_beer_ids' => implode(',',$last_beer_ids),
         ]);
     }
@@ -220,5 +231,12 @@ class DashboardController extends Controller
         $sql = 'SELECT count(distinct(beer_id)) FROM stickers JOIN labels ON stickers.label_id = labels.id;';
         $res = DB::select($sql);
         return (int) $res[0]->count;
+    }
+
+    private function getYearBeers($year)
+    {
+        $year_obj = new Year($year);
+
+        return $this->count_beers_by_year->execute($year_obj);
     }
 }

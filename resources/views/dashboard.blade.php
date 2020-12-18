@@ -20,6 +20,12 @@
                             <label>{{ __("Beers with picture") }}</label>
                             <span>{{ $beers_with_picture }} ({{ $beers_with_picture_percent }}%)</span>
                         </div>
+                        <div class="col-6">
+                            <label>{{ __("Beers included this year") }}</label>
+                            <span>{{ $this_year_beers }}</span>
+                            <label style="font-size: small">{{ __("That's :percent% of previous year", ['percent' => $previous_year_percent]) }}</label>
+                            <label style="font-size: small"><a href="/stats/years">{{ __("See year statistics") }}</a></label>
+                        </div>
                     </div>
                 </div>
             </div>
