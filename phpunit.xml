@@ -15,6 +15,9 @@
         <testsuite name="Utils">
             <directory suffix="Test.php">./Larabeers/Utils</directory>
         </testsuite>
+        <testsuite name="Domain">
+            <directory suffix="Test.php">./Larabeers/Domain</directory>
+        </testsuite>
         <testsuite name="External">
             <directory suffix="Test.php">./Larabeers/External</directory>
         </testsuite>
