@@ -4,6 +4,7 @@ namespace Larabeers\External;
 
 use App\Beer as EloquentBeer;
 use App\Brewer as EloquentBrewer;
+use Illuminate\Support\Facades\DB;
 use Larabeers\Domain\Beer\Beer;
 use Larabeers\Domain\Beer\BeerCollection;
 use Larabeers\Domain\Beer\BeerCriteria;
@@ -180,6 +181,19 @@ class EloquentBeerRepository implements BeerRepository
 
     public function findByYear(int $year): BeerCollection
     {
-        return new BeerCollection();
+        $result = new BeerCollection();
+
+        $beer_ids = DB::select(
+            "SELECT B.id, min(L.year) FROM beers B ".
+            "LEFT JOIN labels L on L.beer_id = B.id".
+            "WHERE year = $year".
+            "GROUP BY B.id"
+        );
+
+        foreach ($beer_ids as $beer_id) {
+            $result->add($this->findById($beer_id['id']));
+        }
+
+        return $result;
     }
 }
