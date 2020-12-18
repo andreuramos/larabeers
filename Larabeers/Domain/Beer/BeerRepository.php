@@ -13,4 +13,5 @@ interface BeerRepository
     public function random(int $limit): BeerCollection;
     public function exists(string $name, Brewer $brewer): bool;
     public function delete(Beer $beer): void;
+    public function findByYear(int $year): BeerCollection;
 }

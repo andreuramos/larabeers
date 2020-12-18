@@ -177,4 +177,9 @@ class EloquentBeerRepository implements BeerRepository
         }
         return $results;
     }
+
+    public function findByYear(int $year): BeerCollection
+    {
+        return new BeerCollection();
+    }
 }
