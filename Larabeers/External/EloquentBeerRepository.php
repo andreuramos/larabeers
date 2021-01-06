@@ -196,4 +196,16 @@ class EloquentBeerRepository implements BeerRepository
 
         return $result;
     }
+
+    public function countByYear(int $year): int
+    {
+        $beers = DB::select(
+            "SELECT B.id, min(L.year) FROM beers B ".
+            "LEFT JOIN labels L on L.beer_id = B.id ".
+            "WHERE year = $year ".
+            "GROUP BY B.id;"
+        );
+
+        return count($beers);
+    }
 }
