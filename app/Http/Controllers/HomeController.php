@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beer;
 use App\Brewer;
+use App\Label;
 use Illuminate\Http\Request;
 use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\EloquentBrewerRepository;
@@ -55,9 +56,9 @@ class HomeController extends Controller
                 'url' => url('stats/countries'),
             ],
             [
-                'name' => __('Styles'),
-                'icon' => 'font',
-                'value' => Beer::distinct_types()->count(),
+                'name' => __('Stickers'),
+                'icon' => 'sticky-note',
+                'value' => Label::count(),
                 'url' => null,
             ]
         ];
