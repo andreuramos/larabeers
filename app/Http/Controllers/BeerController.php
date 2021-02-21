@@ -133,6 +133,11 @@ class BeerController extends Controller
                 $tags[] = new Tag($tag_name);
             }
         }
+
+        if (!$this->validateLabelForm($request)) {
+            return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+        }
+
         try {
             $this->create_label_to_beer->execute($beer_id, $file_path, [
                 'year' => $request->get('year'),
@@ -177,6 +182,32 @@ class BeerController extends Controller
 
         $request->session()->flash('success', "Label updated successfully");
         return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+    }
+
+    private function validateLabelForm(Request $request)
+    {
+        $errors_found = false;
+        if (!$request->get('year')) {
+            $errors_found = true;
+            $request->session()->flash('error', "Invalid Year");
+        }
+
+        if (!$request->get('album')) {
+            $errors_found = true;
+            $request->session()->flash('error', "Invalid Album");
+        }
+
+        if (!$request->get('page')) {
+            $errors_found = true;
+            $request->session()->flash('error', "Invalid Album");
+        }
+
+       if (!$request->get('position')) {
+           $errors_found = true;
+           $request->session()->flash('error', "Invalid Position");
+       }
+
+        return $errors_found;
     }
 
     public function delete_beer(Request $request, int $beer_id)
