@@ -207,7 +207,7 @@ class BeerController extends Controller
            $request->session()->flash('error', "Invalid Position");
        }
 
-        return $errors_found;
+        return !$errors_found;
     }
 
     public function delete_beer(Request $request, int $beer_id)
