@@ -53,20 +53,23 @@ class UpdateBrewer
 
     private function set_brewer_data(Brewer $brewer, array $data): Brewer
     {
-        if (array_key_exists('address', $data)) {
+        if (array_key_exists('address', $data) && $data['address']) {
             $brewer->address = $data['address'];
         }
 
-        if (array_key_exists('lat', $data) && array_key_exists('lng', $data)) {
+        if (array_key_exists('lat', $data) &&
+            array_key_exists('lng', $data) &&
+            $data['lat'] && $data['lng']
+        ) {
             $brewer->latitude = $data['lat'];
             $brewer->longitude = $data['lng'];
         }
 
-        if (array_key_exists('website', $data)) {
+        if (array_key_exists('website', $data) && $data['website']) {
             $brewer->website = $data['website'];
         }
 
-        if (array_key_exists('logo', $data)) {
+        if (array_key_exists('logo', $data) && $data['logo']) {
             $logo = $this->create_logo($data['logo']);
             $brewer->logo = $logo;
         }
