@@ -32,7 +32,7 @@ class BrewerController extends Controller
         $this->beer_repository = $beer_repository;
         $this->brewer_repository = $brewer_repository;
         $this->create_brewer = $create_brewer;
-        $this->update_brewer = $update_brewer
+        $this->update_brewer = $update_brewer;
     }
 
     public function callAction($method, $parameters)
