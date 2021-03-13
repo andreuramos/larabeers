@@ -10,6 +10,7 @@ use Larabeers\Domain\Location\Country;
 use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Services\CreateBrewer;
+use Larabeers\Services\UpdateBrewer;
 
 class BrewerController extends Controller
 {
@@ -25,11 +26,13 @@ class BrewerController extends Controller
     public function __construct(
         EloquentBeerRepository $beer_repository,
         EloquentBrewerRepository $brewer_repository,
-        CreateBrewer $create_brewer
+        CreateBrewer $create_brewer,
+        UpdateBrewer $update_brewer
     ) {
         $this->beer_repository = $beer_repository;
         $this->brewer_repository = $brewer_repository;
         $this->create_brewer = $create_brewer;
+        $this->update_brewer = $update_brewer
     }
 
     public function callAction($method, $parameters)
