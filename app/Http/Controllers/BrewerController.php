@@ -91,13 +91,13 @@ class BrewerController extends Controller
         try {
             $country = new Country($country_name);
             $city = new City($city_name, $country);
-            $brewer_id = $this->update_brewer->execute($id, $name, $city, $data);
+            $this->update_brewer->execute($id, $name, $city, $data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
 
         session()->flash('success', "Brewer updated correctly");
-        return redirect('brewer/'.$brewer_id);    }
+        return redirect('brewer/'.$id);    }
 
     public function ajax_create_brewer(Request $request)
     {
