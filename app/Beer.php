@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Larabeers\External\Images\CountryflagsioFlagRepository;
+use Larabeers\External\Images\FlagpediaFlagRepository;
 
 class Beer extends Model
 {
@@ -23,7 +23,7 @@ class Beer extends Model
     public function flag()
     {
         $country = $this->brewers()->first()->country;
-        return CountryflagsioFlagRepository::get($country);
+        return FlagpediaFlagRepository::get($country);
     }
 
     public static function random(int $n): Collection

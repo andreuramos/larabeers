@@ -2,7 +2,7 @@
 
 namespace Larabeers\Domain\Location;
 
-use Larabeers\External\Images\CountryflagsioFlagRepository;
+use Larabeers\External\Images\FlagpediaFlagRepository;
 
 class Country
 {
@@ -12,6 +12,6 @@ class Country
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->flag = CountryflagsioFlagRepository::get($name);
+        $this->flag = FlagpediaFlagRepository::get($name);
     }
 }

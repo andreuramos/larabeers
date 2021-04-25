@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             \Larabeers\Domain\Location\FlagRepository::class,
-            \Larabeers\External\Images\CountryflagsioFlagRepository::class
+            \Larabeers\External\Images\FlagpediaFlagRepository::class
         );
     }
 
