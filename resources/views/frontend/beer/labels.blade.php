@@ -10,7 +10,7 @@
                 {{--<img src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" class="d-block w-100">--}}
                 <div class="bg-secondary d-block w-100" style="height:50vh">
                     @if($label->sticker)
-                        <img src="{{ $label->sticker->url }}" class="d-block w-100" style="max-height: 100%; margin: 0 auto;">
+                        <img src="{{ $label->sticker->url }}" class="d-block" style="max-height: 100%; max-width: 100%; margin: 0 auto;">
                     @else
                         <img src="{{ URL::asset('img/label-template.jpg') }}" class="d-block w-100">
                     @endif
