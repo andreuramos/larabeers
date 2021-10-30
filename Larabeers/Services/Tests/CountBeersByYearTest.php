@@ -21,24 +21,12 @@ class CountBeersByYearTest extends ServiceTestBase
 
     public function test_returns_integer()
     {
-        $this->beer_repository->findByYear(self::YEAR)->willReturn(new BeerCollection());
+        $this->beer_repository->countByYear(self::YEAR)->willReturn(2);
         $service = $this->getService();
 
         $result = $service->execute(new Year(self::YEAR));
 
         $this->assertIsInt($result);
-    }
-
-    public function test_returns_the_count_of_collection()
-    {
-        $collection = new BeerCollection();
-        $collection->add(new Beer());
-        $this->beer_repository->findByYear(self::YEAR)->willReturn($collection);
-        $service = $this->getService();
-
-        $result = $service->execute(new Year(self::YEAR));
-
-        $this->assertEquals(1, $result);
     }
 
     private function getService()
