@@ -125,7 +125,7 @@ class BeerController extends Controller
         $image->move($file_route,$image->getClientOriginalName());
         $file_path = $file_route . '/' . $image->getClientOriginalName();
 
-        $tag_names = $request->get('tags');
+        $tag_names = $request->get('tag_names');
 
         $tags = [];
         if ($tag_names) {
