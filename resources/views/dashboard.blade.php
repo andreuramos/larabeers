@@ -32,23 +32,6 @@
         </div>
 
         <div class="row justify-content-center mt-3">
-            <div class = "col-md-8">
-                <div class="card">
-                    <div class="card-header">Upload</div>
-
-                    <div class="card-body">
-                        {{ Form::open(['method' => "POST", 'url'=>url('/dashboard/upload-csv'), 'enctype'=>"multipart/form-data"]) }}
-                        <label>{{ __('Upload') }}</label>
-                        {{ Form::file('csv') }}
-                        {{ Form::submit('Upload file') }}
-                        {{ Form::close() }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row justify-content-center mt-3">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
@@ -59,6 +42,23 @@
                     </div>
                     <div class="card-body">
                         <div id="fixedBeerList" beer_ids="{{ $last_beer_ids }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center mt-3">
+            <div class = "col-md-8">
+                <div class="card">
+                    <div class="card-header">Upload</div>
+
+                    <div class="card-body">
+                        {{ Form::open(['method' => "POST", 'url'=>url('/dashboard/upload-csv'), 'enctype'=>"multipart/form-data"]) }}
+                        <label>{{ __('Upload') }}</label>
+                        {{ Form::file('csv') }}
+                        {{ Form::submit('Upload file') }}
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
