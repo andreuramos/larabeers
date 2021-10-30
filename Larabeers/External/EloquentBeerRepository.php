@@ -168,13 +168,13 @@ class EloquentBeerRepository implements BeerRepository
         }
     }
 
-    public function findByBrewerId($id): array
+    public function findByBrewerId(int $id): BeerCollection
     {
-        $results = [];
+        $results = new BeerCollection();
         foreach(EloquentBeer::whereHas('brewers', function($q) use($id){
             $q->where('id',$id);
         })->get()  as $eloquent_beer) {
-            $results[] = $this->eloquentToEntityBeer($eloquent_beer);
+            $results->add($this->eloquentToEntityBeer($eloquent_beer));
         }
         return $results;
     }

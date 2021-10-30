@@ -51,7 +51,7 @@ class BrewerController extends Controller
         $beers = $this->beer_repository->findByBrewerId($id);
         $beer_ids = array_map(function($beer) {
             return $beer->id;
-        }, $beers);
+        }, $beers->toArray());
         return view('frontend.brewer.brewer', [
             'brewer' => $brewer,
             'beer_ids' => implode(',', $beer_ids),
