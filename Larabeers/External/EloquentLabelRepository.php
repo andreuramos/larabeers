@@ -107,6 +107,12 @@ class EloquentLabelRepository implements LabelRepository
         return $label;
     }
 
+    public function delete(Label $label): void
+    {
+        $eloquent_label = EloquentLabel::find($label->id);
+        $eloquent_label->delete();
+    }
+
     private function syncTags(EloquentLabel $eloquent_label, array $tags)
     {
         $tag_ids = [];
