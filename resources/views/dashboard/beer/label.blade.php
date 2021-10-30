@@ -71,6 +71,9 @@
             </div>
             <div class="modal-footer">
                 {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
+                @if ($label)
+                    <a class="btn btn-danger" href="{{url('/beer/' . $beer_id . '/label/' . $label->id . '/delete')}}">Delete</a>
+                @endif
             </div>
             {{ Form::close() }}
         </div>

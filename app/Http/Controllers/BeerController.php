@@ -9,9 +9,11 @@ use Larabeers\Domain\Brewer\Brewer;
 use Larabeers\Domain\Beer\Style;
 use Larabeers\Domain\Label\Tag;
 use Larabeers\External\EloquentBeerRepository;
+use Larabeers\External\EloquentLabelRepository;
 use Larabeers\Services\CreateBeer;
 use Larabeers\Services\CreateLabelToBeer;
 use Larabeers\Services\DeleteBeer;
+use Larabeers\Services\DeleteLabel;
 use Larabeers\Services\UpdateBeer;
 use Larabeers\Services\UpdateLabel;
 
@@ -19,28 +21,35 @@ class BeerController extends Controller
 {
     private $private_methods = [
         'new_beer', 'create_beer', 'edit_beer', 'update_beer',
-        'add_label_to_beer', 'update_label', 'delete_beer',
+        'add_label_to_beer', 'update_label', 'delete_beer', 'delete_label_from_beer',
     ];
 
     private $beer_repository;
+    private $label_repository;
     private $create_beer;
     private $create_label_to_beer;
     private $delete_beer;
+    private $delete_label;
     private $update_beer;
     private $update_label;
 
     public function __construct(
         EloquentBeerRepository $beer_repository,
+        EloquentLabelRepository $label_repository,
         CreateBeer $create_beer,
         CreateLabelToBeer $create_label_to_beer,
         DeleteBeer $delete_beer,
+        DeleteLabel $delete_label,
         UpdateBeer $update_beer,
         UpdateLabel $update_label
     ) {
         $this->beer_repository = $beer_repository;
+        $this->label_repository = $label_repository;
+
         $this->create_beer = $create_beer;
         $this->create_label_to_beer = $create_label_to_beer;
         $this->delete_beer = $delete_beer;
+        $this->delete_label = $delete_label;
         $this->update_beer = $update_beer;
         $this->update_label = $update_label;
     }
@@ -181,6 +190,15 @@ class BeerController extends Controller
         $this->update_label->execute($label_id, $image, $metadata, $tags);
 
         $request->session()->flash('success', "Label updated successfully");
+        return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+    }
+
+    public function delete_label_from_beer(Request $request, $beer_id, $label_id)
+    {
+        $label = $this->label_repository->findById($label_id);
+        $this->delete_label->execute($label);
+
+        $request->session()->flash('success', "Label deleted successfylly");
         return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
     }
 

@@ -39,6 +39,7 @@ Route::group(['prefix' => '/beer'], function() {
     Route::get('/{id}/edit', "BeerController@edit_beer");
     Route::post('/{id}/update', "BeerController@update_beer");
     Route::post('/{id}/new_label', "BeerController@add_label_to_beer");
+    Route::get('{beer_id}/label/{label_id}/delete', "BeerController@delete_label_from_beer");
 });
 Route::group(['prefix' => '/brewer'], function() {
     Route::get('/new', "BrewerController@new_brewer");
