@@ -1,5 +1,7 @@
 <?php
 
+namespace Larabeers\Domain\Common\Tests;
+
 use Larabeers\Domain\Common\Year;
 use PHPUnit\Framework\TestCase;
 
