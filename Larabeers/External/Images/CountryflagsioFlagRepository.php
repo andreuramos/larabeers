@@ -6,10 +6,10 @@ use Larabeers\Domain\Location\FlagRepository;
 
 class CountryflagsioFlagRepository implements FlagRepository
 {
-    const BASE_URL = "https://www.countryflags.io/";
-    const URL_TAIL = "/flat/24.png";
+    private const BASE_URL = "https://www.countryflags.io/";
+    private const URL_TAIL = "/flat/24.png";
 
-    const COUNTRY_CODES = [
+    private const COUNTRY_CODES = [
         'argentina' => 'ar',
         'australia' => 'au',
         'austria' => 'at',

@@ -11,7 +11,7 @@ use Larabeers\Domain\Common\ImageUploader;
 
 class GoogleDriveImageUploader implements ImageUploader
 {
-    const PUBLIC_FILE_URL = 'https://drive.google.com/uc?id=';
+    private const PUBLIC_FILE_URL = 'https://drive.google.com/uc?id=';
 
     private $client;
 
@@ -71,8 +71,10 @@ class GoogleDriveImageUploader implements ImageUploader
      * @param Google_Service_Drive $google_drive_service
      * @param Google_Service_Drive_DriveFile $file
      */
-    private function setPublicAccess(Google_Service_Drive $google_drive_service, Google_Service_Drive_DriveFile $file): void
-    {
+    private function setPublicAccess(
+        Google_Service_Drive $google_drive_service,
+        Google_Service_Drive_DriveFile $file
+    ): void {
         $permission = new \Google_Service_Drive_Permission();
         $permission->role = "reader";
         $permission->type = "anyone";

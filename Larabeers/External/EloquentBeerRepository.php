@@ -59,19 +59,19 @@ class EloquentBeerRepository implements BeerRepository
 
         $order = $criteria->getOrder();
         if (!empty($order)) {
-            foreach($order as $order_attribute) {
+            foreach ($order as $order_attribute) {
                 $query->orderBy($order_attribute, 'desc');
             }
         }
 
         $limit = $criteria->getLimit();
-        if($limit) {
+        if ($limit) {
             $query->limit($limit);
         }
 
         $eloquent_results = $query->get();
 
-        foreach($eloquent_results as $eloquent_result) {
+        foreach ($eloquent_results as $eloquent_result) {
             $results->add(self::eloquentToEntityBeer($eloquent_result));
         }
 
@@ -93,7 +93,7 @@ class EloquentBeerRepository implements BeerRepository
     public function search(string $query): BeerCollection
     {
         $results = new BeerCollection();
-        foreach(EloquentBeer::search($query) as $eloquent_beer) {
+        foreach (EloquentBeer::search($query) as $eloquent_beer) {
             $results->add($this->eloquentToEntityBeer($eloquent_beer));
         }
         return $results;
@@ -102,9 +102,13 @@ class EloquentBeerRepository implements BeerRepository
     public function exists(string $name, Brewer $brewer): bool
     {
         $brewer = EloquentBrewer::find($brewer->id);
-        if (!$brewer) return false;
+        if (!$brewer) {
+            return false;
+        }
         foreach ($brewer->beers()->get() as $beer) {
-            if ($beer->name == $name) return true;
+            if ($beer->name == $name) {
+                return true;
+            }
         }
         return false;
     }
@@ -124,11 +128,11 @@ class EloquentBeerRepository implements BeerRepository
         $beer->style = new Style($eloquent_beer->type);
         $beer->created_at = $eloquent_beer->created_at;
         $beer->brewers = [];
-        foreach($eloquent_beer->brewers()->get() as $brewer) {
+        foreach ($eloquent_beer->brewers()->get() as $brewer) {
             $beer->brewers[] = $this->brewer_repository->findById($brewer->id);
         }
         $beer->labels = [];
-        foreach($eloquent_beer->labels()->get() as $label) {
+        foreach ($eloquent_beer->labels()->get() as $label) {
             $beer->labels[] = $this->label_repository->findById($label->id);
         }
 
@@ -171,9 +175,11 @@ class EloquentBeerRepository implements BeerRepository
     public function findByBrewerId(int $id): BeerCollection
     {
         $results = new BeerCollection();
-        foreach(EloquentBeer::whereHas('brewers', function($q) use($id){
-            $q->where('id',$id);
-        })->get()  as $eloquent_beer) {
+        foreach (
+            EloquentBeer::whereHas('brewers', function ($q) use ($id) {
+                $q->where('id', $id);
+            })->get() as $eloquent_beer
+        ) {
             $results->add($this->eloquentToEntityBeer($eloquent_beer));
         }
         return $results;
@@ -184,9 +190,9 @@ class EloquentBeerRepository implements BeerRepository
         $result = new BeerCollection();
 
         $beer_ids = DB::select(
-            "SELECT B.id, min(L.year) FROM beers B ".
-            "LEFT JOIN labels L on L.beer_id = B.id ".
-            "WHERE year = $year ".
+            "SELECT B.id, min(L.year) FROM beers B " .
+            "LEFT JOIN labels L on L.beer_id = B.id " .
+            "WHERE year = $year " .
             "GROUP BY B.id;"
         );
 
@@ -200,9 +206,9 @@ class EloquentBeerRepository implements BeerRepository
     public function countByYear(int $year): int
     {
         $beers = DB::select(
-            "SELECT B.id, min(L.year) FROM beers B ".
-            "LEFT JOIN labels L on L.beer_id = B.id ".
-            "WHERE year = $year ".
+            "SELECT B.id, min(L.year) FROM beers B " .
+            "LEFT JOIN labels L on L.beer_id = B.id " .
+            "WHERE year = $year " .
             "GROUP BY B.id;"
         );
 

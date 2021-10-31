@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Larabeers\Utils;
-
 
 class GetFileType
 {

@@ -25,10 +25,8 @@ class Label
         $this->id = null;
     }
 
-    public function get_image_url(): string
+    public function getImageUrl(): string
     {
         return $this->sticker->url;
     }
-
-
 }

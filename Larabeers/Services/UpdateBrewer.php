@@ -45,19 +45,20 @@ class UpdateBrewer
         $brewer->city = $city;
 
         if ($data !== null) {
-            $brewer = $this->set_brewer_data($brewer, $data);
+            $brewer = $this->setBrewerData($brewer, $data);
         }
 
         $this->brewer_repository->save($brewer);
     }
 
-    private function set_brewer_data(Brewer $brewer, array $data): Brewer
+    private function setBrewerData(Brewer $brewer, array $data): Brewer
     {
         if (array_key_exists('address', $data) && $data['address']) {
             $brewer->address = $data['address'];
         }
 
-        if (array_key_exists('lat', $data) &&
+        if (
+            array_key_exists('lat', $data) &&
             array_key_exists('lng', $data) &&
             $data['lat'] && $data['lng']
         ) {
@@ -70,14 +71,14 @@ class UpdateBrewer
         }
 
         if (array_key_exists('logo', $data) && $data['logo']) {
-            $logo = $this->create_logo($data['logo']);
+            $logo = $this->createLogo($data['logo']);
             $brewer->logo = $logo;
         }
 
         return $brewer;
     }
 
-    private function create_logo($logo): Image
+    private function createLogo($logo): Image
     {
         $url = $this->image_uploader->upload($logo);
         $logo = new Image();

@@ -6,8 +6,8 @@ use Larabeers\Exceptions\InvalidValueException;
 
 class Year
 {
-    const MAX_YEAR = 3000;
-    const MIN_YEAR = 0;
+    private const MAX_YEAR = 3000;
+    private const MIN_YEAR = 0;
 
     private int $value;
 

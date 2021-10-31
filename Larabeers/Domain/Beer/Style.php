@@ -13,7 +13,9 @@ class Style
 
     public function __get($name)
     {
-        if ($name == 'name') return $this->name;
+        if ($name == 'name') {
+            return $this->name;
+        }
     }
 
     public function __toString()

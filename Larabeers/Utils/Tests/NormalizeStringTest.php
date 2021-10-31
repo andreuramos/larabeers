@@ -10,7 +10,7 @@ class NormalizeStringTest extends TestCase
     public function test_empty_string()
     {
         $service = $this->getService();
-        $this->assertEquals("",$service->execute(""));
+        $this->assertEquals("", $service->execute(""));
     }
 
     public function test_acute()

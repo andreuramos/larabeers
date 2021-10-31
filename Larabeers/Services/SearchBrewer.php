@@ -13,8 +13,7 @@ class SearchBrewer
     public function __construct(
         EloquentBrewerRepository $brewer_repository,
         NormalizeString $normalize_string
-    )
-    {
+    ) {
         $this->brewer_repository = $brewer_repository;
         $this->normalize_string = $normalize_string;
     }

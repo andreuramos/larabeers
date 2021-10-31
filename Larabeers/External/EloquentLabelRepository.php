@@ -66,7 +66,9 @@ class EloquentLabelRepository implements LabelRepository
     {
         $eloquent_label = new EloquentLabel();
 
-        if ($label->id) $eloquent_label->id = $label->id;
+        if ($label->id) {
+            $eloquent_label->id = $label->id;
+        }
         $eloquent_label->beer_id = $label->beer_id;
         $eloquent_label->year = $label->year;
         $eloquent_label->album = $label->album;

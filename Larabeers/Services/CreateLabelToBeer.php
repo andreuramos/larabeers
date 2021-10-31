@@ -22,8 +22,7 @@ class CreateLabelToBeer
         ImageUploader $image_uploader,
         LabelRepository $label_repository,
         ResizeImage $resize_image
-    )
-    {
+    ) {
         $this->get_file_type = $get_file_type;
         $this->image_uploader = $image_uploader;
         $this->label_repository = $label_repository;
@@ -32,7 +31,9 @@ class CreateLabelToBeer
 
     public function execute(int $beer_id, string $tmp_file_path, array $metadata, array $tags = null): void
     {
-        if (!$tmp_file_path) throw new \Exception("No image provided");
+        if (!$tmp_file_path) {
+            throw new \Exception("No image provided");
+        }
 
         $file_type = $this->get_file_type->execute($tmp_file_path);
         if (! in_array($file_type, Image::SUPPORTED_MIMES)) {

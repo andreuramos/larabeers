@@ -19,6 +19,7 @@ class UpdateLabel
     private $label_repository;
     private $get_file_type;
     private $image_uploader;
+    //@TODO: remove this dependency
     private $tag_repository;
     private $resize_image;
 
@@ -60,7 +61,7 @@ class UpdateLabel
         }
 
         if ($tags !== null) {
-            foreach($tags as $i => $tag) {
+            foreach ($tags as $i => $tag) {
                 if (!is_a($tag, Tag::class)) {
                     throw new ServiceArgumentException("Tag $i is not a \Larabeers\Domain\Label\Tag object");
                 }

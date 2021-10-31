@@ -4,7 +4,8 @@ namespace Larabeers\Domain\Common;
 
 class Image
 {
-    const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg', 'image/png'];
+    //@TODO: make private with method to check supported or not
+    public const SUPPORTED_MIMES = ['image/jpg', 'image/jpeg', 'image/png'];
 
     public $url;
     public $thumbnail;
@@ -12,8 +13,12 @@ class Image
 
     public function thumbnail(): string
     {
-        if ($this->thumbnail) return $this->thumbnail;
-        if ($this->small) return $this->small;
+        if ($this->thumbnail) {
+            return $this->thumbnail;
+        }
+        if ($this->small) {
+            return $this->small;
+        }
         return $this->url;
     }
 }

@@ -13,11 +13,11 @@ class EloquentStyleRepository implements StyleRepository
         $results = [];
 
         $matching_styles = Beer::select('type')
-            ->where('type','ilike',"%$query%")
+            ->where('type', 'ilike', "%$query%")
             ->distinct()
             ->get();
 
-        foreach($matching_styles as $style) {
+        foreach ($matching_styles as $style) {
             $results[] = new Style($style->type);
         }
 

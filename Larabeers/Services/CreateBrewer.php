@@ -38,7 +38,7 @@ class CreateBrewer
         $brewer->normalized_name = $this->normalize_string->execute($name);
 
         if ($data !== null) {
-            $brewer = $this->set_brewer_data($brewer, $data);
+            $brewer = $this->setBrewerData($brewer, $data);
         }
 
         $id = $this->brewer_repository->save($brewer);
@@ -46,7 +46,7 @@ class CreateBrewer
         return $id;
     }
 
-    private function set_brewer_data(Brewer $brewer, array $data): Brewer
+    private function setBrewerData(Brewer $brewer, array $data): Brewer
     {
         if (array_key_exists('address', $data)) {
             $brewer->address = $data['address'];
@@ -62,14 +62,14 @@ class CreateBrewer
         }
 
         if (array_key_exists('logo', $data)) {
-            $logo = $this->create_logo($data['logo']);
+            $logo = $this->createLogo($data['logo']);
             $brewer->logo = $logo;
         }
 
         return $brewer;
     }
 
-    private function create_logo($logo): Image
+    private function createLogo($logo): Image
     {
         $url = $this->image_uploader->upload($logo);
         $logo = new Image();
