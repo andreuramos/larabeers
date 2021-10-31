@@ -2,8 +2,6 @@
 
 namespace Larabeers\Services\Tests;
 
-use Larabeers\Domain\Beer\Beer;
-use Larabeers\Domain\Beer\BeerCollection;
 use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Common\Year;
 use Larabeers\Services\CountBeersByYear;
