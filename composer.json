@@ -52,7 +52,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Larabeers\\": "Larabeers"
         }
     },
     "minimum-stability": "dev",
