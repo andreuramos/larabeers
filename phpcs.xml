@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<ruleset xmlns="PHP_CodeSniffer">
+    <file>Larabeers</file>
+    <rule ref="PSR12"/>
+</ruleset>
