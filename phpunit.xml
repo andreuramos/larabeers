@@ -9,18 +9,10 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Services">
-            <directory suffix="Test.php">./Larabeers/Services</directory>
+        <testsuite name="Larabeers">
+            <directory suffix="Test.php">./Larabeers</directory>
         </testsuite>
-        <testsuite name="Utils">
-            <directory suffix="Test.php">./Larabeers/Utils</directory>
-        </testsuite>
-        <testsuite name="Domain">
-            <directory suffix="Test.php">./Larabeers/Domain</directory>
-        </testsuite>
-        <testsuite name="External">
-            <directory suffix="Test.php">./Larabeers/External</directory>
-        </testsuite>
+
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
