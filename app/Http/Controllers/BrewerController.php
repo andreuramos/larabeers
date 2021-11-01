@@ -9,6 +9,7 @@ use Larabeers\Domain\Location\City;
 use Larabeers\Domain\Location\Country;
 use Larabeers\External\EloquentBeerRepository;
 use Larabeers\External\EloquentBrewerRepository;
+use Larabeers\Services\CityFactory;
 use Larabeers\Services\CreateBrewer;
 use Larabeers\Services\UpdateBrewer;
 
@@ -106,9 +107,7 @@ class BrewerController extends Controller
         $country_name = (string) $request->post('country');
 
         try {
-            // @TODO: Build city through factory
-            $country = new Country($country_name);
-            $city = new City($city_name, $country);
+            $city = CityFactory::build($city_name, $country_name);
             $id = $this->create_brewer->execute($name, $city);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -120,10 +119,6 @@ class BrewerController extends Controller
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
     private function get_form_params(Request $request): array
     {
         $name = $request->get('brewer_name');
