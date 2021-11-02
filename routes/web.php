@@ -24,10 +24,10 @@ Route::group(['prefix' => '/api', 'middleware' => ['cors']], function() {
 Route::get('/', "HomeController@home");
 Route::post('/find', "HomeController@find");
 Route::group(['prefix' => '/ajax'], function(){
-    Route::get('search', "HomeController@ajax_search");
-    Route::get('brewer_autocomplete', "HomeController@ajax_brewer_autocomplete");
-    Route::get('style_autocomplete', "HomeController@ajax_style_autocomplete");
-    Route::get('tag_autocomplete', "HomeController@ajax_tag_autocomplete");
+    Route::get('search', "HomeController@ajaxSearch");
+    Route::get('brewer_autocomplete', "HomeController@ajaxBrewerAutocomplete");
+    Route::get('style_autocomplete', "HomeController@ajaxStyleAutocomplete");
+    Route::get('tag_autocomplete', "HomeController@ajaxTagAutocomplete");
     Route::post('create_brewer', "BrewerController@ajax_create_brewer");
     Route::get('geocode', "DashboardController@ajax_geocode");
 });
@@ -51,8 +51,8 @@ Route::group(['prefix' => '/brewer'], function() {
 
 
 Route::group(['prefix' => '/stats'], function(){
-    Route::get('countries', "HomeController@list_countries");
-    Route::get('years', "HomeController@list_years");
+    Route::get('countries', "HomeController@listCountries");
+    Route::get('years', "HomeController@listYears");
 });
 
 // TODO: change url to /beer/{id}/label/{id}/edit and move to beer group
