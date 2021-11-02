@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if(env('APP_ENV', 'production') == 'local'){
+        if (env('APP_ENV', 'production') === 'local') {
             $this->app->bind(
                 \Larabeers\Domain\Common\ImageUploader::class,
                 \Larabeers\External\Images\Uploader\LocalStorageImageUploader::class

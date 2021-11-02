@@ -7,7 +7,6 @@ use App\Brewer;
 use App\Label;
 use Illuminate\Http\Request;
 use Larabeers\External\EloquentBeerRepository;
-use Larabeers\External\EloquentBrewerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
 use Larabeers\Services\SearchTag;
