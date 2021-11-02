@@ -4,4 +4,5 @@
     <file>app</file>
     <exclude-pattern>*Test.php</exclude-pattern>
     <rule ref="PSR12"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
 </ruleset>
