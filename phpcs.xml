@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <ruleset xmlns="PHP_CodeSniffer">
     <file>Larabeers</file>
+    <file>app</file>
     <exclude-pattern>*Test.php</exclude-pattern>
     <rule ref="PSR12"/>
 </ruleset>

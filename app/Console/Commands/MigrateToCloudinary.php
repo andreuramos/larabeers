@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Console\Commands;
 
 use App\Sticker;
 use Cloudinary\Uploader;
 use Illuminate\Console\Command;
 
-class migrate_to_cloudinary extends Command
+class MigrateToCloudinary extends Command
 {
     /**
      * The name and signature of the console command.

@@ -62,15 +62,16 @@ class BeerController extends Controller
         return parent::callAction($method, $parameters);
     }
 
-    public function show_beer($id)
+    public function showBeer($id)
     {
         $beer = $this->beer_repository->findById($id);
-        if (!$beer)
+        if (!$beer) {
             abort(404);
+        }
         return view('frontend.beer.beer', ['beer' => $beer]);
     }
 
-    public function new_beer()
+    public function newBeer()
     {
         $beer = new Beer();
         $beer->brewers[] = new Brewer();
@@ -79,7 +80,7 @@ class BeerController extends Controller
         return view('dashboard.beer.form', ['beer' => $beer]);
     }
 
-    public function create_beer(Request $request)
+    public function createBeer(Request $request)
     {
         $name = $request->get('name');
         $brewer_id = $request->get('autocomplete_brewer_id');
@@ -96,7 +97,7 @@ class BeerController extends Controller
         }
     }
 
-    public function edit_beer($id)
+    public function editBeer($id)
     {
         $beer = $this->beer_repository->findById($id);
         if (!$beer) {
@@ -106,7 +107,7 @@ class BeerController extends Controller
         return view('dashboard.beer.form', ['beer' => $beer]);
     }
 
-    public function update_beer(Request $request, $id)
+    public function updateBeer(Request $request, $id)
     {
         $name = $request->get('name');
         $brewer_id = $request->get('autocomplete_brewer_id');
@@ -123,7 +124,7 @@ class BeerController extends Controller
         return redirect()->action('BeerController@edit_beer', ['id' => $id]);
     }
 
-    public function add_label_to_beer(Request $request, $beer_id)
+    public function addLabelToBeer(Request $request, $beer_id)
     {
         $image = $request->file('label');
         if (!$image) {
@@ -131,7 +132,7 @@ class BeerController extends Controller
             return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
         }
         $file_route = public_path() . '/upload/';
-        $image->move($file_route,$image->getClientOriginalName());
+        $image->move($file_route, $image->getClientOriginalName());
         $file_path = $file_route . '/' . $image->getClientOriginalName();
 
         $tag_names = $request->get('tag_names');
@@ -162,7 +163,7 @@ class BeerController extends Controller
         return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
     }
 
-    public function update_label(Request $request, $id)
+    public function updateLabel(Request $request, $id)
     {
         $label_id = $request->get('label_id');
         $beer_id = $request->get('beer_id');
@@ -193,7 +194,7 @@ class BeerController extends Controller
         return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
     }
 
-    public function delete_label_from_beer(Request $request, $beer_id, $label_id)
+    public function deleteLabelFromBeer(Request $request, $beer_id, $label_id)
     {
         $label = $this->label_repository->findById($label_id);
         $this->delete_label->execute($label);
@@ -220,15 +221,15 @@ class BeerController extends Controller
             $request->session()->flash('error', "Invalid Album");
         }
 
-       if (!$request->get('position')) {
-           $errors_found = true;
-           $request->session()->flash('error', "Invalid Position");
-       }
+        if (!$request->get('position')) {
+            $errors_found = true;
+            $request->session()->flash('error', "Invalid Position");
+        }
 
         return !$errors_found;
     }
 
-    public function delete_beer(Request $request, int $beer_id)
+    public function deleteBeer(Request $request, int $beer_id)
     {
         $beer = $this->beer_repository->findById($beer_id);
         try {

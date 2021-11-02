@@ -6,7 +6,7 @@ use App\Beer;
 use Illuminate\Console\Command;
 use Larabeers\Utils\NormalizeString;
 
-class generate_normalized_names extends Command
+class GenerateNormalizedNames extends Command
 {
     /**
      * The name and signature of the console command.
