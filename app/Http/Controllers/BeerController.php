@@ -20,8 +20,8 @@ use Larabeers\Services\UpdateLabel;
 class BeerController extends Controller
 {
     private $private_methods = [
-        'new_beer', 'create_beer', 'edit_beer', 'update_beer',
-        'add_label_to_beer', 'update_label', 'delete_beer', 'delete_label_from_beer',
+        'newBeer', 'createBeer', 'editBeer', 'updateBeer',
+        'addLabelToBeer', 'updateLabel', 'deleteBeer', 'deleteLabelFromBeer',
     ];
 
     private $beer_repository;
