@@ -45,7 +45,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Larabeers\\": "Larabeers/"
+            "Larabeers\\": "Larabeers/",
+            "CodingStandard\\" : "CodingStandard"
         },
         "classmap": [
             "database/seeds",
@@ -74,6 +75,10 @@
             "php aritsan optimize",
             "chmod -R 777 public/",
             "chmod -R 775 storage/"
+        ],
+        "post-update-cmd": [
+            "pwd",
+            "\"vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard/,../../../CodingStandard/\""
         ]
     }
 }
