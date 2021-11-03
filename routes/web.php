@@ -14,7 +14,7 @@
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-Route::group(['prefix' => '/api', 'middleware' => ['cors']], function() {
+Route::group(['prefix' => '/api', 'middleware' => ['cors']], function () {
     Route::get('random', 'ApiController@randomBeers');
     Route::get('search', 'ApiController@searchBeers');
     Route::get('find-by-id', 'ApiController@findBeersById');
@@ -23,15 +23,15 @@ Route::group(['prefix' => '/api', 'middleware' => ['cors']], function() {
 
 Route::get('/', "HomeController@home");
 Route::post('/find', "HomeController@find");
-Route::group(['prefix' => '/ajax'], function(){
+Route::group(['prefix' => '/ajax'], function () {
     Route::get('search', "HomeController@ajaxSearch");
     Route::get('brewer_autocomplete', "HomeController@ajaxBrewerAutocomplete");
     Route::get('style_autocomplete', "HomeController@ajaxStyleAutocomplete");
     Route::get('tag_autocomplete', "HomeController@ajaxTagAutocomplete");
-    Route::post('create_brewer', "BrewerController@ajax_create_brewer");
+    Route::post('create_brewer', "BrewerController@ajaxCreateBrewer");
     Route::get('geocode', "DashboardController@ajax_geocode");
 });
-Route::group(['prefix' => '/beer'], function() {
+Route::group(['prefix' => '/beer'], function () {
     Route::get('/new', "BeerController@newBeer");
     Route::post('/create', "BeerController@createBeer");
     Route::get('/{id}', "BeerController@showBeer");
@@ -41,16 +41,16 @@ Route::group(['prefix' => '/beer'], function() {
     Route::post('/{id}/new_label', "BeerController@addLabelToBeer");
     Route::get('{beer_id}/label/{label_id}/delete', "BeerController@deleteLabelFromBeer");
 });
-Route::group(['prefix' => '/brewer'], function() {
-    Route::get('/new', "BrewerController@new_brewer");
-    Route::post('/create', 'BrewerController@create_brewer');
-    Route::get('/{id}', "BrewerController@show_brewer");
-    Route::get('/{id}/edit', "BrewerController@edit_brewer");
-    Route::post('/{id}/update', 'BrewerController@update_brewer');
+Route::group(['prefix' => '/brewer'], function () {
+    Route::get('/new', "BrewerController@newBrewer");
+    Route::post('/create', 'BrewerController@createBrewer');
+    Route::get('/{id}', "BrewerController@showBrewer");
+    Route::get('/{id}/edit', "BrewerController@editBrewer");
+    Route::post('/{id}/update', 'BrewerController@updateBrewer');
 });
 
 
-Route::group(['prefix' => '/stats'], function(){
+Route::group(['prefix' => '/stats'], function () {
     Route::get('countries', "HomeController@listCountries");
     Route::get('years', "HomeController@listYears");
 });
