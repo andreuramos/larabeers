@@ -26,7 +26,8 @@ class ApiController extends Controller
         $this->count_beers_by_year_service = $count_beers_by_year_service;
     }
 
-    public function randomBeers(Request $request) {
+    public function randomBeers(Request $request)
+    {
         $beers = [];
         foreach ($this->beer_repository->random(10) as $beer) {
             $beers[] = $this->buildBeerDataArray($beer);
@@ -34,7 +35,8 @@ class ApiController extends Controller
         return response()->json($beers);
     }
 
-    public function searchBeers(Request $request) {
+    public function searchBeers(Request $request)
+    {
         $query = $request->get('query');
 
         $beers = [];
@@ -50,9 +52,11 @@ class ApiController extends Controller
         $beer_ids = $request->get('beer_ids');
 
         $beers = [];
-        foreach( explode(',', $beer_ids) as $beer_id) {
+        foreach (explode(',', $beer_ids) as $beer_id) {
             $beer = $this->beer_repository->findById($beer_id);
-            if (!$beer) continue;
+            if (!$beer) {
+                continue;
+            }
             $beers[] = $this->buildBeerDataArray($beer);
         }
 
