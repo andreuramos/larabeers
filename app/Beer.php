@@ -33,10 +33,10 @@ class Beer extends Model
 
     public static function search($query)
     {
-        return self::where('normalized_name','ilike',"%$query%")->get();
+        return self::where('normalized_name', 'ilike', "%$query%")->get();
     }
 
-    public static function distinct_types()
+    public static function distinctTypes()
     {
         return self::select('type')->distinct()->get();
     }
