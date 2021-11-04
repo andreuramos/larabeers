@@ -29,7 +29,7 @@ Route::group(['prefix' => '/ajax'], function () {
     Route::get('style_autocomplete', "HomeController@ajaxStyleAutocomplete");
     Route::get('tag_autocomplete', "HomeController@ajaxTagAutocomplete");
     Route::post('create_brewer', "BrewerController@ajaxCreateBrewer");
-    Route::get('geocode', "DashboardController@ajax_geocode");
+    Route::get('geocode', "DashboardController@ajaxGeocode");
 });
 Route::group(['prefix' => '/beer'], function () {
     Route::get('/new', "BeerController@newBeer");
@@ -61,9 +61,9 @@ Route::post('label/{id}/edit', "BeerController@update_label");
 
 Route::group(['prefix' => '/dashboard'], function () {
     Route::get('/', "DashboardController@index");
-    Route::post('/upload-csv', "DashboardController@upload_csv");
+    Route::post('/upload-csv', "DashboardController@uploadCsv");
     Route::get('/settings', "DashboardController@settings");
-    Route::get('/settings/google_auth_comeback', 'DashboardController@google_auth_comeback');
+    Route::get('/settings/google_auth_comeback', 'DashboardController@googleAuthComeback');
 });
 
 Auth::routes();

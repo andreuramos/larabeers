@@ -36,8 +36,9 @@ class DashboardController extends Controller
 
     public function callAction($method, $parameters)
     {
-        if (!Auth::check())
+        if (!Auth::check()) {
             return redirect('login');
+        }
         return parent::callAction($method, $parameters);
     }
 
@@ -47,12 +48,14 @@ class DashboardController extends Controller
         $criteria->addOrder('created_at');
         $criteria->addLimit(10);
         $last_beers = $this->beer_repository->findByCriteria($criteria);
-        $last_beer_ids = array_map(function($beer) {return $beer->id;}, $last_beers->toArray());
+        $last_beer_ids = array_map(function ($beer) {
+            return $beer->id;
+        }, $last_beers->toArray());
         $beers_with_picture = $this->countBeersWithPicture();
         $this_year_beers = $this->getYearBeers(date_create()->format('Y'));
         $last_year_beers = $this->getYearBeers(date_create()->sub(new \DateInterval("P1Y"))->format('Y'));
 
-        $previous_year_percent = round($this_year_beers / $last_year_beers * 100,2);
+        $previous_year_percent = round($this_year_beers / $last_year_beers * 100, 2);
 
         $beers_count = EloquentBeer::count();
         return view('dashboard', [
@@ -62,11 +65,11 @@ class DashboardController extends Controller
             'brewers' => EloquentBrewer::count(),
             'this_year_beers' => $this_year_beers,
             'previous_year_percent' => $previous_year_percent,
-            'last_beer_ids' => implode(',',$last_beer_ids),
+            'last_beer_ids' => implode(',', $last_beer_ids),
         ]);
     }
 
-    public function upload_csv(Request $request)
+    public function uploadCsv(Request $request)
     {
         $file = $request->file('csv');
         $file->move(public_path() . '/upload', 'import.csv');
@@ -75,11 +78,12 @@ class DashboardController extends Controller
         $row = fgetcsv($fd);
         $new_beers = 0;
 
-        while (($row = fgetcsv($fd)) !== FALSE) {
+        while (($row = fgetcsv($fd)) !== false) {
             $csv_brewer = $row[0];
             $csv_beer = $row[1];
-            if (EloquentBeer::where('name', $csv_beer)->first() || !$csv_beer)
+            if (EloquentBeer::where('name', $csv_beer)->first() || !$csv_beer) {
                 continue;
+            }
             echo "Importing " . $row[1] . "<br>";
             $new_beers++;
             $brewer = EloquentBrewer::where('name', $csv_brewer)->first();
@@ -99,8 +103,14 @@ class DashboardController extends Controller
 
             $beer->brewers()->save($brewer);
 
-            $label = $this->store_label(
-                $beer->id, $row[9], $row[10], $row[4], $row[5], $row[6], $row[14]
+            $label = $this->storeLabel(
+                $beer->id,
+                $row[9],
+                $row[10],
+                $row[4],
+                $row[5],
+                $row[6],
+                $row[14]
             );
 
             $tag = EloquentTag::where('text', $row[13])->first();
@@ -119,7 +129,7 @@ class DashboardController extends Controller
         return redirect('/dashboard');
     }
 
-    private function store_label($beer_id, $year, $month, $album, $page, $position, $other_year)
+    private function storeLabel($beer_id, $year, $month, $album, $page, $position, $other_year)
     {
         $label_data = [
             'beer_id' => $beer_id,
@@ -128,8 +138,12 @@ class DashboardController extends Controller
             'position' => $position
         ];
 
-        if ($year) $label_data['year'] = $year;
-        if ($month) $label_data['month'] = $month;
+        if ($year) {
+            $label_data['year'] = $year;
+        }
+        if ($month) {
+            $label_data['month'] = $month;
+        }
 
         $label = Label::create($label_data);
 
@@ -162,7 +176,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function google_auth_comeback(Request $request)
+    public function googleAuthComeback(Request $request)
     {
         $code = $request->get('code');
 
@@ -177,7 +191,7 @@ class DashboardController extends Controller
         $client->setApprovalPrompt('force');
         $access = $client->fetchAccessTokenWithAuthCode($code);
 
-        $error = $this->get_google_comeback_errors($access);
+        $error = $this->getGoogleComebackErrors($access);
         if ($error) {
             return redirect()
                 ->action('DashboardController@settings')
@@ -214,7 +228,7 @@ class DashboardController extends Controller
      * @param array $access
      * @return mixed|string|null
      */
-    private function get_google_comeback_errors(array $access)
+    private function getGoogleComebackErrors(array $access)
     {
         $error = null;
         if (array_key_exists('error', $access)) {
