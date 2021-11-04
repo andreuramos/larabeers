@@ -13,7 +13,7 @@ class Brewer extends Model
         return $this->belongsToMany('App\Beer');
     }
 
-    public static function distinct_countries()
+    public static function distinctCountries()
     {
         return self::select('country')->distinct()->get();
     }

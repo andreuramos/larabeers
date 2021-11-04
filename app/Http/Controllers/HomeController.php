@@ -48,7 +48,7 @@ class HomeController extends Controller
             [
                 'name' => __('Countries'),
                 'icon' => 'globe-europe',
-                'value' => Brewer::distinct_countries()->count(),
+                'value' => Brewer::distinctCountries()->count(),
                 'url' => url('stats/countries'),
             ],
             [
@@ -121,7 +121,7 @@ class HomeController extends Controller
     public function listCountries()
     {
         $countries = [];
-        foreach (Brewer::distinct_countries() as $db_country) {
+        foreach (Brewer::distinctCountries() as $db_country) {
             $country_beers = 0;
             $country_name = $db_country->country;
             foreach (Brewer::where('country', $country_name)->get() as $country_brewer) {
