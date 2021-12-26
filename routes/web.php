@@ -56,7 +56,7 @@ Route::group(['prefix' => '/stats'], function () {
 });
 
 // TODO: change url to /beer/{id}/label/{id}/edit and move to beer group
-Route::post('label/{id}/edit', "BeerController@update_label");
+Route::post('label/{id}/edit', "BeerController@updateLabel");
 
 
 Route::group(['prefix' => '/dashboard'], function () {

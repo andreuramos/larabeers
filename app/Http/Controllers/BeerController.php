@@ -90,7 +90,7 @@ class BeerController extends Controller
             $style = new Style($style_name);
             $id = $this->create_beer->execute($name, $brewer_id, $style);
             $request->session()->flash('success', "Beer created successfully");
-            return redirect()->action('BeerController@edit_beer', ['id' => $id]);
+            return redirect()->action('BeerController@editBeer', ['id' => $id]);
         } catch (\Exception $e) {
             $request->session()->flash('error', $e->getMessage());
             return redirect()->back();
@@ -121,7 +121,7 @@ class BeerController extends Controller
             $request->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->action('BeerController@edit_beer', ['id' => $id]);
+        return redirect()->action('BeerController@editBeer', ['id' => $id]);
     }
 
     public function addLabelToBeer(Request $request, $beer_id)
@@ -129,7 +129,7 @@ class BeerController extends Controller
         $image = $request->file('label');
         if (!$image) {
             $request->session()->flash('error', "New label must contain an image");
-            return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+            return redirect()->action('BeerController@editBeer', ['id' => $beer_id]);
         }
         $file_route = public_path() . '/upload/';
         $image->move($file_route, $image->getClientOriginalName());
@@ -145,7 +145,7 @@ class BeerController extends Controller
         }
 
         if (!$this->validateLabelForm($request)) {
-            return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+            return redirect()->action('BeerController@editBeer', ['id' => $beer_id]);
         }
 
         try {
@@ -160,7 +160,7 @@ class BeerController extends Controller
             $request->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+        return redirect()->action('BeerController@editBeer', ['id' => $beer_id]);
     }
 
     public function updateLabel(Request $request, $id)
@@ -191,7 +191,7 @@ class BeerController extends Controller
         $this->update_label->execute($label_id, $image, $metadata, $tags);
 
         $request->session()->flash('success', "Label updated successfully");
-        return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+        return redirect()->action('BeerController@editBeer', ['id' => $beer_id]);
     }
 
     public function deleteLabelFromBeer(Request $request, $beer_id, $label_id)
@@ -200,7 +200,7 @@ class BeerController extends Controller
         $this->delete_label->execute($label);
 
         $request->session()->flash('success', "Label deleted successfylly");
-        return redirect()->action('BeerController@edit_beer', ['id' => $beer_id]);
+        return redirect()->action('BeerController@editBeer', ['id' => $beer_id]);
     }
 
     private function validateLabelForm(Request $request)

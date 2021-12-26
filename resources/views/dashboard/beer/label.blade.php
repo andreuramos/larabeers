@@ -38,7 +38,7 @@
             <div class="modal-header">
                 {{ $label ? "Edit Label" : "New Label" }}
             </div>
-            {{ Form::open(['action' => $label ? ['BeerController@update_label', $label->id] : ['BeerController@add_label_to_beer', $beer_id], 'enctype' =>"multipart/form-data" ]) }}
+            {{ Form::open(['action' => $label ? ['BeerController@updateLabel', $label->id] : ['BeerController@addLabelToBeer', $beer_id], 'enctype' =>"multipart/form-data" ]) }}
             <div class="modal-body">
                 <div class="label-form container">
                     <div class="row">
