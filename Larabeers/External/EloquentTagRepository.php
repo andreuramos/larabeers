@@ -12,7 +12,7 @@ class EloquentTagRepository implements TagRepository
     {
         $results = [];
         foreach (EloquentTag::where('text', 'ilike', "%$query%")->get() as $db_tag) {
-            $results[] = new Tag($db_tag->text);
+            $results[] = new Tag($db_tag->text, $db_tag->id);
         }
         return $results;
     }
