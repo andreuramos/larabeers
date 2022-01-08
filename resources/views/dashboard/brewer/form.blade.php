@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-body">
                         {{ Form::open([
-                            'action' => $brewer->id ? ['BrewerController@update_brewer', $brewer->id] : ['BrewerController@create_brewer'],
+                            'action' => $brewer->id ? ['BrewerController@updateBrewer', $brewer->id] : ['BrewerController@createBrewer'],
                             'files' => 'true',
                             'autocomplete' => 'off'
                         ]) }}
