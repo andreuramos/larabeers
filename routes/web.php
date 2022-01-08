@@ -48,6 +48,9 @@ Route::group(['prefix' => '/brewer'], function () {
     Route::get('/{id}/edit', "BrewerController@editBrewer");
     Route::post('/{id}/update', 'BrewerController@updateBrewer');
 });
+Route::group(['prefix' => '/tag'], function () {
+    Route::get('{id}', 'TagController@showTag');
+});
 
 
 Route::group(['prefix' => '/stats'], function () {

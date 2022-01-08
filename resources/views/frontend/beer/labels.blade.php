@@ -19,7 +19,15 @@
                     <span class="badge badge-secondary"><h4>{{ $label->year }}</h4></span>
                     <p>
                         @foreach($label->tags as $tag)
-                            <span class="badge badge-primary"><i class="fa fa-tag"></i>&nbsp;{{ $tag->text }}</span>
+                            <span class="badge badge-primary">
+                                <a
+                                    href="{{ url('/tag/' . $tag->id) }}"
+                                    style="text-decoration: none"
+                                    class="badge-primary"
+                                >
+                                    <i class="fa fa-tag"></i>&nbsp;{{ $tag->text }}
+                                </a>
+                            </span>
                         @endforeach
                     </p>
                 </div>
