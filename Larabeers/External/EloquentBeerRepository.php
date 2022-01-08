@@ -4,6 +4,7 @@ namespace Larabeers\External;
 
 use App\Beer as EloquentBeer;
 use App\Brewer as EloquentBrewer;
+use App\Label;
 use Illuminate\Support\Facades\DB;
 use Larabeers\Domain\Beer\Beer;
 use Larabeers\Domain\Beer\BeerCollection;
@@ -182,6 +183,25 @@ class EloquentBeerRepository implements BeerRepository
         ) {
             $results->add($this->eloquentToEntityBeer($eloquent_beer));
         }
+        return $results;
+    }
+
+    public function findByTagId(int $id): BeerCollection
+    {
+        $results = new BeerCollection();
+        $beer_ids = [];
+        $db_labels = Label::whereHas('tags', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->get();
+
+        foreach ($db_labels as $db_label) {
+            if (!in_array($db_label->beer_id, $beer_ids)) {
+                $beer_ids[] = $db_label->beer_id;
+                $beer = $this->findById($db_label->beer_id);
+                $results->add($beer);
+            }
+        }
+
         return $results;
     }
 
