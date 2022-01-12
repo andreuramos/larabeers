@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Larabeers\Domain\Beer\BeerRepository;
 use Larabeers\Domain\Label\TagRepository;
+use Larabeers\Exceptions\TagNotFoundException;
 
 class TagController extends Controller
 {
@@ -20,14 +21,18 @@ class TagController extends Controller
 
     public function showTag(int $id)
     {
-        $tag = $this->tag_repository->findById($id);
-        $beers = $this->beer_repository->findByTagId($id);
-        $beer_ids = array_map(function ($beer) {
-            return $beer->id;
-        }, $beers->toArray());
-        return view('frontend.tag.tag', [
-            'tag' => $tag,
-            'beer_ids' => implode(',', $beer_ids),
-        ]);
+        try {
+            $tag = $this->tag_repository->findById($id);
+            $beers = $this->beer_repository->findByTagId($id);
+            $beer_ids = array_map(function ($beer) {
+                return $beer->id;
+            }, $beers->toArray());
+            return view('frontend.tag.tag', [
+                'tag' => $tag,
+                'beer_ids' => implode(',', $beer_ids),
+            ]);
+        } catch (TagNotFoundException $e) {
+            return response($e->getMessage(), 404);
+        }
     }
 }
