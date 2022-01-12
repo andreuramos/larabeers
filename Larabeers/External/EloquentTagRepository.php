@@ -3,9 +3,9 @@
 namespace Larabeers\External;
 
 use App\Tag as EloquentTag;
-use Exceptions\TagNotFoundException;
 use Larabeers\Domain\Label\Tag;
 use Larabeers\Domain\Label\TagRepository;
+use Larabeers\Exceptions\TagNotFoundException;
 
 class EloquentTagRepository implements TagRepository
 {

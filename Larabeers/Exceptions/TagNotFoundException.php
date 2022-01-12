@@ -1,6 +1,6 @@
 <?php
 
-namespace Exceptions;
+namespace Larabeers\Exceptions;
 
 use Throwable;
 
