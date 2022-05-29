@@ -10,6 +10,7 @@ class GoogleMapsCountryMapper implements CountryMapper
         "USA" => "United States",
         "England" => "United Kingdom",
         "Slovak Republic" => "Slovakia",
+        "Perú" => "Peru",
     ];
 
     public function execute(string $country_name): string
