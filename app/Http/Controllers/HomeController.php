@@ -131,7 +131,8 @@ class HomeController extends Controller
             foreach (Brewer::where('country', $country_name)->get() as $country_brewer) {
                 $country_beers += $country_brewer->beers->count();
             }
-            $country_name = $this->getCountryName($country_name);
+            $country_name = $this->country_mapper->execute($country_name);
+
             $countries[] = [
                 'name' => $country_name,
                 'beers' => $country_beers
@@ -144,10 +145,5 @@ class HomeController extends Controller
     public function listYears()
     {
         return view('frontend.stats.years');
-    }
-
-    private function getCountryName(string $country_name): string
-    {
-        return $this->country_mapper->execute($country_name);
     }
 }
