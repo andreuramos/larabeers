@@ -6,6 +6,7 @@ use App\Beer;
 use App\Brewer;
 use App\Label;
 use Illuminate\Http\Request;
+use Larabeers\Domain\Location\CountryMapper;
 use Larabeers\External\EloquentBeerRepository;
 use Larabeers\Services\SearchBrewer;
 use Larabeers\Services\SearchStyle;
@@ -17,17 +18,20 @@ class HomeController extends Controller
     private $search_brewer;
     private $search_style;
     private $search_tag;
+    private $country_mapper;
 
     public function __construct(
         EloquentBeerRepository $beer_repository,
         SearchBrewer $search_brewer,
         SearchStyle $search_style,
-        SearchTag $search_tag
+        SearchTag $search_tag,
+        CountryMapper $country_mapper
     ) {
         $this->beer_repository = $beer_repository;
         $this->search_brewer = $search_brewer;
         $this->search_style = $search_style;
         $this->search_tag = $search_tag;
+        $this->country_mapper = $country_mapper;
     }
 
     public function home()
@@ -144,13 +148,6 @@ class HomeController extends Controller
 
     private function getCountryName(string $country_name): string
     {
-        if ($country_name === "USA") {
-            $country_name = "United States";
-        } elseif ($country_name === "England") {
-            $country_name = "United Kingdom";
-        } elseif ($country_name === "Slovak Republic") {
-            $country_name = "Slovakia";
-        }
-        return $country_name;
+        return $this->country_mapper->execute($country_name);
     }
 }

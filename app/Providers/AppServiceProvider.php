@@ -49,6 +49,10 @@ class AppServiceProvider extends ServiceProvider
             \Larabeers\Domain\Location\FlagRepository::class,
             \Larabeers\External\Images\FlagpediaFlagRepository::class
         );
+        $this->app->bind(
+            \Larabeers\Domain\Location\CountryMapper::class,
+            \Larabeers\External\GoogleMapsCountryMapper::class
+        );
     }
 
     /**
