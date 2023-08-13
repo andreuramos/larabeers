@@ -16,6 +16,7 @@ class CountryflagsioFlagRepository implements FlagRepository
         'barbados' => 'bb',
         'belgium' => 'be',
         'bolivia' => 'bo',
+        'bosnia and herzegovina' => 'ba',
         'bulgary' => 'bg',
         'brazil' => 'br',
         'canada' => 'ca',
