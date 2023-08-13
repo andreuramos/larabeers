@@ -49,6 +49,7 @@ class CountryflagsioFlagRepository implements FlagRepository
         'lithuania' => 'lt',
         'malta' => 'mt',
         'mexico' => 'mx',
+        'montenegro' => 'me',
         'morocco' => 'ma',
         'netherlands' => 'nl',
         'norway' => 'no',
