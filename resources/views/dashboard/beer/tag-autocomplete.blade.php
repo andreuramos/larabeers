@@ -57,7 +57,8 @@
                         $autocomplete_list.html("");
                         if (data.length > 0) {
                             $.each(data, function(idx, item) {
-                                let suggestion = '<div class="autocomplete_list__item" onclick="selectTag(\'' + item + '\',\'{{$label_id}}\')">' + item + '</div>';
+                                let sanitizedItem = item.replace(/'/g,"\\'");
+                                let suggestion = '<div class="autocomplete_list__item" onclick="selectTag(\'' + sanitizedItem + '\',\'{{$label_id}}\')">' + item + '</div>';
                                 $autocomplete_list.append(suggestion);
                             })
                         }
