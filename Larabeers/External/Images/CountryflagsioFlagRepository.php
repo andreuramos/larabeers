@@ -11,6 +11,7 @@ class CountryflagsioFlagRepository implements FlagRepository
 
     private const COUNTRY_CODES = [
         'argentina' => 'ar',
+        'armenia' => 'am',
         'australia' => 'au',
         'austria' => 'at',
         'barbados' => 'bb',
